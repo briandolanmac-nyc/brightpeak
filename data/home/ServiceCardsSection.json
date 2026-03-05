@@ -7,25 +7,25 @@
       "title": "Solar Panels",
       "description": "Generate your own clean electricity and slash your energy bills",
       "href": "/solar-panels",
-      "image": "/images/services/men-installing-panels.png"
+      "image": "/images/services/men-installing-panels.webp"
     },
     {
       "title": "Battery Storage",
       "description": "Store your solar energy and use it when you need it most",
       "href": "/battery-storage",
-      "image": "/images/case-studies/battery-storage-install.png"
+      "image": "/images/case-studies/battery-storage-install.webp"
     },
     {
       "title": "EV Chargers",
       "description": "Charge your electric vehicle at home with fast, reliable charging",
       "href": "/ev-chargers",
-      "image": "/images/services/ev-charge.jpg"
+      "image": "/images/services/ev-charge.webp"
     },
     {
       "title": "Commercial Solar",
       "description": "Reduce overheads and boost sustainability with commercial solar solutions",
       "href": "/commercial-solar",
-      "image": "/images/services/commercial-solar.jpg"
+      "image": "/images/services/commercial-solar.webp"
     }
   ]
 }

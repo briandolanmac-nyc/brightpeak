@@ -1,13 +1,13 @@
 {
   "enabled": true,
   "heroLayout": "fullscreen",
-  "mobileLayout": "noimage",
+  "mobileLayout": "fullscreen",
   "showEyebrow": false,
   "backgroundImageEnabled": true,
   "backgroundColor": "#ffffff",
-  "overlayOpacity": 5,
+  "overlayOpacity": 4,
   "image": {
-    "src": "/images/home-with-solar.jpg",
+    "src": "/images/hero-bg.webp",
     "alt": "Beautiful Irish home with solar panels"
   },
   "eyebrow": "Certified Solar Panel Installers",
@@ -17,7 +17,7 @@
   "headlineLines": [
     "Power & Heat Your",
     "Home With The ",
-    "Sun And The Air"
+    "Sun And The Air!"
   ],
   "headlineFontSizes": {
     "line1Desktop": "4",

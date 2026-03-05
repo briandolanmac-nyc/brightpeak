@@ -9,12 +9,12 @@
       "title": "Home Solar Installation",
       "video": "https://youtube.com/shorts/RoHe3owFg6s?si=OykxKEA2MlfhliDY",
       "image": {
-        "src": "/images/case-studies/green-house-res-solar.png",
+        "src": "/images/case-studies/green-house-res-solar.webp",
         "alt": "Residential Solar Installation"
       },
       "images": [
-        "/images/case-studies/green-house-res-solar.png",
-        "/images/case-studies/engineer-on-roof.png"
+        "/images/case-studies/green-house-res-solar.webp",
+        "/images/case-studies/engineer-on-roof.webp"
       ],
       "description": "A full solar PV system designed to maximise energy generation, lower electricity bills, and increase home value. Professional installation by our certified team.\n\nA full solar PV system designed to maximise energy generation, lower electricity bills, and increase home value. Professional installation by our certified team.\n\nA full solar PV system designed to maximise energy generation, lower electricity bills, and increase home value. Professional installation by our certified team.",
       "stats": [
@@ -37,12 +37,12 @@
       "title": "Business Solar Installation",
       "video": "",
       "image": {
-        "src": "/images/case-studies/green-house-comm-solar.png",
+        "src": "/images/case-studies/green-house-comm-solar.webp",
         "alt": "Commercial Solar Installation"
       },
       "images": [
-        "/images/case-studies/green-house-comm-solar.png",
-        "/images/case-studies/commercial-solar.png"
+        "/images/case-studies/green-house-comm-solar.webp",
+        "/images/case-studies/commercial-solar.webp"
       ],
       "description": "A large-scale commercial install delivering optimal energy efficiency, significant cost savings, and demonstrating a commitment to sustainability.",
       "stats": [
@@ -65,12 +65,12 @@
       "title": "Residential Development",
       "video": "",
       "image": {
-        "src": "/images/case-studies/new-build-solar.png",
+        "src": "/images/case-studies/new-build-solar.webp",
         "alt": "New Build Development"
       },
       "images": [
-        "/images/case-studies/new-build-solar.png",
-        "/images/case-studies/residential-solar.png"
+        "/images/case-studies/new-build-solar.webp",
+        "/images/case-studies/residential-solar.webp"
       ],
       "description": "Full renewable mechanical systems for an entire housing development — heat pumps, underfloor heating, and solar. Every home meets strict building regulations.",
       "stats": [
@@ -93,11 +93,11 @@
       "title": "EV Charger Installation",
       "video": "",
       "image": {
-        "src": "/images/case-studies/green-house-res-solar.png",
+        "src": "/images/case-studies/green-house-res-solar.webp",
         "alt": "Residential Solar Installation"
       },
       "images": [
-        "/images/services/ev-charge.jpg"
+        "/images/services/ev-charge.webp"
       ],
       "description": "A full solar PV system m.",
       "stats": [
