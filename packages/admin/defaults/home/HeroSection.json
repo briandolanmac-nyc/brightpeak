@@ -1,11 +1,11 @@
 {
   "enabled": true,
-  "heroLayout": "diagonal",
-  "mobileLayout": "fullscreen",
+  "heroLayout": "fullscreen",
+  "mobileLayout": "noimage",
   "showEyebrow": false,
   "backgroundImageEnabled": true,
   "backgroundColor": "#ffffff",
-  "overlayOpacity": 1,
+  "overlayOpacity": 5,
   "image": {
     "src": "/images/home-with-solar.jpg",
     "alt": "Beautiful Irish home with solar panels"

@@ -10,7 +10,7 @@ export default function AdminSidebar() {
   const [mounted, setMounted] = useState(false);
   const [open, setOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [authenticated, setAuthenticated] = useState(true);
+  const [authenticated, setAuthenticated] = useState(false);
   const [passwordInput, setPasswordInput] = useState("");
   const [authError, setAuthError] = useState("");
   const [files, setFiles] = useState<FileData[]>([]);
@@ -48,6 +48,8 @@ export default function AdminSidebar() {
 
   useEffect(() => {
     setMounted(true);
+    const stored = sessionStorage.getItem("admin_password");
+    if (stored) setPasswordInput(stored);
     const wasOpen = sessionStorage.getItem("admin_sidebar_open");
     const storedFile = sessionStorage.getItem("admin_sidebar_file");
     if (wasOpen === "true") {

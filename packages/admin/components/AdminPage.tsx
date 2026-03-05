@@ -7,7 +7,7 @@ import type { FileData } from "../utils";
 import { SmartEditorPage } from "./SmartEditorPage";
 
 export default function AdminPage() {
-  const [authenticated, setAuthenticated] = useState(true);
+  const [authenticated, setAuthenticated] = useState(false);
   const [passwordInput, setPasswordInput] = useState("");
   const [authError, setAuthError] = useState("");
   const [files, setFiles] = useState<FileData[]>([]);
@@ -43,6 +43,11 @@ export default function AdminPage() {
     }
     setLoading(false);
   }, [getHeaders]);
+
+  useEffect(() => {
+    const stored = sessionStorage.getItem("admin_password");
+    if (stored) setPasswordInput(stored);
+  }, []);
 
   useEffect(() => {
     loadData();
@@ -125,10 +130,40 @@ export default function AdminPage() {
     ),
   })).filter((group) => group.files.length > 0);
 
-  if (loading) {
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    sessionStorage.setItem("admin_password", passwordInput);
+    await loadData();
+  };
+
+  if (loading && !authenticated) {
     return (
       <div className="admin-login-page">
         <div className="admin-loading">Loading...</div>
+      </div>
+    );
+  }
+
+  if (!authenticated) {
+    return (
+      <div className="admin-login-page">
+        <div className="admin-login-box">
+          <h2>Admin Login</h2>
+          <form onSubmit={handleLogin}>
+            <input
+              type="password"
+              value={passwordInput}
+              onChange={(e) => setPasswordInput(e.target.value)}
+              placeholder="Password"
+              className="admin-search-input"
+              autoFocus
+            />
+            {authError && <p style={{ color: "#e53e3e", marginTop: "0.5rem", fontSize: "0.875rem" }}>{authError}</p>}
+            <button type="submit" style={{ marginTop: "1rem", padding: "0.75rem 2rem", background: "#009968", color: "white", border: "none", borderRadius: "0.5rem", cursor: "pointer", fontSize: "1rem", width: "100%" }}>
+              Sign In
+            </button>
+          </form>
+        </div>
       </div>
     );
   }

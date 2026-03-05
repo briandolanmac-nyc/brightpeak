@@ -18,8 +18,16 @@ export function createAdminHandler(dataBaseDir: string) {
     return null;
   }
 
-  function checkAuth(_request: NextRequest): boolean {
-    return true;
+  function isAdminEnabled(): boolean {
+    return process.env.ADMIN_ENABLED === "true";
+  }
+
+  function checkAuth(request: NextRequest): boolean {
+    if (!isAdminEnabled()) return false;
+    const adminPassword = process.env.ADMIN_PASSWORD;
+    if (!adminPassword) return true;
+    const provided = request.headers.get("x-admin-password") || "";
+    return provided === adminPassword;
   }
 
   function readJsonFile(filePath: string): { data: unknown; error?: string } {

@@ -128,7 +128,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem={false}>
           <FontLoader />
           {children}
-          <AdminSidebar />
+          {process.env.ADMIN_ENABLED === "true" && <AdminSidebar />}
           <DataLayerTracker />
         </ThemeProvider>
       </body>
