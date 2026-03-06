@@ -6,6 +6,8 @@
   "gtmId": "GTM-5Q28W67M",
   "primaryColor": "#0042aa",
   "primaryDark": "#002e7a",
-  "accentColor": "#fcb900",
-  "bannerOverlay": "#0042aa"
+  "accentColor": "#f5ec00",
+  "bannerOverlay": "#0042aa",
+  "quoteButtonColor": "#00ae00",
+  "contactButtonColor": "#002e7a"
 }
