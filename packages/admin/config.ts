@@ -141,6 +141,11 @@ export const FIELD_LABEL_OVERRIDES: Record<string, string> = {
   "section1": "Section 1 — Home Charging",
   "section2": "Section 2 — Commercial",
   "gtmId": "Google Tag Manager ID",
+  "bannerImage": "Banner Background Image",
+  "primaryColor": "Primary Color",
+  "primaryDark": "Primary Dark Color",
+  "accentColor": "Accent Color",
+  "bannerOverlay": "Banner Overlay Color",
 };
 
 export const VALID_FILES = [

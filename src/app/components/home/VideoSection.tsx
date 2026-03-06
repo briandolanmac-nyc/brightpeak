@@ -29,7 +29,7 @@ const VideoSection = ({ data }: { data: Record<string, unknown> }) => {
   };
 
   return (
-    <section id="video" className="video-section section-on-dark">
+    <section id="video" className="video-section">
       <div className="container">
         <p className="section-eyebrow">{videoData.eyebrow}</p>
         <h2 className="section-title">{videoData.title}</h2>

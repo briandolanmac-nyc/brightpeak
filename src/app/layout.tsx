@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { League_Spartan, Inter } from "next/font/google";
-import { ThemeProvider } from "next-themes";
 import Script from "next/script";
+import Providers from "./components/Providers";
 import "./globals.css";
 import "../../packages/admin/styles/sidebar.css";
 import AdminSidebar from "./components/AdminSidebar";
@@ -91,26 +91,29 @@ function loadSiteSettings() {
   }
 }
 
-export const dynamic = "force-dynamic";
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const settings = loadSiteSettings();
-  const brandBlue = settings.brandBlue || "#009968";
+  const primary = settings.primaryColor || "#009968";
+  const primaryDark = settings.primaryDark || "#007a54";
+  const accent = settings.accentColor || "#fcb900";
+  const bannerOverlay = settings.bannerOverlay || "#0f172a";
   const gtmId = settings.gtmId || "";
   const br = Math.max(1, Math.min(5, settings.borderRadius || 1));
   const radiusBase = br === 1 ? 0 : (br - 1) * 0.25;
   const radiusLg = br === 1 ? 0 : (br - 1) * 0.5;
   const radiusXl = br === 1 ? 0 : (br - 1) * 0.75;
   const radius2xl = br === 1 ? 0 : (br - 1) * 1.0;
+  const adminEnabled = process.env.ADMIN_ENABLED === "true";
 
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <style dangerouslySetInnerHTML={{ __html: `:root { --brand-blue: ${brandBlue}; --radius: ${radiusBase}rem; --radius-lg: ${radiusLg}rem; --radius-xl: ${radiusXl}rem; --radius-2xl: ${radius2xl}rem; }` }} />
+        <style dangerouslySetInnerHTML={{ __html: `:root { --brand-primary: ${primary}; --brand-primary-dark: ${primaryDark}; --brand-accent: ${accent}; --brand-banner-overlay: ${bannerOverlay}; --radius: ${radiusBase}rem; --radius-lg: ${radiusLg}rem; --radius-xl: ${radiusXl}rem; --radius-2xl: ${radius2xl}rem; }` }} />
+        {adminEnabled && <meta name="admin-enabled" content="true" />}
       </head>
       <body
         className={`${leagueSpartan.variable} ${inter.variable} antialiased`}
@@ -125,12 +128,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','${gtmId}');`}
           </Script>
         )}
-        <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem={false}>
+        <Providers>
           <FontLoader />
           {children}
-          {process.env.ADMIN_ENABLED === "true" && <AdminSidebar />}
+          {adminEnabled && <AdminSidebar />}
           <DataLayerTracker />
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

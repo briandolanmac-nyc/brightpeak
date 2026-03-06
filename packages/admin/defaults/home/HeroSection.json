@@ -3,6 +3,8 @@
   "heroLayout": "fullscreen",
   "mobileLayout": "noimage",
   "showEyebrow": false,
+  "eyebrow": "Certified Solar Panel Installers",
+  "eyebrowColor": "#009968",
   "backgroundImageEnabled": true,
   "backgroundColor": "#ffffff",
   "overlayOpacity": 5,
@@ -10,8 +12,6 @@
     "src": "/images/hero-bg.webp",
     "alt": "Beautiful Irish home with solar panels"
   },
-  "eyebrow": "Certified Solar Panel Installers",
-  "eyebrowColor": "#009968",
   "heroAlignment": "left",
   "wordWrapHeadlines": false,
   "headlineLines": [
@@ -46,7 +46,7 @@
       "variant": "business"
     }
   ],
-  "ctaArrow": "→",
+  "ctaArrow": "\u2192",
   "heroBadges": {
     "showOnMobile": false,
     "items": [

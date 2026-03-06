@@ -1,8 +1,9 @@
 {
   "hero": {
     "eyebrow": "Trusted Home Solar Installers",
-    "title": "Solar Panel Installation",
-    "subtitle": "Hundreds of homeowners have trusted BrightPeak to power their homes with clean, reliable solar energy."
+    "title": "Solar Panels",
+    "subtitle": "Hundreds of homeowners have trusted BrightPeak to power their homes with clean, reliable solar energy.",
+    "bannerImage": "/images/banners/residential-solar-roof.webp"
   },
   "whySolar": {
     "eyebrow": "Solar Panels",

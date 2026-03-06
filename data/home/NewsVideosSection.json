@@ -7,17 +7,17 @@
   "newsItems": [
     {
       "title": "BrightPeak Energy Completes Largest Commercial Install Yet",
-      "summary": "We've just finished our biggest commercial solar installation to date — a major project for a local Irish business, saving them thousands each year.",
+      "summary": "We've just finished our biggest commercial solar installation to date \u2014 a major project for a local Irish business, saving them thousands each year.",
       "date": "2026-02-01",
       "url": "",
       "content": "Our team has completed a record-breaking commercial installation in Dublin. The large-scale system will generate significant savings for the business while reducing their carbon footprint dramatically."
     },
     {
       "title": "SEAI Grants Increase for 2026",
-      "summary": "Great news for homeowners — SEAI grants for solar PV have been updated, making it even more affordable to go solar in Ireland.",
+      "summary": "Great news for homeowners \u2014 SEAI grants for solar PV have been updated, making it even more affordable to go solar in Ireland.",
       "date": "2026-01-15",
       "url": "",
-      "content": "The Sustainable Energy Authority of Ireland has announced updated grant amounts for residential solar PV installations. Homeowners can now claim up to €2,100 towards their solar system, making the switch to clean energy more affordable than ever."
+      "content": "The Sustainable Energy Authority of Ireland has announced updated grant amounts for residential solar PV installations. Homeowners can now claim up to \u20ac2,100 towards their solar system, making the switch to clean energy more affordable than ever."
     },
     {
       "title": "How a Battery Can Make All the Difference",
@@ -51,5 +51,6 @@
     }
   ],
   "viewAllLabel": "",
-  "viewAllHref": ""
+  "viewAllHref": "",
+  "bannerImage": "/images/services/solar-panels-modern.webp"
 }

@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
     "*.worf.replit.dev",
     "*.picard.replit.dev",
     "*.kirk.replit.dev",
+    "*.janeway.replit.dev",
     "127.0.0.1",
     "0.0.0.0",
   ],

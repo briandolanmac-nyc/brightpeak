@@ -1,4 +1,5 @@
 import PageLayout from "../components/PageLayout";
+import PageBanner from "../components/PageBanner";
 import { loadPageJson, loadNavFooterData } from "../lib/loadAllHomeData";
 import { generatePageMetadata } from "../components/SeoHead";
 import StructuredData from "../components/StructuredData";
@@ -15,25 +16,7 @@ export default function AboutPage() {
   return (
     <PageLayout navData={navigation} footerData={footer} headerSettings={headerSettings} siteSettings={siteSettings} heroCta={heroCta}>
       <StructuredData pageType="about" pagePath="/about" />
-      <section
-        style={{
-          background: "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)",
-          color: "#fff",
-          padding: "5rem 0 4rem",
-        }}
-      >
-        <div className="container text-center">
-          <p className="text-sm font-semibold uppercase tracking-widest mb-4 opacity-80">
-            {aboutData.hero.eyebrow}
-          </p>
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
-            {aboutData.hero.title}
-          </h1>
-          <p className="text-lg md:text-xl max-w-2xl mx-auto opacity-90">
-            {aboutData.hero.description}
-          </p>
-        </div>
-      </section>
+      <PageBanner eyebrow={aboutData.hero.eyebrow} title={aboutData.hero.title} subtitle={aboutData.hero.description} bannerImage={aboutData.hero.bannerImage} />
 
       <section className="py-16 md:py-20">
         <div className="container">
@@ -112,7 +95,7 @@ export default function AboutPage() {
 
       <section
         style={{
-          background: "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)",
+          background: "linear-gradient(135deg, var(--brand-banner-overlay) 0%, color-mix(in srgb, var(--brand-banner-overlay) 80%, #334155) 50%, var(--brand-banner-overlay) 100%)",
           color: "#fff",
           padding: "4rem 0",
         }}

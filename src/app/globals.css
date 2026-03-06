@@ -15,10 +15,10 @@
   [data-theme="light"],
   :root:where(:not([data-theme])) {
     --slate: #121217;
-    --teal: #009968;
-    --aqua: #00bb7f;
-    --amber: #fcb900;
-    --coral: #009968;
+    --teal: var(--brand-primary, #009968);
+    --aqua: var(--brand-primary, #009968);
+    --amber: var(--brand-accent, #fcb900);
+    --coral: var(--brand-primary, #009968);
     --purple: #1d1d22;
     --white: #fff;
     --gray-50: #F2F2F2;
@@ -40,10 +40,10 @@
   :root[data-theme="dark"],
   [data-theme="dark"] {
     --slate: #0a0a0f;
-    --teal: #009968;
-    --aqua: #00bb7f;
-    --amber: #fcb900;
-    --coral: #009968;
+    --teal: var(--brand-primary, #009968);
+    --aqua: var(--brand-primary, #009968);
+    --amber: var(--brand-accent, #fcb900);
+    --coral: var(--brand-primary, #009968);
     --purple: #2a2a35;
     --white: #0d0d12;
     --gray-50: #08080d;
@@ -318,7 +318,7 @@ ul {
 }
 
 .nav-utility {
-  background: linear-gradient(90deg, #007a54, #009968, #007a54);
+  background: linear-gradient(90deg, var(--brand-primary-dark), var(--brand-primary), var(--brand-primary-dark));
   color: rgba(255, 255, 255, 0.9);
   transition: background 0.3s ease, color 0.3s ease;
   font-size: 0.875rem;
@@ -561,16 +561,16 @@ ul {
 }
 
 .btn-cta {
-  background: #009968 !important;
+  background: var(--brand-primary) !important;
   color: #fff !important;
   padding: 0.625rem 1.5rem !important;
   border-radius: var(--radius);
   font-weight: 600;
-  border: 1px solid #007a54;
+  border: 1px solid var(--brand-primary-dark);
   transition: all 0.2s;
 }
 .btn-cta:hover {
-  background: #007a54 !important;
+  background: var(--brand-primary-dark) !important;
 }
 
 .nav-mobile-toggle {
@@ -1228,7 +1228,7 @@ ul {
   }
 }
 .gradient-text {
-  background: linear-gradient(135deg, #00bb7f 0%, #009968 40%, #4ade80 100%);
+  background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-dark) 40%, var(--brand-primary) 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -1291,13 +1291,13 @@ ul {
 }
 
 .btn-primary {
-  background: #009968;
+  background: var(--brand-primary);
   color: #fff;
-  border-color: #007a54;
+  border-color: var(--brand-primary-dark);
   font-weight: 700;
 }
 .btn-primary:hover {
-  background: #007a54;
+  background: var(--brand-primary-dark);
 }
 .btn .arrow {
   transition: transform 0.2s;
@@ -1317,12 +1317,12 @@ ul {
 }
 
 .btn-teal {
-  background: #009968;
+  background: var(--brand-primary);
   color: #fff;
-  border-color: #007a54;
+  border-color: var(--brand-primary-dark);
 }
 .btn-teal:hover {
-  background: #007a54;
+  background: var(--brand-primary-dark);
 }
 
 .hero-badges {
@@ -1675,7 +1675,7 @@ ul {
 
 /* ===== TRUST BAR ===== */
 .trust-bar {
-  background: linear-gradient(135deg, #0f172a, #1e293b);
+  background: linear-gradient(135deg, var(--brand-banner-overlay), color-mix(in srgb, var(--brand-banner-overlay) 80%, #334155));
   padding: 2.5rem 0;
   border-top: none;
   position: relative;
@@ -1782,11 +1782,8 @@ ul {
 /* ===== VIDEO SECTION ===== */
 .video-section {
   padding: 3rem 0 3.5rem;
-  background: linear-gradient(135deg, #121217, #1d1d22);
+  background: var(--bg-primary);
   text-align: center;
-}
-[data-theme="dark"] .video-section {
-  background: linear-gradient(135deg, #000320, #0d0d12);
 }
 .section-eyebrow {
   font-size: 0.8125rem;
@@ -1841,6 +1838,26 @@ ul {
 /* --- Preserve line breaks from admin-edited text --- */
 section p {
   white-space: pre-line;
+}
+
+/* --- Page Banner with translucent background image --- */
+.page-banner {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  padding: 5rem 0 4rem;
+}
+.page-banner-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.page-banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--brand-banner-overlay) 55%, transparent) 0%, color-mix(in srgb, var(--brand-banner-overlay) 50%, transparent) 50%, color-mix(in srgb, var(--brand-banner-overlay) 55%, transparent) 100%);
 }
 
 /* --- Page-level heading styles (inner pages using Tailwind layout) --- */
@@ -2209,7 +2226,7 @@ section p {
 /* ===== IMPACT ===== */
 .impact-section {
   padding: 4rem 0;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  background: linear-gradient(135deg, var(--brand-banner-overlay) 0%, color-mix(in srgb, var(--brand-banner-overlay) 80%, #334155) 50%, var(--brand-banner-overlay) 100%);
   position: relative;
   overflow: hidden;
 }
@@ -2668,7 +2685,7 @@ section p {
   transform: translateX(-50%);
   width: 3.5rem;
   height: 3.5rem;
-  background: linear-gradient(135deg, #009968, #00bb7f);
+  background: linear-gradient(135deg, var(--brand-primary), var(--brand-primary-dark));
   color: #fff;
   font-size: 1.5rem;
   font-weight: 900;
@@ -2975,7 +2992,7 @@ section p {
   transition: color 0.2s;
 }
 .testimonial-more-btn:hover {
-  color: #007a54;
+  color: var(--brand-primary-dark);
 }
 .testimonial-text {
   padding: 0.75rem 1.25rem 1rem;
@@ -3104,7 +3121,7 @@ section p {
 /* ===== FINAL CTA ===== */
 .final-cta {
   padding: 3.5rem 0;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, #0f172a 100%);
+  background: linear-gradient(135deg, var(--brand-banner-overlay) 0%, color-mix(in srgb, var(--brand-banner-overlay) 80%, #334155) 40%, var(--brand-banner-overlay) 100%);
   color: #fff;
   position: relative;
   overflow: hidden;
@@ -3160,7 +3177,7 @@ section p {
 }
 .portrait-role {
   display: block;
-  color: #fcb900;
+  color: var(--brand-accent);
   font-size: 0.75rem;
   font-weight: 500;
   text-align: center;
@@ -3193,13 +3210,13 @@ section p {
   justify-content: center;
 }
 .btn-white {
-  background: #009968;
+  background: var(--brand-primary);
   color: #fff;
-  border-color: #007a54;
+  border-color: var(--brand-primary-dark);
   font-weight: 700;
 }
 .btn-white:hover {
-  background: #007a54;
+  background: var(--brand-primary-dark);
 }
 .btn-outline-white {
   background: rgba(255, 255, 255, 0.1);
@@ -3315,7 +3332,7 @@ section p {
 .footer h4 {
   font-size: 1.125rem;
   font-weight: 700;
-  color: #009968;
+  color: var(--brand-primary);
   margin-bottom: 1.25rem;
 }
 .footer ul {
@@ -3353,16 +3370,16 @@ section p {
 .btn-footer-cta {
   display: inline-block;
   margin-top: 1.25rem;
-  background: #009968;
+  background: var(--brand-primary);
   color: #ffffff;
   padding: 0.875rem 1.75rem;
   border-radius: var(--radius);
   font-weight: 600;
-  border: 1px solid #007a54;
+  border: 1px solid var(--brand-primary-dark);
   transition: all 0.2s;
 }
 .btn-footer-cta:hover {
-  background: #007a54;
+  background: var(--brand-primary-dark);
 }
 .footer-hours {
   font-size: 0.875rem !important;
@@ -3401,33 +3418,33 @@ section p {
   color: #555555;
 }
 .footer-light .footer-badges {
-  color: #009968;
+  color: var(--brand-primary);
 }
 .footer-light .footer-badges-sub {
   color: #666666;
 }
 .footer-light .footer-founder-img {
-  border-color: rgba(0, 153, 104, 0.3);
+  border-color: color-mix(in srgb, var(--brand-primary) 30%, transparent);
 }
 .footer-light .footer-founder-label {
   color: #666666;
 }
 .footer-light .footer-social a {
-  background: rgba(0, 153, 104, 0.1);
-  color: #009968;
+  background: color-mix(in srgb, var(--brand-primary) 10%, transparent);
+  color: var(--brand-primary);
 }
 .footer-light .footer-social a:hover {
-  background: #009968;
+  background: var(--brand-primary);
   color: #ffffff;
 }
 .footer-light h4 {
-  color: #009968;
+  color: var(--brand-primary);
 }
 .footer-light li a {
   color: #444444;
 }
 .footer-light li a:hover {
-  color: #009968;
+  color: var(--brand-primary);
 }
 .footer-light .footer-contact p {
   color: #444444;
@@ -3436,7 +3453,7 @@ section p {
   color: #444444;
 }
 .footer-light .footer-contact p a:hover {
-  color: #009968;
+  color: var(--brand-primary);
 }
 .footer-light .footer-hours {
   color: #888888 !important;
@@ -3449,7 +3466,7 @@ section p {
   color: #888888;
 }
 .footer-light .footer-bottom a:hover {
-  color: #009968;
+  color: var(--brand-primary);
 }
 @media (min-width: 768px) {
   .footer-bottom {
@@ -3721,7 +3738,7 @@ section p {
 .nv-card-news-bar {
   position: relative;
   height: 48px;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  background: linear-gradient(135deg, var(--brand-banner-overlay) 0%, color-mix(in srgb, var(--brand-banner-overlay) 80%, #334155) 100%);
   display: flex;
   align-items: center;
 }
@@ -3797,7 +3814,7 @@ section p {
   backdrop-filter: blur(8px);
 }
 .nv-badge-news {
-  background: rgba(0, 153, 104, 0.85);
+  background: color-mix(in srgb, var(--brand-primary) 85%, transparent);
   color: #fff;
 }
 .nv-badge-video {

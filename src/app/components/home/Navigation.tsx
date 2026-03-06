@@ -215,7 +215,7 @@ const Navigation = ({ data, headerSettings: headerSettingsProp, siteSettings, he
                 className="nav-mobile-accordion"
                 data-accordion={item.icon || item.label}
               >
-                <span>{item.mobileLabel ?? item.label}</span>
+                <span>{item.label}</span>
                 <span className="arrow">{navData.mobileArrow}</span>
               </button>
               <div className="nav-mobile-panel" data-panel={item.icon || item.label} hidden>
