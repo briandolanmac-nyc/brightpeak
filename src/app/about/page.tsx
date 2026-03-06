@@ -111,27 +111,14 @@ export default function AboutPage() {
             <a
               href={getVoltfloUrl(siteSettings)}
               {...externalLinkProps(getVoltfloUrl(siteSettings))}
-              className="btn btn-cta"
-              style={{
-                background: "#fff",
-                color: "var(--teal)",
-                padding: "0.875rem 2rem",
-                borderRadius: "0.5rem",
-                fontWeight: 700,
-              }}
+              className="btn btn-primary"
             >
               {heroCta.label}
             </a>
             <a
               href={getContactFormUrl(siteSettings)}
               {...externalLinkProps(getContactFormUrl(siteSettings))}
-              style={{
-                border: "2px solid #fff",
-                color: "#fff",
-                padding: "0.875rem 2rem",
-                borderRadius: "0.5rem",
-                fontWeight: 700,
-              }}
+              className="btn btn-outline"
             >
               {aboutData.cta.secondaryButton.label}
             </a>

@@ -1,14 +1,15 @@
-# Green-House Renewables - Next.js Website
+# BrightPeak Energy - Next.js Website
 
 ## Overview
-A Next.js website for Green-House Renewables, an Irish solar energy company. Features a homepage with hero section, service cards, case studies, testimonials, FAQ, and more. All content is data-driven via JSON files.
+A Next.js website for BrightPeak Energy (brightpeak-energy.com), an Irish renewable energy company. Features a homepage with hero section, service cards, case studies, testimonials, FAQ, and more. All content is data-driven via JSON files.
 
 ## Tech Stack
 - **Framework**: Next.js 16 with App Router (TypeScript), Turbopack dev server
 - **Styling**: Tailwind CSS 4 + custom CSS in `globals.css`
 - **Fonts**: League Spartan (headings) + Inter (body) via `next/font/google`
 - **Theming**: next-themes with data-theme attribute (light/dark + custom themes)
-- **Color Scheme**: Green primary (#009968, #007a54) with amber accents
+- **Color Scheme**: Centralized via Site Settings — Primary (#009968), Primary Dark (#007a54), Accent (#fcb900), Banner Overlay (#0f172a), Quote Button Color, Contact Button Color
+- **CTA Button Colors**: All Quote/calculator CTA buttons use `--btn-quote` variable; all Contact CTA buttons use `--btn-contact` variable. Both editable in Site Settings.
 
 ## Project Structure
 ```
@@ -43,6 +44,8 @@ src/app/
 │   ├── home/              # Homepage section components
 │   ├── AdminSidebar.tsx   # Thin wrapper → imports from packages/admin
 │   ├── FontLoader.tsx
+│   ├── PageBanner.tsx     # Reusable page banner with translucent background image
+│   ├── Providers.tsx      # Client-side theme provider wrapper
 │   └── PageLayout.tsx
 ├── lib/                   # Data loading utilities (reads from data/ at project root)
 ├── api/admin/data/
@@ -86,7 +89,7 @@ The admin tool is a **portable, self-contained package** that can be reused acro
 - `src/app/globals.css` - All custom CSS (nav, hero, sections, footer, etc.)
 - `src/app/layout.tsx` - Root layout with League Spartan + Inter fonts
 - `data/home/*.json` - Homepage section content (editable via admin)
-- `data/home/SiteSettings.json` - Brand color and font settings
+- `data/home/SiteSettings.json` - Brand colors (primaryColor, primaryDark, accentColor, bannerOverlay, quoteButtonColor, contactButtonColor), font, border radius
 - `src/app/components/home/*.tsx` - Homepage section components
 
 ## Important: Data Directory Location

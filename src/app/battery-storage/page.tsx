@@ -86,14 +86,7 @@ export default function BatteryStoragePage() {
           <a
             href={getVoltfloUrl(siteSettings)}
             {...externalLinkProps(getVoltfloUrl(siteSettings))}
-            style={{
-              background: "#fff",
-              color: "var(--teal)",
-              padding: "0.875rem 2rem",
-              borderRadius: "0.5rem",
-              fontWeight: 700,
-              display: "inline-block",
-            }}
+            className="btn btn-primary"
           >
             {heroCta.label}
           </a>
