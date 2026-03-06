@@ -7,5 +7,7 @@
   "primaryColor": "#009968",
   "primaryDark": "#007a54",
   "accentColor": "#fcb900",
-  "bannerOverlay": "#0f172a"
+  "bannerOverlay": "#0f172a",
+  "quoteButtonColor": "#009968",
+  "contactButtonColor": "#007a54"
 }

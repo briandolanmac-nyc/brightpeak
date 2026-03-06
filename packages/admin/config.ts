@@ -146,6 +146,8 @@ export const FIELD_LABEL_OVERRIDES: Record<string, string> = {
   "primaryDark": "Primary Dark Color",
   "accentColor": "Accent Color",
   "bannerOverlay": "Banner Overlay Color",
+  "quoteButtonColor": "Quote Button Color",
+  "contactButtonColor": "Contact Button Color",
 };
 
 export const VALID_FILES = [
