@@ -1151,7 +1151,35 @@ ul {
   color: rgba(255, 255, 255, 0.65);
 }
 
+.hero-bg-mobile-fullscreen {
+  display: none !important;
+  visibility: hidden;
+}
 @media (max-width: 767px) {
+  .hero-bg-mobile-fullscreen {
+    display: block !important;
+    visibility: visible;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .hero-bg-mobile-fullscreen .hero-overlay {
+    background: color-mix(in srgb, var(--brand-banner-overlay, #0042aa) 75%, transparent) !important;
+  }
+  .hero-bg-mobile-fullscreen + .hero-floats ~ .hero-content .hero-split-image,
+  .hero-split.hero:has(.hero-bg-mobile-fullscreen) .hero-split-image,
+  .hero-diagonal.hero:has(.hero-bg-mobile-fullscreen) .hero-split-image {
+    display: none;
+  }
+  .hero-split.hero:has(.hero-bg-mobile-fullscreen) .hero-split-container,
+  .hero-diagonal.hero:has(.hero-bg-mobile-fullscreen) .hero-split-container {
+    display: block;
+  }
+  .hero-split.hero:has(.hero-bg-mobile-fullscreen) .hero-text,
+  .hero-diagonal.hero:has(.hero-bg-mobile-fullscreen) .hero-text {
+    position: relative;
+    z-index: 2;
+  }
   .hero-mobile-noimage .hero-bg {
     display: none;
   }

@@ -27,6 +27,7 @@ const HeroSection = ({ data, siteSettings }: { data: Record<string, unknown>; si
   const mobileLayout = (heroData.mobileLayout as string) || "fullscreen";
   const isSplit = layout === "split" || layout === "diagonal";
   const mobileNoImage = mobileLayout === "noimage";
+  const mobileFullscreen = mobileLayout === "fullscreen" && isSplit;
 
   return (
     <section id="hero" className={`hero${isCentered ? " hero-centered" : ""}${layout === "split" ? " hero-split" : ""}${layout === "diagonal" ? " hero-diagonal" : ""}${mobileNoImage ? " hero-mobile-noimage" : ""}`} style={heroData.backgroundImageEnabled === false && heroData.backgroundColor ? { backgroundColor: heroData.backgroundColor } : undefined}>
@@ -46,6 +47,13 @@ const HeroSection = ({ data, siteSettings }: { data: Record<string, unknown>; si
         {heroData.backgroundImageEnabled !== false && (
           <Image src={heroData.image.src} alt={heroData.image.alt} fill priority sizes="100vw" style={{ objectFit: "cover" }} />
         )}
+        <div className="hero-overlay" style={{ opacity: (heroData.overlayOpacity ?? 5) / 5 }}></div>
+      </div>
+    )}
+
+    {mobileFullscreen && heroData.backgroundImageEnabled !== false && (
+      <div className="hero-bg hero-bg-mobile-fullscreen">
+        <Image src={heroData.image.src} alt={heroData.image.alt} fill priority sizes="100vw" style={{ objectFit: "cover" }} />
         <div className="hero-overlay" style={{ opacity: (heroData.overlayOpacity ?? 5) / 5 }}></div>
       </div>
     )}
