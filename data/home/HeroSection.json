@@ -1,6 +1,6 @@
 {
   "enabled": true,
-  "heroLayout": "fullscreen",
+  "heroLayout": "diagonal",
   "mobileLayout": "fullscreen",
   "showEyebrow": true,
   "eyebrow": "#1 Certified Solar Panel Installers in Dublin",
@@ -36,7 +36,7 @@
   "subheading": "We are your one-stop-shop in Dublin for advanced clean energy solutions, including Solar panels, EV Chargers, Geothermal heat pumps, and Air-to-water heat pumps.",
   "cta": [
     {
-      "label": "Get a Free Quote",
+      "label": "Calculate Your Savings",
       "href": "https://green-house.comprehensive.voltflo.ie",
       "variant": "home"
     },
