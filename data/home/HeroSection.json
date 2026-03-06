@@ -4,7 +4,7 @@
   "mobileLayout": "fullscreen",
   "showEyebrow": true,
   "eyebrow": "#1 Certified Solar Panel Installers in Dublin",
-  "eyebrowColor": "#009968",
+  "eyebrowColor": "#f5ec00",
   "backgroundImageEnabled": true,
   "backgroundColor": "#ffffff",
   "overlayOpacity": 4,
@@ -29,7 +29,7 @@
   },
   "headlineColors": {
     "line1": "#ffffff",
-    "line2": "#009968",
+    "line2": "#f5ec00",
     "line3": "#ffffff"
   },
   "subheadingColor": "#fffff",
