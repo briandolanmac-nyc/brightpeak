@@ -55,14 +55,7 @@ export default function FundingOptionsPage() {
               <a
                 href={getContactFormUrl(siteSettings)}
                 {...externalLinkProps(getContactFormUrl(siteSettings))}
-                className="inline-block mt-4"
-                style={{
-                  background: "var(--teal)",
-                  color: "#fff",
-                  padding: "0.875rem 2rem",
-                  borderRadius: "0.5rem",
-                  fontWeight: 700,
-                }}
+                className="btn btn-outline inline-block mt-4"
               >
                 {helpSection.button.label}
               </a>
@@ -100,14 +93,7 @@ export default function FundingOptionsPage() {
           <a
             href={getVoltfloUrl(siteSettings)}
             {...externalLinkProps(getVoltfloUrl(siteSettings))}
-            style={{
-              background: "#fff",
-              color: "var(--teal)",
-              padding: "0.875rem 2rem",
-              borderRadius: "0.5rem",
-              fontWeight: 700,
-              display: "inline-block",
-            }}
+            className="btn btn-primary"
           >
             {heroCta.label}
           </a>

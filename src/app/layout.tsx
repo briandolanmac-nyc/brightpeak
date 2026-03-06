@@ -101,6 +101,8 @@ export default function RootLayout({
   const primaryDark = settings.primaryDark || "#007a54";
   const accent = settings.accentColor || "#fcb900";
   const bannerOverlay = settings.bannerOverlay || "#0f172a";
+  const quoteBtn = settings.quoteButtonColor || primary;
+  const contactBtn = settings.contactButtonColor || primaryDark;
   const gtmId = settings.gtmId || "";
   const br = Math.max(1, Math.min(5, settings.borderRadius || 1));
   const radiusBase = br === 1 ? 0 : (br - 1) * 0.25;
@@ -112,7 +114,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <style dangerouslySetInnerHTML={{ __html: `:root { --brand-primary: ${primary}; --brand-primary-dark: ${primaryDark}; --brand-accent: ${accent}; --brand-banner-overlay: ${bannerOverlay}; --radius: ${radiusBase}rem; --radius-lg: ${radiusLg}rem; --radius-xl: ${radiusXl}rem; --radius-2xl: ${radius2xl}rem; }` }} />
+        <style dangerouslySetInnerHTML={{ __html: `:root { --brand-primary: ${primary}; --brand-primary-dark: ${primaryDark}; --brand-accent: ${accent}; --brand-banner-overlay: ${bannerOverlay}; --btn-quote: ${quoteBtn}; --btn-contact: ${contactBtn}; --radius: ${radiusBase}rem; --radius-lg: ${radiusLg}rem; --radius-xl: ${radiusXl}rem; --radius-2xl: ${radius2xl}rem; }` }} />
         {adminEnabled && <meta name="admin-enabled" content="true" />}
       </head>
       <body

@@ -149,14 +149,7 @@ export default function UnderfloorHeatingPage() {
             <a
               href={getVoltfloUrl(siteSettings)}
               {...externalLinkProps(getVoltfloUrl(siteSettings))}
-              style={{
-                background: "#fff",
-                color: "var(--teal)",
-                padding: "0.875rem 2rem",
-                borderRadius: "0.5rem",
-                fontWeight: 700,
-                display: "inline-block",
-              }}
+              className="btn btn-primary"
             >
               {heroCta.label}
             </a>
@@ -164,14 +157,7 @@ export default function UnderfloorHeatingPage() {
               <a
                 href={cta.secondaryButton.href}
                 {...externalLinkProps(cta.secondaryButton.href)}
-                style={{
-                  border: "2px solid #fff",
-                  color: "#fff",
-                  padding: "0.875rem 2rem",
-                  borderRadius: "0.5rem",
-                  fontWeight: 700,
-                  display: "inline-block",
-                }}
+                className="btn btn-outline"
               >
                 {cta.secondaryButton.label}
               </a>

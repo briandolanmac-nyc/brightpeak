@@ -132,13 +132,7 @@ export default function ContactPage() {
                 <a
                   href={getVoltfloUrl(siteSettings)}
                   {...externalLinkProps(getVoltfloUrl(siteSettings))}
-                  className="inline-block font-bold"
-                  style={{
-                    background: "var(--teal)",
-                    color: "#fff",
-                    padding: "0.75rem 1.5rem",
-                    borderRadius: "0.5rem",
-                  }}
+                  className="btn btn-primary inline-block"
                 >
                   {quickQuote.buttonLabel}
                 </a>

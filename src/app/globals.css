@@ -233,8 +233,12 @@ section:not(.hero):not(.hero-split):not(.hero-diagonal) {
 .btn,
 .btn-primary,
 .btn-outline,
-.btn-cta {
-  border-radius: var(--radius) !important;
+.btn-cta,
+.btn-teal,
+.btn-white,
+.btn-outline-white,
+.btn-footer-cta {
+  border-radius: 9999px !important;
 }
 
 body {
@@ -318,7 +322,7 @@ ul {
 }
 
 .nav-utility {
-  background: linear-gradient(90deg, var(--brand-primary-dark), var(--brand-primary), var(--brand-primary-dark));
+  background: var(--brand-banner-overlay, #0f172a);
   color: rgba(255, 255, 255, 0.9);
   transition: background 0.3s ease, color 0.3s ease;
   font-size: 0.875rem;
@@ -357,14 +361,17 @@ ul {
   gap: 0.375rem;
   color: inherit;
   font-weight: 400;
-  transition: color 0.2s;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  transition: color 0.2s, background 0.2s;
   font-size: 0;
 }
 .nav-contact a .icon {
   font-size: 1.125rem;
 }
 .nav-contact a:hover {
-  color: var(--aqua);
+  color: var(--brand-banner-overlay, #0f172a);
+  background: rgba(255, 255, 255, 0.9);
 }
 @media (min-width: 768px) {
   .nav-contact {
@@ -385,10 +392,13 @@ ul {
 .nav-links-utility a {
   color: inherit;
   font-weight: 400;
-  transition: color 0.2s;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  transition: color 0.2s, background 0.2s;
 }
 .nav-links-utility a:hover {
-  color: var(--aqua);
+  color: var(--brand-banner-overlay, #0f172a);
+  background: rgba(255, 255, 255, 0.9);
 }
 .nav-links-utility .sep {
   opacity: 0.4;
@@ -400,17 +410,27 @@ ul {
   margin-left: 0.5rem;
 }
 .nav-social a {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 2rem;
+  height: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
-  transition: background 0.2s;
+  background: none;
+  border-radius: 9999px;
+  transition: background 0.2s, color 0.2s;
+}
+.nav-social a svg {
+  width: 1rem !important;
+  height: 1rem !important;
+  fill: rgba(255, 255, 255, 0.9) !important;
+  flex-shrink: 0;
+  transition: fill 0.2s;
 }
 .nav-social a:hover {
-  background: var(--aqua);
+  background: rgba(255, 255, 255, 0.9);
+}
+.nav-social a:hover svg {
+  fill: var(--brand-banner-overlay, #0f172a) !important;
 }
 @media (min-width: 768px) {
   .nav-contact,
@@ -508,13 +528,14 @@ ul {
   border: none;
   cursor: pointer;
   font-family: inherit;
-  border-radius: var(--radius);
-  transition: color 0.2s, opacity 0.2s;
+  border-radius: 9999px;
+  transition: color 0.2s, opacity 0.2s, background 0.2s;
 }
 .nav-desktop > a:hover,
 .nav-dd-btn:hover {
   opacity: 1;
-  color: var(--text-primary);
+  color: #fff;
+  background: var(--brand-primary, #009968);
 }
 .nav-dd-btn svg {
   color: currentColor;
@@ -561,16 +582,16 @@ ul {
 }
 
 .btn-cta {
-  background: var(--brand-primary) !important;
+  background: var(--btn-quote) !important;
   color: #fff !important;
   padding: 0.625rem 1.5rem !important;
   border-radius: var(--radius);
   font-weight: 600;
-  border: 1px solid var(--brand-primary-dark);
+  border: 1px solid var(--btn-quote);
   transition: all 0.2s;
 }
 .btn-cta:hover {
-  background: var(--brand-primary-dark) !important;
+  filter: brightness(0.85);
 }
 
 .nav-mobile-toggle {
@@ -973,7 +994,7 @@ ul {
 }
 
 .hero-split {
-  background: #0a2a1f;
+  background: var(--brand-banner-overlay, #0f172a);
   min-height: auto;
   padding: 0;
 }
@@ -1015,12 +1036,12 @@ ul {
     position: relative;
     order: 2;
   }
-  .hero-split-image::before {
+  .hero-split .hero-split-image::before {
     content: "";
     position: absolute;
     inset: 0;
     z-index: 2;
-    background: linear-gradient(to right, #0a2a1f 0%, transparent 15%);
+    background: linear-gradient(to right, var(--brand-banner-overlay, #0f172a) 0%, transparent 15%);
   }
 }
 @media (min-width: 1200px) {
@@ -1046,7 +1067,7 @@ ul {
 }
 
 .hero-diagonal {
-  background: #0a2a1f;
+  background: var(--brand-banner-overlay, #0f172a);
   min-height: auto;
   padding: 0;
   overflow: hidden;
@@ -1073,46 +1094,48 @@ ul {
 }
 @media (min-width: 768px) {
   .hero-diagonal .hero-split-container {
-    grid-template-columns: 55% 45%;
-    min-height: 600px;
+    display: block;
     position: relative;
+    min-height: 600px;
+    overflow: hidden;
   }
   .hero-diagonal .hero-text {
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 4rem 3rem 4rem 4rem;
-    max-width: none;
-    order: 1;
+    max-width: 55%;
+    min-height: 600px;
     position: relative;
     z-index: 3;
   }
   .hero-diagonal .hero-split-image {
-    min-height: 100%;
-    position: relative;
-    order: 2;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 50%;
     clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
-    margin-left: -10%;
   }
   .hero-diagonal .hero-split-image::before {
     content: "";
     position: absolute;
     inset: 0;
     z-index: 2;
-    background: linear-gradient(135deg, rgba(10, 42, 31, 0.4) 0%, transparent 40%);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--brand-banner-overlay, #0f172a) 40%, transparent) 0%, transparent 40%);
   }
 }
 @media (min-width: 1200px) {
   .hero-diagonal .hero-split-container {
-    grid-template-columns: 55% 45%;
     min-height: 650px;
   }
   .hero-diagonal .hero-text {
     padding: 5rem 3rem 5rem 6rem;
+    min-height: 650px;
   }
   .hero-diagonal .hero-split-image {
     clip-path: polygon(18% 0, 100% 0, 100% 100%, 0% 100%);
-    margin-left: -12%;
+    width: 50%;
   }
 }
 .hero-diagonal .hero-headline {
@@ -1136,7 +1159,7 @@ ul {
     display: none;
   }
   .hero-mobile-noimage.hero {
-    background: #0a2a1f;
+    background: var(--brand-banner-overlay, #0f172a);
     min-height: auto;
   }
   .hero-mobile-noimage .hero-overlay {
@@ -1291,13 +1314,13 @@ ul {
 }
 
 .btn-primary {
-  background: var(--brand-primary);
+  background: var(--btn-quote);
   color: #fff;
-  border-color: var(--brand-primary-dark);
+  border-color: var(--btn-quote);
   font-weight: 700;
 }
 .btn-primary:hover {
-  background: var(--brand-primary-dark);
+  filter: brightness(0.85);
 }
 .btn .arrow {
   transition: transform 0.2s;
@@ -1307,22 +1330,21 @@ ul {
 }
 
 .btn-outline {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(8px);
+  background: var(--btn-contact);
   color: #fff;
-  border-color: rgba(255, 255, 255, 0.3);
+  border-color: var(--btn-contact);
 }
 .btn-outline:hover {
-  background: rgba(255, 255, 255, 0.2);
+  filter: brightness(0.85);
 }
 
 .btn-teal {
-  background: var(--brand-primary);
+  background: var(--btn-quote);
   color: #fff;
-  border-color: var(--brand-primary-dark);
+  border-color: var(--btn-quote);
 }
 .btn-teal:hover {
-  background: var(--brand-primary-dark);
+  filter: brightness(0.85);
 }
 
 .hero-badges {
@@ -2685,7 +2707,7 @@ section p {
   transform: translateX(-50%);
   width: 3.5rem;
   height: 3.5rem;
-  background: linear-gradient(135deg, var(--brand-primary), var(--brand-primary-dark));
+  background: var(--brand-primary);
   color: #fff;
   font-size: 1.5rem;
   font-weight: 900;
@@ -3210,22 +3232,21 @@ section p {
   justify-content: center;
 }
 .btn-white {
-  background: var(--brand-primary);
+  background: var(--btn-quote);
   color: #fff;
-  border-color: var(--brand-primary-dark);
+  border-color: var(--btn-quote);
   font-weight: 700;
 }
 .btn-white:hover {
-  background: var(--brand-primary-dark);
+  filter: brightness(0.85);
 }
 .btn-outline-white {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(8px);
+  background: var(--btn-contact);
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid var(--btn-contact);
 }
 .btn-outline-white:hover {
-  background: rgba(255, 255, 255, 0.2);
+  filter: brightness(0.85);
 }
 
 /* ===== FOOTER ===== */
@@ -3370,16 +3391,16 @@ section p {
 .btn-footer-cta {
   display: inline-block;
   margin-top: 1.25rem;
-  background: var(--brand-primary);
+  background: var(--btn-quote);
   color: #ffffff;
   padding: 0.875rem 1.75rem;
   border-radius: var(--radius);
   font-weight: 600;
-  border: 1px solid var(--brand-primary-dark);
+  border: 1px solid var(--btn-quote);
   transition: all 0.2s;
 }
 .btn-footer-cta:hover {
-  background: var(--brand-primary-dark);
+  filter: brightness(0.85);
 }
 .footer-hours {
   font-size: 0.875rem !important;

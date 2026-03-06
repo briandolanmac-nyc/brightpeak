@@ -123,14 +123,7 @@ export default function SolarPanelsPage() {
             <a
               href={getVoltfloUrl(siteSettings)}
               {...externalLinkProps(getVoltfloUrl(siteSettings))}
-              style={{
-                background: "#fff",
-                color: "var(--teal)",
-                padding: "0.875rem 2rem",
-                borderRadius: "0.5rem",
-                fontWeight: 700,
-                display: "inline-block",
-              }}
+              className="btn btn-primary"
             >
               {heroCta.label}
             </a>
@@ -138,14 +131,7 @@ export default function SolarPanelsPage() {
               <a
                 href={getContactFormUrl(siteSettings)}
                 {...externalLinkProps(getContactFormUrl(siteSettings))}
-                style={{
-                  border: "2px solid #fff",
-                  color: "#fff",
-                  padding: "0.875rem 2rem",
-                  borderRadius: "0.5rem",
-                  fontWeight: 700,
-                  display: "inline-block",
-                }}
+                className="btn btn-outline"
               >
                 {cta.secondaryButton.label}
               </a>
