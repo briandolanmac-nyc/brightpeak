@@ -2,7 +2,8 @@
   "hero": {
     "eyebrow": "Business Funding",
     "title": "Business Funding Options",
-    "subtitle": "Discover tax incentives, funding support, and finance options available for commercial solar installations in Ireland."
+    "subtitle": "Discover tax incentives, funding support, and finance options available for commercial solar installations in Ireland.",
+    "bannerImage": "/images/services/commercial-solar.webp"
   },
   "fundingSchemes": {
     "title": "Available Funding & Incentives",
@@ -40,10 +41,22 @@
       "href": "/contact"
     },
     "stats": [
-      { "value": "100%", "label": "Capital Allowance Write-Off" },
-      { "value": "3-5yr", "label": "Typical Payback" },
-      { "value": "50%", "label": "Bill Reduction" },
-      { "value": "25yr+", "label": "Panel Warranty" }
+      {
+        "value": "100%",
+        "label": "Capital Allowance Write-Off"
+      },
+      {
+        "value": "3-5yr",
+        "label": "Typical Payback"
+      },
+      {
+        "value": "50%",
+        "label": "Bill Reduction"
+      },
+      {
+        "value": "25yr+",
+        "label": "Panel Warranty"
+      }
     ]
   },
   "cta": {

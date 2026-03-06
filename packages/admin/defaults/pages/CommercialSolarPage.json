@@ -2,7 +2,8 @@
   "hero": {
     "eyebrow": "Business Solutions",
     "title": "Commercial Solar Solutions",
-    "subtitle": "Reduce operating costs and meet your sustainability targets with a commercial solar PV system designed for your business."
+    "subtitle": "Reduce operating costs and meet your sustainability targets with a commercial solar PV system designed for your business.",
+    "bannerImage": "/images/services/commercial-solar.webp"
   },
   "about": {
     "eyebrow": "Solar for Business",
@@ -20,12 +21,36 @@
   "whyChoose": {
     "title": "Why Businesses Choose Solar",
     "items": [
-      { "title": "Reduce Overheads", "desc": "Cut electricity costs by up to 50% and protect against future price rises", "icon": "📉" },
-      { "title": "Fast ROI", "desc": "Typical payback period of 3-5 years with decades of free energy after", "icon": "💰" },
-      { "title": "Tax Benefits", "desc": "Accelerated Capital Allowance lets you write off 100% of the cost in year one", "icon": "🏛️" },
-      { "title": "ESG Compliance", "desc": "Meet sustainability targets and improve your Environmental, Social & Governance profile", "icon": "🌍" },
-      { "title": "Brand Value", "desc": "Demonstrate your commitment to sustainability to customers and stakeholders", "icon": "⭐" },
-      { "title": "Minimal Disruption", "desc": "Professional installation with minimal impact on your daily business operations", "icon": "🔧" }
+      {
+        "title": "Reduce Overheads",
+        "desc": "Cut electricity costs by up to 50% and protect against future price rises",
+        "icon": "📉"
+      },
+      {
+        "title": "Fast ROI",
+        "desc": "Typical payback period of 3-5 years with decades of free energy after",
+        "icon": "💰"
+      },
+      {
+        "title": "Tax Benefits",
+        "desc": "Accelerated Capital Allowance lets you write off 100% of the cost in year one",
+        "icon": "🏛️"
+      },
+      {
+        "title": "ESG Compliance",
+        "desc": "Meet sustainability targets and improve your Environmental, Social & Governance profile",
+        "icon": "🌍"
+      },
+      {
+        "title": "Brand Value",
+        "desc": "Demonstrate your commitment to sustainability to customers and stakeholders",
+        "icon": "⭐"
+      },
+      {
+        "title": "Minimal Disruption",
+        "desc": "Professional installation with minimal impact on your daily business operations",
+        "icon": "🔧"
+      }
     ]
   },
   "trusted": {
@@ -36,6 +61,9 @@
   "cta": {
     "title": "Get a Commercial Solar Quote",
     "subtitle": "Our team will assess your business premises and design a system that delivers maximum savings and ROI.",
-    "primaryButton": { "label": "Talk to Our Team", "href": "/contact" }
+    "primaryButton": {
+      "label": "Talk to Our Team",
+      "href": "/contact"
+    }
   }
 }

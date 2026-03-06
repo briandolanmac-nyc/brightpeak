@@ -1,6 +1,7 @@
 import { generatePageMetadata } from "../components/SeoHead";
 import StructuredData from "../components/StructuredData";
 import PageLayout from "../components/PageLayout";
+import PageBanner from "../components/PageBanner";
 import { loadPageJson, loadNavFooterData } from "../lib/loadAllHomeData";
 
 export const metadata = generatePageMetadata("/cookies");
@@ -15,22 +16,7 @@ export default function CookiesPage() {
   return (
     <PageLayout navData={navigation} footerData={footer} headerSettings={headerSettings} siteSettings={siteSettings} heroCta={heroCta}>
       <StructuredData pageType="default" pagePath="/cookies" />
-      <section
-        style={{
-          background: "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)",
-          color: "#fff",
-          padding: "5rem 0 4rem",
-        }}
-      >
-        <div className="container text-center">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
-            {hero.title}
-          </h1>
-          <p className="text-lg md:text-xl max-w-2xl mx-auto opacity-90">
-            {hero.subtitle}
-          </p>
-        </div>
-      </section>
+      <PageBanner title={hero.title} subtitle={hero.subtitle} bannerImage={hero.bannerImage} />
 
       <section className="py-16 md:py-20">
         <div className="container max-w-3xl">

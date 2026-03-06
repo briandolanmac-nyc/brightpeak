@@ -2,25 +2,63 @@
   "hero": {
     "eyebrow": "Get in Touch",
     "title": "Contact Us",
-    "subtitle": "Ready to start your solar journey? Our friendly team is here to help. Get in touch today for a free, no-obligation consultation."
+    "subtitle": "Ready to start your solar journey? Our friendly team is here to help. Get in touch today for a free, no-obligation consultation.",
+    "bannerImage": "/images/hero/hero-solar-panels.webp"
   },
   "form": {
     "title": "Send Us a Message",
     "fields": [
-      { "name": "firstName", "label": "First Name", "type": "text", "placeholder": "John", "half": true },
-      { "name": "lastName", "label": "Last Name", "type": "text", "placeholder": "Smith", "half": true },
-      { "name": "email", "label": "Email Address", "type": "email", "placeholder": "john@example.com" },
-      { "name": "phone", "label": "Phone Number", "type": "tel", "placeholder": "+353 1 207 0006" }
+      {
+        "name": "firstName",
+        "label": "First Name",
+        "type": "text",
+        "placeholder": "John",
+        "half": true
+      },
+      {
+        "name": "lastName",
+        "label": "Last Name",
+        "type": "text",
+        "placeholder": "Smith",
+        "half": true
+      },
+      {
+        "name": "email",
+        "label": "Email Address",
+        "type": "email",
+        "placeholder": "john@example.com"
+      },
+      {
+        "name": "phone",
+        "label": "Phone Number",
+        "type": "tel",
+        "placeholder": "+353 1 207 0006"
+      }
     ],
     "serviceSelect": {
       "label": "Service Interested In",
       "placeholder": "Select a service",
       "options": [
-        { "value": "solar-residential", "label": "Residential Solar Panels" },
-        { "value": "solar-commercial", "label": "Commercial Solar" },
-        { "value": "battery", "label": "Battery Storage" },
-        { "value": "ev-charger", "label": "EV Charger" },
-        { "value": "other", "label": "Other" }
+        {
+          "value": "solar-residential",
+          "label": "Residential Solar Panels"
+        },
+        {
+          "value": "solar-commercial",
+          "label": "Commercial Solar"
+        },
+        {
+          "value": "battery",
+          "label": "Battery Storage"
+        },
+        {
+          "value": "ev-charger",
+          "label": "EV Charger"
+        },
+        {
+          "value": "other",
+          "label": "Other"
+        }
       ]
     },
     "message": {

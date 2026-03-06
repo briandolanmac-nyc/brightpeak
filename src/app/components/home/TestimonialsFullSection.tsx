@@ -63,7 +63,7 @@ const TestimonialsFullSection = ({ data }: { data: TestimonialsFullData }) => {
                 </div>
                 <span
                   className="text-xs font-semibold px-3 py-1 rounded-full"
-                  style={{ background: "rgba(0, 153, 104, 0.1)", color: "#009968" }}
+                  style={{ background: "color-mix(in srgb, var(--brand-primary) 10%, transparent)", color: "var(--brand-primary)" }}
                 >
                   {review.service}
                 </span>

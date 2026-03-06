@@ -2,18 +2,18 @@
   "enabled": true,
   "heroLayout": "fullscreen",
   "mobileLayout": "fullscreen",
-  "showEyebrow": false,
+  "showEyebrow": true,
+  "eyebrow": "#1 Certified Solar Panel Installers in Dublin",
+  "eyebrowColor": "#009968",
   "backgroundImageEnabled": true,
   "backgroundColor": "#ffffff",
   "overlayOpacity": 4,
   "image": {
     "src": "/images/hero-bg.webp",
-    "alt": "Beautiful Irish home with solar panels"
+    "alt": "Beautiful Dublin home with solar panels"
   },
-  "eyebrow": "Certified Solar Panel Installers",
-  "eyebrowColor": "#009968",
   "heroAlignment": "center",
-  "wordWrapHeadlines": false,
+  "wordWrapHeadlines": true,
   "headlineLines": [
     "Power Your Home",
     "With Solar",
@@ -33,7 +33,7 @@
     "line3": "#ffffff"
   },
   "subheadingColor": "#fffff",
-  "subheading": "We are your one-stop-shop for advanced clean energy solutions, including Solar panels, EV Chargers, Geothermal heat pumps, and Air-to-water heat pumps.",
+  "subheading": "We are your one-stop-shop in Dublin for advanced clean energy solutions, including Solar panels, EV Chargers, Geothermal heat pumps, and Air-to-water heat pumps.",
   "cta": [
     {
       "label": "Get a Free Quote",

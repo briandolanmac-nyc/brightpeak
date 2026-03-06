@@ -2,7 +2,8 @@
   "hero": {
     "eyebrow": "Who We Are",
     "title": "About BrightPeak Energy",
-    "description": "Renewable home energy solutions — one of Ireland's leading renewable and mechanical installers, specialising in both domestic and commercial projects of any size."
+    "description": "Renewable home energy solutions — one of Ireland's leading renewable and mechanical installers, specialising in both domestic and commercial projects of any size.",
+    "bannerImage": "/images/about/team.webp"
   },
   "story": {
     "eyebrow": "Our Story",

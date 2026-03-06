@@ -1,12 +1,13 @@
 {
   "hero": {
     "title": "Privacy Policy",
-    "subtitle": "How BrightPeak Energy collects, uses, and protects your personal data."
+    "subtitle": "How BrightPeak Energy collects, uses, and protects your personal data.",
+    "bannerImage": "/images/services/solar-closeup.webp"
   },
   "sections": [
     {
       "title": "1. Introduction",
-      "body": "BrightPeak Energy (\u201cwe\u201d, \u201cour\u201d, \u201cus\u201d) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services. We are based at Deansgrange Business Park, Blackrock, Dublin, Ireland, and operate in accordance with the General Data Protection Regulation (GDPR) and the Data Protection Acts 1988 to 2018."
+      "body": "BrightPeak Energy (“we”, “our”, “us”) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services. We are based at Deansgrange Business Park, Blackrock, Dublin, Ireland, and operate in accordance with the General Data Protection Regulation (GDPR) and the Data Protection Acts 1988 to 2018."
     },
     {
       "title": "2. Information We Collect",
@@ -48,7 +49,7 @@
       "bullets": [
         "Right to access your personal data",
         "Right to rectification of inaccurate data",
-        "Right to erasure (\u201cright to be forgotten\u201d)",
+        "Right to erasure (“right to be forgotten”)",
         "Right to restrict processing",
         "Right to data portability",
         "Right to object to processing"

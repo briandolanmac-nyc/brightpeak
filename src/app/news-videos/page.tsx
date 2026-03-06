@@ -1,4 +1,5 @@
 import PageLayout from "../components/PageLayout";
+import PageBanner from "../components/PageBanner";
 import { loadNavFooterData } from "../lib/loadAllHomeData";
 import { generatePageMetadata } from "../components/SeoHead";
 import StructuredData from "../components/StructuredData";
@@ -31,21 +32,7 @@ export default function NewsVideosPage() {
     <PageLayout navData={navigation} footerData={footer} headerSettings={headerSettings} siteSettings={siteSettings} heroCta={heroCta}>
       <StructuredData pageType="default" pagePath="/news-videos" />
 
-      <section
-        style={{
-          background: "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)",
-          color: "#fff",
-          padding: "6rem 0 4rem",
-        }}
-      >
-        <div className="container" style={{ textAlign: "center" }}>
-          <p className="page-eyebrow" style={{ color: "var(--teal)" }}>{nvData.eyebrow || "Latest Updates"}</p>
-          <h1 className="page-title" style={{ color: "#fff" }}>{nvData.sectionTitle || "News & Videos"}</h1>
-          <p style={{ fontSize: "1.1rem", opacity: 0.9, maxWidth: "600px", margin: "0 auto" }}>
-            {nvData.subtitle || ""}
-          </p>
-        </div>
-      </section>
+      <PageBanner eyebrow={nvData.eyebrow || "Latest Updates"} title={nvData.sectionTitle || "News & Videos"} subtitle={nvData.subtitle || ""} bannerImage={nvData.bannerImage} />
 
       <section style={{ padding: "4rem 0", background: "var(--bg-primary)" }}>
         <div className="container">

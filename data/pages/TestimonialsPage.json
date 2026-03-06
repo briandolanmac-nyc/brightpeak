@@ -3,7 +3,8 @@
   "hero": {
     "eyebrow": "Customer Reviews",
     "title": "What Our Customers Say",
-    "subtitle": "Over 1,000 happy customers across Ireland — here's what they have to say about working with BrightPeak Energy."
+    "subtitle": "Over 1,000 happy customers across Ireland — here's what they have to say about working with BrightPeak Energy.",
+    "bannerImage": "/images/hero/hero-solar-panels.webp"
   },
   "reviews": [
     {
@@ -71,9 +72,18 @@
     }
   ],
   "stats": [
-    { "value": "1,000+", "label": "Happy Customers" },
-    { "value": "4.8", "label": "Average Rating" },
-    { "value": "100%", "label": "Would Recommend" }
+    {
+      "value": "1,000+",
+      "label": "Happy Customers"
+    },
+    {
+      "value": "4.8",
+      "label": "Average Rating"
+    },
+    {
+      "value": "100%",
+      "label": "Would Recommend"
+    }
   ],
   "cta": {
     "title": "Join Our Happy Customers",

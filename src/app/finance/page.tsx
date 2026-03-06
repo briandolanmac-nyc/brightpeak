@@ -1,6 +1,7 @@
 import { generatePageMetadata } from "../components/SeoHead";
 import StructuredData from "../components/StructuredData";
 import PageLayout from "../components/PageLayout";
+import PageBanner from "../components/PageBanner";
 import { getContactFormUrl, getVoltfloUrl, externalLinkProps } from "../lib/siteSettings";
 import { loadPageJson, loadNavFooterData } from "../lib/loadAllHomeData";
 
@@ -16,25 +17,7 @@ export default function FinancePage() {
   return (
     <PageLayout navData={navigation} footerData={footer} headerSettings={headerSettings} siteSettings={siteSettings} heroCta={heroCta}>
       <StructuredData pageType="default" pagePath="/finance" />
-      <section
-        style={{
-          background: "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)",
-          color: "#fff",
-          padding: "5rem 0 4rem",
-        }}
-      >
-        <div className="container text-center">
-          <p className="text-sm font-semibold uppercase tracking-widest mb-4 opacity-80">
-            {hero.eyebrow}
-          </p>
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
-            {hero.title}
-          </h1>
-          <p className="text-lg md:text-xl max-w-2xl mx-auto opacity-90">
-            {hero.subtitle}
-          </p>
-        </div>
-      </section>
+      <PageBanner eyebrow={hero.eyebrow} title={hero.title} subtitle={hero.subtitle} bannerImage={hero.bannerImage} />
 
       <section className="py-16 md:py-20">
         <div className="container">
@@ -95,7 +78,7 @@ export default function FinancePage() {
 
       <section
         style={{
-          background: "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)",
+          background: "linear-gradient(135deg, var(--brand-banner-overlay) 0%, color-mix(in srgb, var(--brand-banner-overlay) 80%, #334155) 50%, var(--brand-banner-overlay) 100%)",
           color: "#fff",
           padding: "4rem 0",
         }}

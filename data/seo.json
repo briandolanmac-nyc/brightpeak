@@ -27,12 +27,14 @@
       "latitude": 53.3498,
       "longitude": -6.2603
     },
-    "openingHours": ["Mo-Fr 08:00-17:00"],
+    "openingHours": [
+      "Mo-Fr 08:00-17:00"
+    ],
     "priceRange": "€€",
     "areaServed": "Ireland",
     "sameAs": [
-      "https://www.facebook.com/greenhouserenewables",
-      "https://www.youtube.com/@greenhouserenewables"
+      ": https://www.facebook.com/greenhouserenewables",
+      ": https://www.youtube.com/@greenhouserenewables"
     ]
   },
   "pages": {
