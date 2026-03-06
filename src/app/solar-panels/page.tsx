@@ -27,7 +27,7 @@ export default function SolarPanelsPage() {
             </p>
             <h2 className="text-3xl font-extrabold">{whySolar.title}</h2>
           </div>
-          <div className="solar-cards-grid">
+          <div className={`solar-cards-grid${(whySolar.cards || []).length > 3 ? " solar-cards-grid-2col" : ""}`}>
             {(whySolar.cards || []).map((card: any, i: number) => (
               <div key={i} className="solar-info-card">
                 <div className="solar-info-card-text">

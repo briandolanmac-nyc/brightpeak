@@ -53,7 +53,7 @@ const HeroSection = ({ data, siteSettings }: { data: Record<string, unknown>; si
 
     {mobileFullscreen && heroData.backgroundImageEnabled !== false && (
       <div className="hero-bg hero-bg-mobile-fullscreen">
-        <Image src={heroData.image.src} alt={heroData.image.alt} fill priority sizes="100vw" style={{ objectFit: "cover" }} />
+        <Image src={heroData.image.src} alt={heroData.image.alt} fill priority sizes="(max-width: 767px) 100vw, 1px" style={{ objectFit: "cover" }} />
         <div className="hero-overlay" style={{ opacity: (heroData.overlayOpacity ?? 5) / 5 }}></div>
       </div>
     )}
