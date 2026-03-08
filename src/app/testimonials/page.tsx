@@ -31,14 +31,14 @@ export default function TestimonialsPage() {
               >
                 <div className="flex gap-1 mb-3">
                   {Array.from({ length: review.rating }).map((_: unknown, i: number) => (
-                    <span key={i} className="text-amber-400 text-lg">★</span>
+                    <span key={i} className="text-lg" style={{ color: "var(--brand-accent)" }}>★</span>
                   ))}
                 </div>
-                <div className="text-gray-600 mb-4 leading-relaxed text-sm rich-html" dangerouslySetInnerHTML={{ __html: "&ldquo;" + sanitizeHtml(review.text || "") + "&rdquo;" }} />
+                <div className="mb-4 leading-relaxed text-sm rich-html" style={{ color: "var(--text-secondary)" }} dangerouslySetInnerHTML={{ __html: "&ldquo;" + sanitizeHtml(review.text || "") + "&rdquo;" }} />
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-bold text-sm">{review.name}</p>
-                    <p className="text-gray-500 text-xs">{review.location}</p>
+                    <p className="text-xs" style={{ color: "var(--text-secondary)" }}>{review.location}</p>
                   </div>
                   <span
                     className="text-xs font-semibold px-3 py-1 rounded-full"
@@ -59,7 +59,7 @@ export default function TestimonialsPage() {
             {stats.map((stat: any) => (
               <div key={stat.label}>
                 <div className="text-3xl font-extrabold text-brand">{stat.value}</div>
-                <div className="text-sm text-gray-600">{stat.label}</div>
+                <div className="text-sm" style={{ color: "var(--text-secondary)" }}>{stat.label}</div>
               </div>
             ))}
           </div>

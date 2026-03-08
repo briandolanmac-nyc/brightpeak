@@ -1,5 +1,9 @@
 {
-  "companyName": "BrightPeak Energy",
+  "companyName": "Your Company Name",
+  "logoSrc": "/images/branding/logo.png",
+  "logoAlt": "Your Company Name",
+  "siteUrl": "https://www.example.com",
+  "copyright": "© 2025 Your Company Name. All rights reserved.",
   "phone": {
     "icon": "📞",
     "label": "+353 1 207 0006",
@@ -7,8 +11,8 @@
   },
   "email": {
     "icon": "✉️",
-    "label": "info@brightpeak-energy.com",
-    "href": "mailto:info@brightpeak-energy.com"
+    "label": "info@example.com",
+    "href": "mailto:info@example.com"
   },
   "address": {
     "line1": "",

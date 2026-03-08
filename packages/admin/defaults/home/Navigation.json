@@ -1,8 +1,8 @@
 {
   "enabled": true,
   "showIcons": false,
-  "logoAlt": "BrightPeak Energy",
-  "logoSrc": "/images/brightpeak-energy-logo-v2.png",
+  "logoAlt": "",
+  "logoSrc": "",
   "logoPosition": "navbar",
   "utilityLinks": [
     {

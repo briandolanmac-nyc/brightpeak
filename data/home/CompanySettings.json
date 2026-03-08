@@ -1,5 +1,9 @@
 {
   "companyName": "BrightPeak Energy",
+  "logoSrc": "/images/brightpeak-energy-logo-v2.png",
+  "logoAlt": "BrightPeak Energy",
+  "siteUrl": "https://www.brightpeak-energy.com",
+  "copyright": "© 2025 BrightPeak Energy. All rights reserved.",
   "phone": {
     "icon": "📞",
     "label": "+353 1 207 0006",

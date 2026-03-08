@@ -88,6 +88,7 @@ export function syncCustomPageSections(files: FileData[]): FileData[] {
 
   const existingCustomKeys = Object.keys(sections).filter((k) => k.startsWith("custom_"));
   let changed = false;
+  let customPagesChanged = false;
 
   const newSections = { ...sections };
   const newOrder = [...order];
@@ -112,13 +113,29 @@ export function syncCustomPageSections(files: FileData[]): FileData[] {
     }
   }
 
+  const updatedPages = pages.map((page) => {
+    if (page.placement !== "homepage" || !page.slug) return page;
+    const key = `custom_${page.slug}`;
+    const sectionEnabled = newSections[key] !== false;
+    if (page.enabled !== sectionEnabled) {
+      customPagesChanged = true;
+      return { ...page, enabled: sectionEnabled };
+    }
+    return page;
+  });
+
   const oldTitles = homePageFile.data._customTitles as Record<string, string> | undefined;
   const titlesChanged = JSON.stringify(oldTitles || {}) !== JSON.stringify(titleMap);
 
-  if (!changed && !titlesChanged) return files;
+  if (!changed && !titlesChanged && !customPagesChanged) return files;
 
   return files.map((f) => {
-    if (f.file !== "HomePage.json") return f;
-    return { ...f, data: { ...f.data, sections: newSections, order: newOrder, _customTitles: titleMap } };
+    if (f.file === "HomePage.json") {
+      return { ...f, data: { ...f.data, sections: newSections, order: newOrder, _customTitles: titleMap } };
+    }
+    if (f.file === "pages/CustomPages.json" && customPagesChanged) {
+      return { ...f, data: { ...f.data, pages: updatedPages } };
+    }
+    return f;
   });
 }

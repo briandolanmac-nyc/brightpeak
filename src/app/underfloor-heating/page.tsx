@@ -36,7 +36,7 @@ export default function UnderfloorHeatingPage() {
               />
             )}
             {(intro.paragraphs || []).map((p: string, i: number) => (
-              <div key={i} className="text-gray-600 leading-relaxed text-base rich-html" style={{ marginBottom: "1.25rem" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(p || "") }} />
+              <div key={i} className="leading-relaxed text-base rich-html" style={{ color: "var(--text-secondary)", marginBottom: "1.25rem" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(p || "") }} />
             ))}
           </div>
         </div>
@@ -81,7 +81,7 @@ export default function UnderfloorHeatingPage() {
                 />
               )}
               {(variotherm.paragraphs || []).map((p: string, i: number) => (
-                <div key={i} className="text-gray-600 leading-relaxed text-base rich-html" style={{ marginBottom: "1.25rem" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(p || "") }} />
+                <div key={i} className="leading-relaxed text-base rich-html" style={{ color: "var(--text-secondary)", marginBottom: "1.25rem" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(p || "") }} />
               ))}
             </div>
           </div>
@@ -103,7 +103,7 @@ export default function UnderfloorHeatingPage() {
               >
                 <div className="text-3xl mb-3">{item.icon}</div>
                 <h3 className="font-bold text-lg mb-2" style={{ color: "var(--text-primary)" }}>{item.title}</h3>
-                <div className="text-gray-600 text-sm leading-relaxed rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
+                <div className="text-sm leading-relaxed rich-html" style={{ color: "var(--text-secondary)" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
               </div>
             ))}
           </div>
@@ -119,7 +119,7 @@ export default function UnderfloorHeatingPage() {
             </div>
             <div className="max-w-4xl mx-auto" style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
               {(servicing.paragraphs || []).map((p: string, i: number) => (
-                <div key={i} className="text-gray-600 leading-relaxed text-base rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(p || "") }} />
+                <div key={i} className="leading-relaxed text-base rich-html" style={{ color: "var(--text-secondary)" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(p || "") }} />
               ))}
             </div>
           </div>

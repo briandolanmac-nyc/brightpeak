@@ -30,7 +30,7 @@ export default function AboutPage() {
                 {aboutData.story.title}
               </h2>
               {aboutData.story.paragraphs.map((p: string, i: number) => (
-                <div key={i} className={`text-gray-600 leading-relaxed rich-html ${i < aboutData.story.paragraphs.length - 1 ? "mb-4" : ""}`} dangerouslySetInnerHTML={{ __html: sanitizeHtml(p || "") }} />
+                <div key={i} className={`leading-relaxed rich-html ${i < aboutData.story.paragraphs.length - 1 ? "mb-4" : ""}`} style={{ color: "var(--text-secondary)" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(p || "") }} />
               ))}
             </div>
             <div className="relative">
@@ -62,7 +62,7 @@ export default function AboutPage() {
               >
                 <div className="text-4xl mb-4">{item.icon}</div>
                 <h3 className="text-xl font-bold mb-3">{item.title}</h3>
-                <div className="text-gray-600 rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
+                <div className="rich-html" style={{ color: "var(--text-secondary)" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
               </div>
             ))}
           </div>

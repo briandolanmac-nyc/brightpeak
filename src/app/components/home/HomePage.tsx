@@ -32,7 +32,7 @@ const HomePage = ({ allData }: Props) => {
 
   const customPages = (allData.customPages || []) as CustomPage[];
   const homepageSections = customPages.filter(
-    (p) => p.enabled && p.placement === "homepage"
+    (p) => p.placement === "homepage" && p.slug
   );
 
   const customSectionMap: Record<string, React.ReactNode> = {};

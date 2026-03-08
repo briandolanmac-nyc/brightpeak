@@ -95,12 +95,17 @@ export default function AdminSidebar() {
         const newData = setNestedValue(f.data, fieldPath, value);
         return { ...f, data: newData as Record<string, unknown> };
       });
-      if (filePath === "pages/CustomPages.json") {
-        const before = prev.find((f) => f.file === "HomePage.json");
+      if (filePath === "pages/CustomPages.json" || filePath === "HomePage.json") {
+        const beforeHome = prev.find((f) => f.file === "HomePage.json");
+        const beforeCustom = prev.find((f) => f.file === "pages/CustomPages.json");
         updated = syncCustomPageSections(updated);
-        const after = updated.find((f) => f.file === "HomePage.json");
-        if (before && after && before !== after) {
+        const afterHome = updated.find((f) => f.file === "HomePage.json");
+        const afterCustom = updated.find((f) => f.file === "pages/CustomPages.json");
+        if (beforeHome && afterHome && beforeHome !== afterHome) {
           setTimeout(() => setModified((p) => new Set([...p, "HomePage.json"])), 0);
+        }
+        if (beforeCustom && afterCustom && beforeCustom !== afterCustom) {
+          setTimeout(() => setModified((p) => new Set([...p, "pages/CustomPages.json"])), 0);
         }
       }
       return updated;

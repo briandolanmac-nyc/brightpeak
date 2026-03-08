@@ -35,6 +35,25 @@
         "title": "",
         "cards": []
       }
+    },
+    {
+      "enabled": false,
+      "slug": "special-offer",
+      "type": "image",
+      "placement": "homepage",
+      "iframeUrl": "",
+      "imageUrl": "/images/special-offer.png",
+      "hero": {
+        "eyebrow": "",
+        "title": "Special Offer",
+        "subtitle": "",
+        "bannerImage": ""
+      },
+      "content": {
+        "eyebrow": "",
+        "title": "",
+        "cards": []
+      }
     }
   ]
 }

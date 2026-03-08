@@ -76,7 +76,7 @@ export default function ContactForm({ title, fields, serviceSelect, messageField
         >
           <div className="text-4xl mb-4">✓</div>
           <h3 className="text-2xl font-bold mb-2" style={{ color: "var(--brand-primary)" }}>Thank You!</h3>
-          <p className="text-gray-600 mb-6">
+          <p className="mb-6" style={{ color: "var(--text-secondary)" }}>
             Your message has been sent successfully. We&apos;ll get back to you as soon as possible.
           </p>
           <button
@@ -101,7 +101,7 @@ export default function ContactForm({ title, fields, serviceSelect, messageField
               <input
                 name={field.name}
                 type={field.type}
-                className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus-ring-brand"
                 style={{ borderColor: "var(--gray-300)", background: "var(--bg-primary)" }}
                 placeholder={field.placeholder}
                 required={field.name === "firstName" || field.name === "email"}
@@ -115,7 +115,7 @@ export default function ContactForm({ title, fields, serviceSelect, messageField
             <input
               name={field.name}
               type={field.type}
-              className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus-ring-brand"
               style={{ borderColor: "var(--gray-300)", background: "var(--bg-primary)" }}
               placeholder={field.placeholder}
               required={field.name === "email"}
@@ -126,7 +126,7 @@ export default function ContactForm({ title, fields, serviceSelect, messageField
           <label className="block text-sm font-semibold mb-2">{serviceSelect.label}</label>
           <select
             name="service"
-            className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus-ring-brand"
             style={{ borderColor: "var(--gray-300)", background: "var(--bg-primary)" }}
           >
             <option value="">{serviceSelect.placeholder}</option>
@@ -140,7 +140,7 @@ export default function ContactForm({ title, fields, serviceSelect, messageField
           <textarea
             name="message"
             rows={5}
-            className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus-ring-brand"
             style={{ borderColor: "var(--gray-300)", background: "var(--bg-primary)" }}
             placeholder={messageField.placeholder}
             required

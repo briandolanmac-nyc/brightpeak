@@ -48,11 +48,11 @@ function getVideoInfo(url: string): { type: "iframe" | "native" | "link"; src: s
   return null;
 }
 
-function VideoCard({ item }: { item: VideoItem }) {
+function VideoCard({ item, defaultThumbnail }: { item: VideoItem; defaultThumbnail?: string }) {
   const [playing, setPlaying] = useState(false);
   const videoInfo = item.url ? getVideoInfo(item.url) : null;
   const hasImage = item.image && item.image.trim() !== "";
-  const thumbSrc = hasImage ? item.image : (getYouTubeThumbnail(item.url) || "/images/news/news-default-banner.webp");
+  const thumbSrc = hasImage ? item.image : (getYouTubeThumbnail(item.url) || defaultThumbnail);
 
   const handlePlay = () => {
     if (!videoInfo) return;
@@ -266,6 +266,7 @@ const NewsVideosSection = ({ data }: { data: Record<string, unknown> }) => {
 
   const newsItems: NewsItem[] = nvData.newsItems || [];
   const videoItems: VideoItem[] = nvData.videoItems || [];
+  const defaultThumbnail: string = nvData.defaultThumbnail || "";
 
   if (newsItems.length === 0 && videoItems.length === 0) return null;
 
@@ -287,7 +288,7 @@ const NewsVideosSection = ({ data }: { data: Record<string, unknown> }) => {
         {videoItems.length > 0 && (
           <NvCarousel label="Videos" itemCount={videoItems.length}>
             {videoItems.map((item, i) => (
-              <VideoCard key={`video-${i}`} item={item} />
+              <VideoCard key={`video-${i}`} item={item} defaultThumbnail={defaultThumbnail} />
             ))}
           </NvCarousel>
         )}

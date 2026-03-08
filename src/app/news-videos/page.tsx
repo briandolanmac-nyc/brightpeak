@@ -18,7 +18,7 @@ function loadNewsVideosData(): any {
     const content = fs.readFileSync(filePath, "utf-8");
     return JSON.parse(content);
   } catch {
-    return { sectionTitle: "News & Videos", newsItems: [], videoItems: [] };
+    return { sectionTitle: "News & Videos", newsItems: [], videoItems: [], defaultThumbnail: "" };
   }
 }
 
@@ -53,7 +53,7 @@ export default function NewsVideosPage() {
               {videoItems.length > 0 && (
                 <NewsVideosScrollRow label="Videos" itemCount={videoItems.length}>
                   {videoItems.map((item: any, i: number) => (
-                    <VideoPageCard key={`video-${i}`} item={item} />
+                    <VideoPageCard key={`video-${i}`} item={item} defaultThumbnail={nvData.defaultThumbnail} />
                   ))}
                 </NewsVideosScrollRow>
               )}

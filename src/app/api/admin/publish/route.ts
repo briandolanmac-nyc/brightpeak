@@ -5,7 +5,7 @@ import crypto from "crypto";
 
 export const dynamic = "force-dynamic";
 
-const REPO = "briandolanmac-nyc/brightpeak";
+const REPO = process.env.GITHUB_REPO || "";
 const API = `https://api.github.com/repos/${REPO}`;
 const DATA_BASE = path.join(process.cwd(), "data");
 const IMAGES_BASE = path.join(process.cwd(), "public", "images");
@@ -93,6 +93,9 @@ export async function POST(request: NextRequest) {
   const token = process.env.GITHUB_PERSONAL_ACCESS_TOKEN;
   if (!token) {
     return NextResponse.json({ error: "GitHub token not configured" }, { status: 500 });
+  }
+  if (!REPO) {
+    return NextResponse.json({ error: "GITHUB_REPO environment variable not configured" }, { status: 500 });
   }
 
   try {

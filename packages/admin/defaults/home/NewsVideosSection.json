@@ -1,5 +1,6 @@
 {
   "enabled": true,
+  "defaultThumbnail": "/images/news/news-default-banner.webp",
   "sectionTitle": "News & Videos",
   "eyebrow": "Latest Updates",
   "title": "News & Videos",

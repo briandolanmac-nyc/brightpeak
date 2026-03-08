@@ -11,6 +11,35 @@ interface StructuredDataProps {
   serviceDescription?: string;
 }
 
+const DAY_MAP: Record<string, string> = {
+  Mo: "Monday", Tu: "Tuesday", We: "Wednesday", Th: "Thursday",
+  Fr: "Friday", Sa: "Saturday", Su: "Sunday",
+};
+
+function parseOpeningHours(specs: string[] | undefined) {
+  if (!specs || specs.length === 0) return undefined;
+  return specs.map((spec) => {
+    const match = spec.match(/^([A-Za-z,-]+)\s+(\d{2}:\d{2})-(\d{2}:\d{2})$/);
+    if (!match) return { "@type": "OpeningHoursSpecification" as const };
+    const [, daysPart, opens, closes] = match;
+    const days: string[] = [];
+    daysPart.split(",").forEach((segment) => {
+      if (segment.includes("-")) {
+        const [start, end] = segment.split("-");
+        const abbrevs = Object.keys(DAY_MAP);
+        const si = abbrevs.indexOf(start);
+        const ei = abbrevs.indexOf(end);
+        if (si >= 0 && ei >= 0) {
+          for (let i = si; i <= ei; i++) days.push(DAY_MAP[abbrevs[i]]);
+        }
+      } else if (DAY_MAP[segment]) {
+        days.push(DAY_MAP[segment]);
+      }
+    });
+    return { "@type": "OpeningHoursSpecification" as const, dayOfWeek: days, opens, closes };
+  });
+}
+
 export default function StructuredData({
   pageType = "default",
   pagePath = "/",
@@ -47,12 +76,7 @@ export default function StructuredData({
       latitude: biz.geo.latitude,
       longitude: biz.geo.longitude,
     },
-    openingHoursSpecification: {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      opens: "09:00",
-      closes: "16:00",
-    },
+    openingHoursSpecification: parseOpeningHours(biz.openingHours),
     priceRange: biz.priceRange,
     areaServed: {
       "@type": "Country",
@@ -71,11 +95,6 @@ export default function StructuredData({
       "@type": "WebSite",
       name: seoData.siteName,
       url: seoData.siteUrl,
-      potentialAction: {
-        "@type": "SearchAction",
-        target: `${seoData.siteUrl}/search?q={search_term_string}`,
-        "query-input": "required name=search_term_string",
-      },
     });
   }
 

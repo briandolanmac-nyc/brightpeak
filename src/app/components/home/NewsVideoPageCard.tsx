@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { sanitizeHtml } from "../../lib/sanitize";
 
 interface NewsVideoPageItem {
@@ -41,11 +41,11 @@ function getVideoInfo(url: string): { type: "iframe" | "native" | "link"; src: s
   return null;
 }
 
-export function VideoPageCard({ item }: { item: NewsVideoPageItem }) {
+export function VideoPageCard({ item, defaultThumbnail }: { item: NewsVideoPageItem; defaultThumbnail?: string }) {
   const [playing, setPlaying] = useState(false);
   const videoInfo = item.url ? getVideoInfo(item.url) : null;
   const hasImage = item.image && item.image.trim() !== "";
-  const thumbSrc = hasImage ? item.image : (getYouTubeThumbnail(item.url) || "/images/news/news-default-banner.webp");
+  const thumbSrc = hasImage ? item.image : (getYouTubeThumbnail(item.url) || defaultThumbnail);
 
   const handlePlay = () => {
     if (!videoInfo) return;
@@ -104,20 +104,8 @@ export function VideoPageCard({ item }: { item: NewsVideoPageItem }) {
 }
 
 export function NewsPageCard({ item }: { item: NewsVideoPageItem }) {
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [isTruncated, setIsTruncated] = useState(false);
   const [expanded, setExpanded] = useState(false);
-
-  useEffect(() => {
-    const el = contentRef.current;
-    if (!el) return;
-    const check = () => {
-      setIsTruncated(el.scrollHeight > el.clientHeight + 2);
-    };
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, [item.content, item.summary]);
+  const hasContent = item.content && item.content.trim().length > 0;
 
   return (
     <div className="nv-page-card">
@@ -130,12 +118,12 @@ export function NewsPageCard({ item }: { item: NewsVideoPageItem }) {
           {item.title}
         </h2>
         {item.summary && (
-          <div className="nv-rich-content" style={{ color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: item.content ? "0.5rem" : "1rem", fontStyle: "italic" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.summary) }} />
+          <div className="nv-rich-content" style={{ color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: hasContent ? "0.5rem" : "1rem", fontStyle: "italic" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.summary) }} />
         )}
-        {item.content && (
-          <div ref={contentRef} className={`nv-card-content${expanded ? " nv-card-content-expanded" : ""}`} style={{ color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "1rem" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.content) }} />
+        {hasContent && (
+          <div className={`nv-card-content${expanded ? " nv-card-content-expanded" : ""}`} style={{ color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "1rem" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.content!) }} />
         )}
-        {(isTruncated || expanded) && (
+        {hasContent && (
           <span
             className="nv-read-more"
             onClick={() => setExpanded(!expanded)}

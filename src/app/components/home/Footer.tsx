@@ -38,7 +38,7 @@ const Footer = ({ data, siteSettings, companySettings, heroCta }: FooterProps) =
     {footerData.founder?.enabled && (
     <div className="container footer-top-row">
       <div className="footer-founder">
-        <img src={footerData.founder.imageSrc || "/images/about/perry-williams.webp"} alt={footerData.founder.label || "Founder"} className="footer-founder-img" />
+        <img src={footerData.founder.imageSrc} alt={footerData.founder.label || "Founder"} className="footer-founder-img" />
         <span className="footer-founder-label">{footerData.founder.label || "Founder"}</span>
       </div>
     </div>
@@ -46,7 +46,7 @@ const Footer = ({ data, siteSettings, companySettings, heroCta }: FooterProps) =
     <div className="container footer-grid">
       <div className="footer-brand">
         <a href="/" className="footer-logo">
-          <img src={footerData.logoSrc} alt={footerData.logoAlt} />
+          <img src={company.logoSrc || footerData.logoSrc} alt={company.logoAlt || footerData.logoAlt || company.companyName || ""} />
         </a>
         <p className="footer-tagline">{footerData.tagline}</p>
         <p className="footer-badges">{footerData.badges.primary}</p>
@@ -109,7 +109,7 @@ const Footer = ({ data, siteSettings, companySettings, heroCta }: FooterProps) =
       </div>
     </div>
     <div className="footer-bottom container">
-      <p>{footerData.bottom.copyright}</p>
+      <p>{company.copyright || footerData.bottom.copyright}</p>
       <div>
         {footerData.bottom.links.map((link: any) => (
           <a key={link.href} href={link.href}>

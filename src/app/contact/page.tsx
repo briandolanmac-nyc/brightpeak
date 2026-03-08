@@ -51,7 +51,7 @@ export default function ContactPage() {
                             {item.content}
                           </a>
                         ) : (
-                          <p className="text-gray-600">{item.content}</p>
+                          <p style={{ color: "var(--text-secondary)" }}>{item.content}</p>
                         )}
                       </div>
                     </div>
@@ -66,7 +66,7 @@ export default function ContactPage() {
                 <h3 className="font-bold text-lg mb-3">{certifications.title}</h3>
                 <ul className="space-y-2">
                   {certifications.items.map((cert: string) => (
-                    <li key={cert} className="flex items-center gap-2 text-gray-600">
+                    <li key={cert} className="flex items-center gap-2" style={{ color: "var(--text-secondary)" }}>
                       <span className="text-brand">✓</span> {cert}
                     </li>
                   ))}
@@ -78,7 +78,7 @@ export default function ContactPage() {
                 style={{ background: "#e0f2fe" }}
               >
                 <h3 className="font-bold text-lg mb-2">{quickQuote.title}</h3>
-                <div className="text-gray-600 mb-4 rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(quickQuote.description || "") }} />
+                <div className="mb-4 rich-html" style={{ color: "var(--text-secondary)" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(quickQuote.description || "") }} />
                 <a
                   href={getUrlForVariant("primary", siteSettings)}
                   {...externalLinkProps(getUrlForVariant("primary", siteSettings))}

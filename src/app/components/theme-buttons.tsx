@@ -10,11 +10,6 @@ const ThemeButtons = () => {
   const themes = [
     { id: "light", label: "Light", icon: "☀️" },
     { id: "dark", label: "Dark", icon: "🌙" },
-    { id: "solar-green", label: "Solar Panel Green", icon: "🌿" },
-    { id: "sky", label: "Sky Blue", icon: "🌤️" },
-    { id: "june-bud", label: "June Bud", icon: "🌼" },
-    { id: "sunburst", label: "Sunburst Red", icon: "🔥" },
-    { id: "solar", label: "Solar Flare Gold", icon: "🌞" },
   ];
 
   useEffect(() => {

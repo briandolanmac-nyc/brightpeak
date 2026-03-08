@@ -31,7 +31,7 @@ const CustomHomeSection = ({ page }: Props) => {
             <div className="container">
               {page.hero.eyebrow && <p className="page-eyebrow">{page.hero.eyebrow}</p>}
               <h2 className="text-3xl font-extrabold text-center">{page.hero.title}</h2>
-              {page.hero.subtitle && <p className="text-gray-600 text-center mt-2">{page.hero.subtitle}</p>}
+              {page.hero.subtitle && <p className="text-center mt-2" style={{ color: "var(--text-secondary)" }}>{page.hero.subtitle}</p>}
             </div>
           </div>
         )}
@@ -77,7 +77,8 @@ const CustomHomeSection = ({ page }: Props) => {
                     {card.subHeading}
                   </h3>
                   <div
-                    className="text-gray-600 leading-relaxed rich-html"
+                    className="leading-relaxed rich-html"
+                    style={{ color: "var(--text-secondary)" }}
                     dangerouslySetInnerHTML={{
                       __html: sanitizeHtml(card.paragraph || ""),
                     }}

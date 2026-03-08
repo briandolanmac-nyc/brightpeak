@@ -32,7 +32,7 @@ export default function EvChargersPage() {
             <div>
               <div className="mb-5">
                 {section1.subHeading && <h3 className="font-bold text-lg mb-1" style={{ color: "var(--text-primary)" }}>{section1.subHeading}</h3>}
-                <div className="text-gray-600 leading-relaxed rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(section1.paragraph || "") }} />
+                <div className="leading-relaxed rich-html" style={{ color: "var(--text-secondary)" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(section1.paragraph || "") }} />
               </div>
               {section1.image && (
                 <div className="rounded-xl overflow-hidden" style={{ width: "100%", maxWidth: "320px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -56,7 +56,7 @@ export default function EvChargersPage() {
                   <div className="text-2xl md:text-3xl flex-shrink-0">{item.icon}</div>
                   <div className="min-w-0">
                     <h3 className="font-bold text-base md:text-lg mb-1">{item.title}</h3>
-                    <div className="text-gray-600 text-sm rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
+                    <div className="text-sm rich-html" style={{ color: "var(--text-secondary)" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
                   </div>
                 </div>
               ))}
@@ -68,12 +68,12 @@ export default function EvChargersPage() {
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
             <div>
               {section2.subHeading && <h3 className="font-bold text-lg mb-1" style={{ color: "var(--text-primary)" }}>{section2.subHeading}</h3>}
-              <div className="text-gray-600 leading-relaxed rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(section2.paragraph || "") }} />
+              <div className="leading-relaxed rich-html" style={{ color: "var(--text-secondary)" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(section2.paragraph || "") }} />
             </div>
             <div className="flex justify-center">
               <img
-                src="/images/services/zappi-charger.webp"
-                alt="Zappi EV Charger"
+                src={section2.image}
+                alt={section2.imageAlt || "EV Charger"}
                 className="rounded-xl"
                 style={{ maxWidth: "220px", width: "100%" }}
                 loading="lazy"
@@ -87,7 +87,7 @@ export default function EvChargersPage() {
         <div className="container">
           <div className="text-center mb-8 md:mb-12">
             <h2 className="text-2xl md:text-3xl font-extrabold">{business.title}</h2>
-            <p className="text-gray-600 mt-2">{business.subtitle}</p>
+            <p className="mt-2" style={{ color: "var(--text-secondary)" }}>{business.subtitle}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {business.items.map((item: any) => (
@@ -98,7 +98,7 @@ export default function EvChargersPage() {
               >
                 <div className="text-3xl mb-3">{item.icon}</div>
                 <h3 className="font-bold mb-2">{item.title}</h3>
-                <div className="text-gray-600 text-sm rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
+                <div className="text-sm rich-html" style={{ color: "var(--text-secondary)" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
               </div>
             ))}
           </div>

@@ -31,7 +31,7 @@ export default function CommercialSolarPage() {
                 {about.title}
               </h2>
               {about.paragraphs.map((text: string, i: number) => (
-                <div key={i} className={`text-gray-600 leading-relaxed rich-html${i < about.paragraphs.length - 1 ? " mb-4" : ""}`} dangerouslySetInnerHTML={{ __html: sanitizeHtml(text || "") }} />
+                <div key={i} className={`leading-relaxed rich-html${i < about.paragraphs.length - 1 ? " mb-4" : ""}`} style={{ color: "var(--text-secondary)" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(text || "") }} />
               ))}
             </div>
             <div>
@@ -59,7 +59,7 @@ export default function CommercialSolarPage() {
               >
                 <div className="text-3xl mb-3">{item.icon}</div>
                 <h3 className="font-bold mb-2">{item.title}</h3>
-                <div className="text-gray-600 text-sm rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
+                <div className="text-sm rich-html" style={{ color: "var(--text-secondary)" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
               </div>
             ))}
           </div>
@@ -70,7 +70,7 @@ export default function CommercialSolarPage() {
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-extrabold">{trusted.title}</h2>
-            <p className="text-gray-600 mt-2">{trusted.subtitle}</p>
+            <p className="mt-2" style={{ color: "var(--text-secondary)" }}>{trusted.subtitle}</p>
           </div>
           <div className="grid grid-cols-3 md:grid-cols-6 gap-6 items-center opacity-60">
             {trusted.logos.map((src: string) => (

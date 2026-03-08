@@ -10,8 +10,8 @@ const FinalCtaSection = ({ data, siteSettings, heroCta }: { data: Record<string,
     <section className="final-cta" id="contact-section">
     {logo?.enabled !== false && (
     <div className="final-cta-portrait">
-      <img src={logo?.image || "/images/brightpeak-energy-logo-v2.png"} alt={logo?.alt || "BrightPeak Energy"} />
-      <span className="portrait-name">{logo?.name || "BrightPeak Energy"}</span>
+      <img src={logo?.image} alt={logo?.alt || ""} />
+      <span className="portrait-name">{logo?.name || ""}</span>
       <span className="portrait-role">{logo?.role || ""}</span>
     </div>
     )}

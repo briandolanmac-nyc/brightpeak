@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Admin - BrightPeak Energy",
+  title: "Site Admin",
   robots: "noindex, nofollow",
 };
 

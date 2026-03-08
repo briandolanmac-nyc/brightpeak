@@ -34,7 +34,7 @@ export default function FundingOptionsPage() {
               >
                 <div className="text-3xl mb-4">{item.icon}</div>
                 <h3 className="font-bold text-xl mb-3">{item.title}</h3>
-                <div className="text-gray-600 leading-relaxed rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
+                <div className="leading-relaxed rich-html" style={{ color: "var(--text-secondary)" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
               </div>
             ))}
           </div>
@@ -49,7 +49,7 @@ export default function FundingOptionsPage() {
                 {helpSection.title}
               </h2>
               {helpSection.paragraphs.map((paragraph: string, i: number) => (
-                <div key={i} className="text-gray-600 mb-4 leading-relaxed rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(paragraph || "") }} />
+                <div key={i} className="mb-4 leading-relaxed rich-html" style={{ color: "var(--text-secondary)" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(paragraph || "") }} />
               ))}
               <a
                 href={getUrlForVariant(helpSection.button?.variant || "secondary", siteSettings)}
@@ -67,7 +67,7 @@ export default function FundingOptionsPage() {
                   style={{ background: "var(--bg-primary)", boxShadow: "var(--shadow-sm)" }}
                 >
                   <div className="text-2xl font-extrabold mb-1 text-brand">{stat.value}</div>
-                  <div className="text-sm text-gray-600">{stat.label}</div>
+                  <div className="text-sm" style={{ color: "var(--text-secondary)" }}>{stat.label}</div>
                 </div>
               ))}
             </div>

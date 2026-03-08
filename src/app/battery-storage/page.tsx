@@ -33,7 +33,7 @@ export default function BatteryStoragePage() {
               {about.contentBlocks.map((block: any, i: number) => (
                 <div key={i} className="mb-5">
                   <h3 className="font-bold text-lg mb-1" style={{ color: "var(--text-primary)" }}>{block.subHeading}</h3>
-                  <div className="text-gray-600 leading-relaxed rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(block.paragraph || "") }} />
+                  <div className="leading-relaxed rich-html" style={{ color: "var(--text-secondary)" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(block.paragraph || "") }} />
                 </div>
               ))}
             </div>
@@ -63,7 +63,7 @@ export default function BatteryStoragePage() {
               >
                 <div className="text-3xl mb-3">{item.icon}</div>
                 <h3 className="font-bold mb-2">{item.title}</h3>
-                <div className="text-gray-600 text-sm rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
+                <div className="text-sm rich-html" style={{ color: "var(--text-secondary)" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
               </div>
             ))}
           </div>

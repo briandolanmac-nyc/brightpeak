@@ -31,7 +31,7 @@ export default function GrantsPage() {
                 {details.title}
               </h2>
               {details.paragraphs.map((text: string, i: number) => (
-                <div key={i} className={`text-gray-600 leading-relaxed rich-html${i < details.paragraphs.length - 1 ? " mb-4" : ""}`} dangerouslySetInnerHTML={{ __html: sanitizeHtml(text || "") }} />
+                <div key={i} className={`leading-relaxed rich-html${i < details.paragraphs.length - 1 ? " mb-4" : ""}`} style={{ color: "var(--text-secondary)" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(text || "") }} />
               ))}
             </div>
             <div className="space-y-6">
@@ -44,7 +44,7 @@ export default function GrantsPage() {
                   <div className="text-3xl">{item.icon}</div>
                   <div>
                     <h3 className="font-bold text-lg mb-1">{item.title}</h3>
-                    <div className="text-gray-600 text-sm rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
+                    <div className="text-sm rich-html" style={{ color: "var(--text-secondary)" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
                   </div>
                 </div>
               ))}
@@ -70,7 +70,7 @@ export default function GrantsPage() {
               >
                 <div className="text-3xl mb-3">{item.icon}</div>
                 <h3 className="font-bold mb-2">{item.title}</h3>
-                <div className="text-gray-600 text-sm rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
+                <div className="text-sm rich-html" style={{ color: "var(--text-secondary)" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
               </div>
             ))}
           </div>
@@ -92,7 +92,7 @@ export default function GrantsPage() {
                   {item.step}
                 </div>
                 <h3 className="font-bold mb-2">{item.title}</h3>
-                <div className="text-gray-600 text-sm rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
+                <div className="text-sm rich-html" style={{ color: "var(--text-secondary)" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
               </div>
             ))}
           </div>

@@ -93,6 +93,8 @@ const Navigation = ({ data, headerSettings: headerSettingsProp, siteSettings, co
   const headerSettings = headerSettingsProp as any || {};
   if (!navData || !navData.enabled) return null;
 
+  const logoSrc = company.logoSrc || navData.logoSrc;
+  const logoAlt = company.logoAlt || navData.logoAlt || company.companyName || "";
   const logoPosition = (navData.logoPosition || "navbar").toLowerCase() === "header" ? "header" : "navbar";
   const hideOnMobile = headerSettings.hideOnMobile;
   const hideOnDesktop = headerSettings.hideOnDesktop;
@@ -116,7 +118,7 @@ const Navigation = ({ data, headerSettings: headerSettingsProp, siteSettings, co
       <div className="container nav-utility-inner">
         {logoPosition === "header" && (
           <a href="/" className="nav-logo nav-logo-header">
-            <img src={navData.logoSrc} alt={navData.logoAlt} />
+            <img src={logoSrc} alt={logoAlt} />
           </a>
         )}
         <div className="nav-contact">
@@ -160,7 +162,7 @@ const Navigation = ({ data, headerSettings: headerSettingsProp, siteSettings, co
       <div className="container nav-main-inner">
         {logoPosition === "navbar" && (
           <a href="/" className="nav-logo">
-            <img src={navData.logoSrc} alt={navData.logoAlt} />
+            <img src={logoSrc} alt={logoAlt} />
           </a>
         )}
         <div className="nav-desktop">
@@ -206,7 +208,7 @@ const Navigation = ({ data, headerSettings: headerSettingsProp, siteSettings, co
     <div className="nav-mobile" data-mobile-menu hidden>
       <div className="nav-mobile-header">
         <a href="/" className="nav-mobile-logo">
-          <img src={navData.logoSrc} alt={navData.logoAlt} />
+          <img src={logoSrc} alt={logoAlt} />
         </a>
         <button type="button" aria-label={navData.mobile.closeMenuLabel} data-mobile-close>
           {navData.mobile.closeLabel}

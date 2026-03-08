@@ -33,7 +33,7 @@ export default function SolarPanelsPage() {
               <div key={i} className="solar-info-card">
                 <div className="solar-info-card-text">
                   <h3 className="font-bold text-xl mb-2" style={{ color: "var(--text-primary)" }}>{card.subHeading}</h3>
-                  <div className="text-gray-600 leading-relaxed rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(card.paragraph || "") }} />
+                  <div className="leading-relaxed rich-html" style={{ color: "var(--text-secondary)" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(card.paragraph || "") }} />
                 </div>
                 {card.image && (
                   <div className="solar-info-card-image">
@@ -78,7 +78,7 @@ export default function SolarPanelsPage() {
                   {item.step}
                 </div>
                 <h3 className="font-bold mb-2">{item.title}</h3>
-                <div className="text-gray-600 text-sm rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
+                <div className="text-sm rich-html" style={{ color: "var(--text-secondary)" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
               </div>
             ))}
           </div>
@@ -99,7 +99,7 @@ export default function SolarPanelsPage() {
               >
                 <div className="text-3xl mb-3">{item.icon}</div>
                 <h3 className="font-bold mb-2">{item.title}</h3>
-                <div className="text-gray-600 text-sm rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
+                <div className="text-sm rich-html" style={{ color: "var(--text-secondary)" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
               </div>
             ))}
           </div>

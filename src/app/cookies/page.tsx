@@ -25,7 +25,7 @@ export default function CookiesPage() {
             {sections.map((section: any, i: number) => (
               <div key={i}>
                 <h2 className="text-2xl font-extrabold mb-4">{section.title}</h2>
-                <div className="text-gray-600 leading-relaxed mb-4 rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(section.body || "") + (section.contactEmail ? ` <a href="mailto:${section.contactEmail}">${section.contactEmail}</a> or call <a href="tel:${section.contactPhone?.replace(/\s/g, "")}">${section.contactPhone}</a>.` : "") }} />
+                <div className="leading-relaxed mb-4 rich-html" style={{ color: "var(--text-secondary)" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(section.body || "") + (section.contactEmail ? ` <a href="mailto:${section.contactEmail}">${section.contactEmail}</a> or call <a href="tel:${section.contactPhone?.replace(/\s/g, "")}">${section.contactPhone}</a>.` : "") }} />
                 {section.cookieTypes && (
                   <div className="space-y-4">
                     {section.cookieTypes.map((cookie: any) => (
@@ -45,14 +45,14 @@ export default function CookiesPage() {
                             </span>
                           )}
                         </div>
-                        <div className="text-gray-600 text-sm leading-relaxed rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(cookie.desc || "") }} />
+                        <div className="text-sm leading-relaxed rich-html" style={{ color: "var(--text-secondary)" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(cookie.desc || "") }} />
                       </div>
                     ))}
                   </div>
                 )}
                 {section.bullets && (
                   <>
-                    <ul className="space-y-2 text-gray-600">
+                    <ul className="space-y-2" style={{ color: "var(--text-secondary)" }}>
                       {section.bullets.map((bullet: string, j: number) => (
                         <li key={j} className="flex items-start gap-2">
                           <span className="text-brand mt-1">•</span> {bullet}
@@ -60,7 +60,7 @@ export default function CookiesPage() {
                       ))}
                     </ul>
                     {section.afterBullets && (
-                      <p className="text-gray-600 leading-relaxed mt-3">
+                      <p className="leading-relaxed mt-3" style={{ color: "var(--text-secondary)" }}>
                         {section.afterBullets}
                       </p>
                     )}
@@ -73,7 +73,7 @@ export default function CookiesPage() {
               className="p-6 rounded-xl mt-8"
               style={{ background: "var(--bg-secondary)" }}
             >
-              <p className="text-sm text-gray-500">
+              <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
                 {lastUpdated}
               </p>
             </div>

@@ -127,7 +127,8 @@ export default async function CustomPageRoute({
                     {card.subHeading}
                   </h3>
                   <div
-                    className="text-gray-600 leading-relaxed rich-html"
+                    className="leading-relaxed rich-html"
+                    style={{ color: "var(--text-secondary)" }}
                     dangerouslySetInnerHTML={{
                       __html: sanitizeHtml(card.paragraph || ""),
                     }}

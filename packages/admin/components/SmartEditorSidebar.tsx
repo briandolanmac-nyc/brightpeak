@@ -682,6 +682,7 @@ export function SmartEditorSidebar({
       <div className="sb-object">
         {entries.map(([key, value]) => {
           if (key === "image" && hasImagesArray) return null;
+          if (key === "enabled" && obj.placement === "homepage") return null;
           if (key === "iframeUrl" && obj.type !== "iframe") return null;
           if (key === "imageUrl" && obj.type !== "image") return null;
           if (key === "content" && obj.type === "image") return null;
