@@ -41,7 +41,7 @@ function getVideoInfo(url: string): { type: "iframe" | "native" | "link"; src: s
   return null;
 }
 
-export function VideoPageCard({ item, defaultThumbnail }: { item: NewsVideoPageItem; defaultThumbnail?: string }) {
+export function VideoPageCard({ item, defaultThumbnail, collapseKey: _ck }: { item: NewsVideoPageItem; defaultThumbnail?: string; collapseKey?: number }) {
   const [playing, setPlaying] = useState(false);
   const videoInfo = item.url ? getVideoInfo(item.url) : null;
   const hasImage = item.image && item.image.trim() !== "";
@@ -103,10 +103,14 @@ export function VideoPageCard({ item, defaultThumbnail }: { item: NewsVideoPageI
   );
 }
 
-export function NewsPageCard({ item }: { item: NewsVideoPageItem }) {
+export function NewsPageCard({ item, collapseKey = 0 }: { item: NewsVideoPageItem; collapseKey?: number }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [expanded, setExpanded] = useState(false);
   const hasContent = item.content && item.content.trim().length > 0;
+
+  useEffect(() => {
+    if (collapseKey > 0) setExpanded(false);
+  }, [collapseKey]);
 
   useEffect(() => {
     if (!expanded) return;
