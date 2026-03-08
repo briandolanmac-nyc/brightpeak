@@ -104,11 +104,23 @@ function VideoCard({ item, defaultThumbnail }: { item: VideoItem; defaultThumbna
 }
 
 function NewsCard({ item }: { item: NewsItem }) {
+  const cardRef = useRef<HTMLDivElement>(null);
   const [expanded, setExpanded] = useState(false);
   const hasContent = item.content && item.content.trim().length > 0;
 
+  useEffect(() => {
+    if (!expanded) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (cardRef.current && !cardRef.current.contains(e.target as Node)) {
+        setExpanded(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside, true);
+    return () => document.removeEventListener("click", handleClickOutside, true);
+  }, [expanded]);
+
   return (
-    <div className="nv-card">
+    <div ref={cardRef} className="nv-card">
       <div className="nv-card-news-bar">
         <span className="nv-badge nv-badge-news">📰 News</span>
       </div>
