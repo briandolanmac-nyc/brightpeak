@@ -103,7 +103,7 @@ function VideoCard({ item, defaultThumbnail, collapseKey: _ck }: { item: VideoIt
   );
 }
 
-function NewsCard({ item, collapseKey }: { item: NewsItem; collapseKey: number }) {
+function NewsCard({ item, collapseKey = 0 }: { item: NewsItem; collapseKey?: number }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [expanded, setExpanded] = useState(false);
   const hasContent = item.content && item.content.trim().length > 0;
