@@ -14,7 +14,7 @@ interface Submission {
   read: boolean;
 }
 
-export function SubmissionsViewer({ getHeaders }: { getHeaders: () => Record<string, string> }) {
+export function SubmissionsViewer({ getHeaders }: { getHeaders: (pw?: string) => Record<string, string> }) {
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
