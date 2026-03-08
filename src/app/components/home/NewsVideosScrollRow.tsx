@@ -1,8 +1,9 @@
 "use client";
-import { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 
 export default function NewsVideosScrollRow({ children, label, itemCount }: { children: React.ReactNode; label: string; itemCount: number }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [collapseKey, setCollapseKey] = useState(0);
   const [visibleCount, setVisibleCount] = useState(2);
   const touchStartX = useRef(0);
   const touchDeltaX = useRef(0);
@@ -28,6 +29,7 @@ export default function NewsVideosScrollRow({ children, label, itemCount }: { ch
 
   const goTo = useCallback((index: number) => {
     setCurrentIndex(Math.max(0, Math.min(index, maxIndex)));
+    setCollapseKey((k) => k + 1);
   }, [maxIndex]);
 
   const prev = () => goTo(currentIndex - 1);
@@ -86,7 +88,11 @@ export default function NewsVideosScrollRow({ children, label, itemCount }: { ch
             className="nv-track"
             style={{ transform: `translateX(${translateX}%)`, transition: "transform 0.4s ease" }}
           >
-            {children}
+            {React.Children.map(children, (child) =>
+              React.isValidElement(child)
+                ? React.cloneElement(child as React.ReactElement<any>, { collapseKey })
+                : child
+            )}
           </div>
         </div>
 
