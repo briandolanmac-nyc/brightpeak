@@ -235,7 +235,7 @@ function CaseCardItem({ card }: { card: CaseCard }) {
 
 function CaseStudiesCarousel({ cards }: { cards: CaseCard[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [visibleCount, setVisibleCount] = useState(3);
+  const [visibleCount, setVisibleCount] = useState(2);
   const touchStartX = useRef(0);
   const touchDeltaX = useRef(0);
   const isDragging = useRef(false);
@@ -243,8 +243,7 @@ function CaseStudiesCarousel({ cards }: { cards: CaseCard[] }) {
   const updateVisibleCount = useCallback(() => {
     const width = window.innerWidth;
     if (width < 640) setVisibleCount(1);
-    else if (width < 768) setVisibleCount(2);
-    else setVisibleCount(3);
+    else setVisibleCount(2);
   }, []);
 
   useEffect(() => {
@@ -269,9 +268,7 @@ function CaseStudiesCarousel({ cards }: { cards: CaseCard[] }) {
   const gapPercent = 1.5;
   const cardPercent = visibleCount === 1
     ? 100
-    : visibleCount === 2
-      ? (100 - gapPercent) / 2
-      : (100 - gapPercent * 2) / 3;
+    : (100 - gapPercent) / 2;
   const stepPercent = cardPercent + gapPercent;
   const translateX = -(currentIndex * stepPercent);
 
