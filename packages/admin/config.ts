@@ -169,7 +169,6 @@ export const FIELD_LABEL_OVERRIDES: Record<string, string> = {
   "imageUrl": "Image URL",
   "companyName": "Company Name",
   "openingHours": "Opening Hours",
-  "socialLinks": "Social Media Links",
   "line1": "Address Line 1",
   "line2": "Address Line 2",
   "county": "County / Region",
