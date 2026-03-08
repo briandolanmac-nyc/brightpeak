@@ -24,9 +24,9 @@ export function createAdminHandler(dataBaseDir: string) {
 
   function checkAuth(request: NextRequest): boolean {
     if (!isAdminEnabled()) return false;
-    const adminPassword = process.env.ADMIN_PASSWORD;
+    const adminPassword = (process.env.ADMIN_PASSWORD || "").trim();
     if (!adminPassword) return true;
-    const provided = request.headers.get("x-admin-password") || "";
+    const provided = (request.headers.get("x-admin-password") || "").trim();
     return provided === adminPassword;
   }
 
