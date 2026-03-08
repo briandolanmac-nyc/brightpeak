@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { sanitizeHtml } from "../../lib/sanitize";
 
 interface NewsItem {
@@ -48,7 +48,7 @@ function getVideoInfo(url: string): { type: "iframe" | "native" | "link"; src: s
   return null;
 }
 
-function VideoCard({ item, defaultThumbnail }: { item: VideoItem; defaultThumbnail?: string }) {
+function VideoCard({ item, defaultThumbnail, collapseKey: _ck }: { item: VideoItem; defaultThumbnail?: string; collapseKey?: number }) {
   const [playing, setPlaying] = useState(false);
   const videoInfo = item.url ? getVideoInfo(item.url) : null;
   const hasImage = item.image && item.image.trim() !== "";
@@ -103,10 +103,14 @@ function VideoCard({ item, defaultThumbnail }: { item: VideoItem; defaultThumbna
   );
 }
 
-function NewsCard({ item }: { item: NewsItem }) {
+function NewsCard({ item, collapseKey }: { item: NewsItem; collapseKey: number }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [expanded, setExpanded] = useState(false);
   const hasContent = item.content && item.content.trim().length > 0;
+
+  useEffect(() => {
+    if (collapseKey > 0) setExpanded(false);
+  }, [collapseKey]);
 
   useEffect(() => {
     if (!expanded) return;
@@ -150,6 +154,7 @@ function NewsCard({ item }: { item: NewsItem }) {
 function NvCarousel({ children, label, itemCount }: { children: React.ReactNode; label: string; itemCount: number }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(2);
+  const [collapseKey, setCollapseKey] = useState(0);
   const touchStartX = useRef(0);
   const touchDeltaX = useRef(0);
   const isDragging = useRef(false);
@@ -174,6 +179,7 @@ function NvCarousel({ children, label, itemCount }: { children: React.ReactNode;
 
   const goTo = useCallback((index: number) => {
     setCurrentIndex(Math.max(0, Math.min(index, maxIndex)));
+    setCollapseKey((k) => k + 1);
   }, [maxIndex]);
 
   const prev = () => goTo(currentIndex - 1);
@@ -232,7 +238,11 @@ function NvCarousel({ children, label, itemCount }: { children: React.ReactNode;
             className="nv-track"
             style={{ transform: `translateX(${translateX}%)`, transition: "transform 0.4s ease" }}
           >
-            {children}
+            {React.Children.map(children, (child) =>
+              React.isValidElement(child)
+                ? React.cloneElement(child as React.ReactElement<any>, { collapseKey })
+                : child
+            )}
           </div>
         </div>
 
