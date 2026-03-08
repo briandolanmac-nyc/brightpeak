@@ -25,16 +25,17 @@ export default function AdminSidebar() {
   const [publishing, setPublishing] = useState(false);
   const [publishStatus, setPublishStatus] = useState<{ type: "success" | "error"; message: string; url?: string } | null>(null);
 
-  const getHeaders = useCallback(() => {
+  const getHeaders = useCallback((pw?: string) => {
     const headers: Record<string, string> = { "Content-Type": "application/json" };
-    if (passwordInput) headers["x-admin-password"] = passwordInput;
+    const pass = pw ?? passwordInput;
+    if (pass) headers["x-admin-password"] = pass;
     return headers;
   }, [passwordInput]);
 
-  const loadData = useCallback(async () => {
+  const loadData = useCallback(async (pw?: string) => {
     setLoading(true);
     try {
-      const res = await fetch("/api/admin/data", { headers: getHeaders() });
+      const res = await fetch("/api/admin/data", { headers: getHeaders(pw) });
       if (res.status === 401) {
         setAuthenticated(false);
         setAuthError("Invalid password");
@@ -60,6 +61,7 @@ export default function AdminSidebar() {
     if (wasOpen === "true") {
       setOpen(true);
       if (storedFile) setActiveFile(storedFile);
+      if (stored) loadData(stored);
     }
   }, []);
 
@@ -75,17 +77,12 @@ export default function AdminSidebar() {
     sessionStorage.setItem("admin_sidebar_file", activeFile);
   }, [activeFile]);
 
-  useEffect(() => {
-    if (!open) return;
-    if (files.length === 0) {
-      loadData();
-    }
-  }, [open, files.length, loadData]);
-
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    sessionStorage.setItem("admin_password", passwordInput);
-    await loadData();
+    const trimmed = passwordInput.trim();
+    setPasswordInput(trimmed);
+    sessionStorage.setItem("admin_password", trimmed);
+    await loadData(trimmed);
   };
 
   const handleFieldChange = useCallback((filePath: string, fieldPath: string, value: unknown) => {
