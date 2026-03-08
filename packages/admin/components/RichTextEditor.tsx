@@ -94,7 +94,7 @@ export default function RichTextEditor({ value, onChange, variant = "page" }: Ri
     }
     const current = editor.getHTML();
     if (current !== value && !(current === "<p></p>" && !value)) {
-      editor.commands.setContent(value || "", false);
+      editor.commands.setContent(value || "");
     }
   }, [value, editor]);
 
