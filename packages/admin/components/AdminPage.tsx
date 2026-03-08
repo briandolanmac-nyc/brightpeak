@@ -21,16 +21,17 @@ export default function AdminPage() {
   const [publishing, setPublishing] = useState(false);
   const [publishStatus, setPublishStatus] = useState<{ type: "success" | "error"; message: string; url?: string } | null>(null);
 
-  const getHeaders = useCallback(() => {
+  const getHeaders = useCallback((pw?: string) => {
     const headers: Record<string, string> = { "Content-Type": "application/json" };
-    if (passwordInput) headers["x-admin-password"] = passwordInput;
+    const pass = pw ?? passwordInput;
+    if (pass) headers["x-admin-password"] = pass;
     return headers;
   }, [passwordInput]);
 
-  const loadData = useCallback(async () => {
+  const loadData = useCallback(async (pw?: string) => {
     setLoading(true);
     try {
-      const res = await fetch("/api/admin/data", { headers: getHeaders() });
+      const res = await fetch("/api/admin/data", { headers: getHeaders(pw) });
       if (res.status === 401) {
         setAuthenticated(false);
         setAuthError("Invalid password");
@@ -49,12 +50,13 @@ export default function AdminPage() {
 
   useEffect(() => {
     const stored = sessionStorage.getItem("admin_password");
-    if (stored) setPasswordInput(stored);
+    if (stored) {
+      setPasswordInput(stored);
+      loadData(stored);
+    } else {
+      setLoading(false);
+    }
   }, []);
-
-  useEffect(() => {
-    loadData();
-  }, [loadData]);
 
   const handleFieldChange = useCallback((filePath: string, fieldPath: string, value: unknown) => {
     setFiles((prev) => {
@@ -184,8 +186,10 @@ export default function AdminPage() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    sessionStorage.setItem("admin_password", passwordInput);
-    await loadData();
+    const trimmed = passwordInput.trim();
+    setPasswordInput(trimmed);
+    sessionStorage.setItem("admin_password", trimmed);
+    await loadData(trimmed);
   };
 
   if (loading && !authenticated) {
