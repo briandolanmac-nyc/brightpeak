@@ -2281,14 +2281,6 @@ section p {
     flex: 0 0 calc((100% - 1.5%) / 2);
   }
 }
-@media (min-width: 768px) {
-  .case-track .case-card {
-    width: calc((100% - 3%) / 3);
-    min-width: calc((100% - 3%) / 3);
-    max-width: calc((100% - 3%) / 3);
-    flex: 0 0 calc((100% - 3%) / 3);
-  }
-}
 
 .case-card {
   background: var(--bg-primary);
