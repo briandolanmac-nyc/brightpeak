@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { sanitizeHtml } from "../../lib/sanitize";
 
 interface NewsVideoPageItem {
@@ -104,11 +104,23 @@ export function VideoPageCard({ item, defaultThumbnail }: { item: NewsVideoPageI
 }
 
 export function NewsPageCard({ item }: { item: NewsVideoPageItem }) {
+  const cardRef = useRef<HTMLDivElement>(null);
   const [expanded, setExpanded] = useState(false);
   const hasContent = item.content && item.content.trim().length > 0;
 
+  useEffect(() => {
+    if (!expanded) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (cardRef.current && !cardRef.current.contains(e.target as Node)) {
+        setExpanded(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside, true);
+    return () => document.removeEventListener("click", handleClickOutside, true);
+  }, [expanded]);
+
   return (
-    <div className="nv-page-card">
+    <div ref={cardRef} className="nv-page-card">
       <div className="nv-card-news-bar">
         <span className="nv-badge nv-badge-news">📰 News</span>
       </div>
