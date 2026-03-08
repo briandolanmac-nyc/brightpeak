@@ -3869,7 +3869,7 @@ section p {
   text-decoration: underline;
 }
 .nv-card-content {
-  max-height: 6.5em;
+  max-height: 10em;
   overflow: hidden;
   position: relative;
 }
@@ -3880,7 +3880,7 @@ section p {
   left: 0;
   right: 0;
   height: 2em;
-  background: linear-gradient(transparent, var(--bg-primary, #fff));
+  background: linear-gradient(transparent, var(--bg-secondary, #f9fafb));
   pointer-events: none;
 }
 .nv-card-content p {
@@ -3967,7 +3967,8 @@ section p {
   gap: 0.75rem;
 }
 .nv-track-wrapper {
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: visible;
   flex: 1;
   min-width: 0;
 }
