@@ -3993,15 +3993,6 @@ section p {
     flex: 0 0 calc((100% - 1.5%) / 2);
   }
 }
-@media (min-width: 768px) {
-  .nv-track > .nv-card,
-  .nv-track > .nv-page-card {
-    width: calc((100% - 3%) / 3);
-    min-width: calc((100% - 3%) / 3);
-    max-width: calc((100% - 3%) / 3);
-    flex: 0 0 calc((100% - 3%) / 3);
-  }
-}
 
 /* News & Videos page */
 .nv-page-grid {
