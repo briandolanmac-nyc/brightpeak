@@ -104,20 +104,8 @@ function VideoCard({ item, defaultThumbnail }: { item: VideoItem; defaultThumbna
 }
 
 function NewsCard({ item }: { item: NewsItem }) {
-  const summaryRef = useRef<HTMLDivElement>(null);
-  const [isTruncated, setIsTruncated] = useState(false);
   const [expanded, setExpanded] = useState(false);
-
-  useEffect(() => {
-    const el = summaryRef.current;
-    if (!el) return;
-    const check = () => {
-      setIsTruncated(el.scrollHeight > el.clientHeight + 2);
-    };
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, [item.summary]);
+  const hasContent = item.content && item.content.trim().length > 0;
 
   return (
     <div className="nv-card">
@@ -127,8 +115,13 @@ function NewsCard({ item }: { item: NewsItem }) {
       <div className="nv-card-body">
         <span className="nv-date">{formatDate(item.date)}</span>
         <h3 className="nv-card-title">{item.title}</h3>
-        <div ref={summaryRef} className={`nv-card-summary${expanded ? " nv-card-summary-expanded" : ""}`} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.summary) }} />
-        {(isTruncated || expanded) && (
+        {item.summary && (
+          <div className="nv-card-summary" style={{ fontStyle: "italic" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.summary) }} />
+        )}
+        {hasContent && (
+          <div className={`nv-card-content${expanded ? " nv-card-content-expanded" : ""}`} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.content!) }} />
+        )}
+        {hasContent && (
           <span
             className="nv-read-more"
             onClick={() => setExpanded(!expanded)}
