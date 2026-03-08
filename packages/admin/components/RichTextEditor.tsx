@@ -98,6 +98,8 @@ export default function RichTextEditor({ value, onChange, variant = "page" }: Ri
     }
   }, [value, editor]);
 
+  if (!editor) return null;
+
   return (
     <div className={variant === "sidebar" ? "rte-wrap rte-sidebar" : "rte-wrap"}>
       <MenuBar editor={editor} />
