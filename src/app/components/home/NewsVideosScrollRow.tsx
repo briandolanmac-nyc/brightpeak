@@ -2,9 +2,11 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 
 export default function NewsVideosScrollRow({ children, label, itemCount }: { children: React.ReactNode; label: string; itemCount: number }) {
-  const trackRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(3);
+  const touchStartX = useRef(0);
+  const touchDeltaX = useRef(0);
+  const isDragging = useRef(false);
 
   const updateVisibleCount = useCallback(() => {
     const width = window.innerWidth;
@@ -21,14 +23,48 @@ export default function NewsVideosScrollRow({ children, label, itemCount }: { ch
 
   const maxIndex = Math.max(0, itemCount - visibleCount);
 
-  const scrollTo = useCallback((index: number) => {
-    const clamped = Math.max(0, Math.min(index, maxIndex));
-    setCurrentIndex(clamped);
-    if (trackRef.current) {
-      const cardWidth = trackRef.current.scrollWidth / itemCount;
-      trackRef.current.scrollTo({ left: cardWidth * clamped, behavior: "smooth" });
+  useEffect(() => {
+    setCurrentIndex((i) => Math.min(i, maxIndex));
+  }, [maxIndex]);
+
+  const goTo = useCallback((index: number) => {
+    setCurrentIndex(Math.max(0, Math.min(index, maxIndex)));
+  }, [maxIndex]);
+
+  const prev = () => goTo(currentIndex - 1);
+  const next = () => goTo(currentIndex + 1);
+
+  const gapPercent = 1.5;
+  const cardPercent = visibleCount === 1
+    ? 100
+    : visibleCount === 2
+      ? (100 - gapPercent) / 2
+      : (100 - gapPercent * 2) / 3;
+  const stepPercent = cardPercent + gapPercent;
+  const translateX = -(currentIndex * stepPercent);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchDeltaX.current = 0;
+    isDragging.current = true;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging.current) return;
+    touchDeltaX.current = e.touches[0].clientX - touchStartX.current;
+  };
+
+  const handleTouchEnd = () => {
+    if (!isDragging.current) return;
+    isDragging.current = false;
+    const threshold = 50;
+    if (touchDeltaX.current < -threshold) {
+      next();
+    } else if (touchDeltaX.current > threshold) {
+      prev();
     }
-  }, [maxIndex, itemCount]);
+    touchDeltaX.current = 0;
+  };
 
   return (
     <div className="nv-carousel-section">
@@ -36,22 +72,30 @@ export default function NewsVideosScrollRow({ children, label, itemCount }: { ch
       <div className="nv-carousel">
         <button
           className="carousel-arrow carousel-arrow-left"
-          onClick={() => scrollTo(currentIndex - 1)}
+          onClick={prev}
           disabled={currentIndex === 0}
           aria-label={`Previous ${label}`}
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
 
-        <div className="nv-track-wrapper">
-          <div className="nv-track" ref={trackRef}>
+        <div
+          className="nv-track-wrapper"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div
+            className="nv-track"
+            style={{ transform: `translateX(${translateX}%)`, transition: "transform 0.4s ease" }}
+          >
             {children}
           </div>
         </div>
 
         <button
           className="carousel-arrow carousel-arrow-right"
-          onClick={() => scrollTo(currentIndex + 1)}
+          onClick={next}
           disabled={currentIndex >= maxIndex}
           aria-label={`Next ${label}`}
         >
@@ -65,7 +109,7 @@ export default function NewsVideosScrollRow({ children, label, itemCount }: { ch
             <button
               key={i}
               className={`carousel-dot ${i === currentIndex ? "active" : ""}`}
-              onClick={() => scrollTo(i)}
+              onClick={() => goTo(i)}
               aria-label={`Go to page ${i + 1}`}
             />
           ))}

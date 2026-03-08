@@ -11,22 +11,22 @@
       {
         "title": "Accelerated Capital Allowance",
         "desc": "Write off 100% of the cost of qualifying energy-efficient equipment against your corporation tax in the first year. This significantly reduces the effective cost of your solar investment.",
-        "icon": "📊"
+        "icon": "\ud83d\udcca"
       },
       {
         "title": "SEAI Business Grants",
         "desc": "SEAI offers grants and supports for businesses investing in energy efficiency and renewable energy. Contact us to find out what grants your business may qualify for.",
-        "icon": "💶"
+        "icon": "\ud83d\udcb6"
       },
       {
         "title": "Feed-in Tariffs",
         "desc": "Earn money for surplus electricity your business exports back to the grid. This provides an ongoing income stream alongside your energy savings.",
-        "icon": "⚡"
+        "icon": "\u26a1"
       },
       {
         "title": "Commercial Finance Options",
         "desc": "We work with leading finance providers to offer flexible commercial lending solutions. Asset finance, leasing, and green loans are all available for qualifying businesses.",
-        "icon": "🏦"
+        "icon": "\ud83c\udfe6"
       }
     ]
   },
@@ -34,7 +34,7 @@
     "title": "We Help You Maximise Every Benefit Available",
     "paragraphs": [
       "Navigating business tax incentives and funding schemes can be complex. Our team has extensive experience helping businesses access all available benefits, ensuring you minimise your upfront investment.",
-      "We provide a comprehensive breakdown of all applicable tax incentives, feed-in tariff projections, and finance options as part of your free consultation — so you can make an informed decision with full visibility of costs and savings."
+      "We provide a comprehensive breakdown of all applicable tax incentives, feed-in tariff projections, and finance options as part of your free consultation \u2014 so you can make an informed decision with full visibility of costs and savings."
     ],
     "button": {
       "label": "Speak to Our Team",
@@ -64,7 +64,7 @@
     "subtitle": "Contact us for a free consultation and funding assessment.",
     "primaryButton": {
       "label": "Get in Touch",
-      "href": "/contact"
+      "variant": "primary"
     }
   }
 }

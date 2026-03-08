@@ -3,7 +3,8 @@ import PageBanner from "../components/PageBanner";
 import { loadPageJson, loadNavFooterData } from "../lib/loadAllHomeData";
 import { generatePageMetadata } from "../components/SeoHead";
 import StructuredData from "../components/StructuredData";
-import { getContactFormUrl, getVoltfloUrl, externalLinkProps } from "../lib/siteSettings";
+import { getUrlForVariant, externalLinkProps } from "../lib/siteSettings";
+import { sanitizeHtml } from "../lib/sanitize";
 
 export const metadata = generatePageMetadata("/underfloor-heating");
 
@@ -11,11 +12,11 @@ export const dynamic = "force-dynamic";
 
 export default function UnderfloorHeatingPage() {
   const pageData = loadPageJson("UnderfloorHeatingPage.json") as any;
-  const { navigation, footer, headerSettings, siteSettings, heroCta } = loadNavFooterData();
+  const { navigation, footer, headerSettings, siteSettings, companySettings, heroCta } = loadNavFooterData();
   const { hero, intro, floorTypes, variotherm, servicing, benefits, cta } = pageData;
 
   return (
-    <PageLayout navData={navigation} footerData={footer} headerSettings={headerSettings} siteSettings={siteSettings} heroCta={heroCta}>
+    <PageLayout navData={navigation} footerData={footer} headerSettings={headerSettings} siteSettings={siteSettings} companySettings={companySettings} heroCta={heroCta}>
       <StructuredData pageType="service" pagePath="/underfloor-heating" serviceName="Underfloor Heating Installation" />
       <PageBanner eyebrow={hero.eyebrow} title={hero.title} subtitle={hero.subtitle} bannerImage={hero.bannerImage} />
 
@@ -35,9 +36,7 @@ export default function UnderfloorHeatingPage() {
               />
             )}
             {(intro.paragraphs || []).map((p: string, i: number) => (
-              <p key={i} className="text-gray-600 leading-relaxed text-base" style={{ marginBottom: "1.25rem" }}>
-                {p}
-              </p>
+              <div key={i} className="text-gray-600 leading-relaxed text-base rich-html" style={{ marginBottom: "1.25rem" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(p || "") }} />
             ))}
           </div>
         </div>
@@ -82,9 +81,7 @@ export default function UnderfloorHeatingPage() {
                 />
               )}
               {(variotherm.paragraphs || []).map((p: string, i: number) => (
-                <p key={i} className="text-gray-600 leading-relaxed text-base" style={{ marginBottom: "1.25rem" }}>
-                  {p}
-                </p>
+                <div key={i} className="text-gray-600 leading-relaxed text-base rich-html" style={{ marginBottom: "1.25rem" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(p || "") }} />
               ))}
             </div>
           </div>
@@ -106,7 +103,7 @@ export default function UnderfloorHeatingPage() {
               >
                 <div className="text-3xl mb-3">{item.icon}</div>
                 <h3 className="font-bold text-lg mb-2" style={{ color: "var(--text-primary)" }}>{item.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{item.desc}</p>
+                <div className="text-gray-600 text-sm leading-relaxed rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
               </div>
             ))}
           </div>
@@ -122,9 +119,7 @@ export default function UnderfloorHeatingPage() {
             </div>
             <div className="max-w-4xl mx-auto" style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
               {(servicing.paragraphs || []).map((p: string, i: number) => (
-                <p key={i} className="text-gray-600 leading-relaxed text-base">
-                  {p}
-                </p>
+                <div key={i} className="text-gray-600 leading-relaxed text-base rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(p || "") }} />
               ))}
             </div>
           </div>
@@ -147,16 +142,16 @@ export default function UnderfloorHeatingPage() {
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <a
-              href={getVoltfloUrl(siteSettings)}
-              {...externalLinkProps(getVoltfloUrl(siteSettings))}
+              href={getUrlForVariant(cta.primaryButton?.variant || "primary", siteSettings)}
+              {...externalLinkProps(getUrlForVariant(cta.primaryButton?.variant || "primary", siteSettings))}
               className="btn btn-primary"
             >
               {heroCta.label}
             </a>
             {cta.secondaryButton && (
               <a
-                href={cta.secondaryButton.href}
-                {...externalLinkProps(cta.secondaryButton.href)}
+                href={getUrlForVariant(cta.secondaryButton.variant || "secondary", siteSettings)}
+                {...externalLinkProps(getUrlForVariant(cta.secondaryButton.variant || "secondary", siteSettings))}
                 className="btn btn-outline"
               >
                 {cta.secondaryButton.label}

@@ -1,8 +1,201 @@
 "use client";
 
-import { FONT_OPTIONS } from "../config";
-import { formatLabel } from "../utils";
+import { FONT_OPTIONS, RICH_TEXT_PATH_PATTERNS, EMPTY_ARRAY_TEMPLATES } from "../config";
+import { formatLabel, blankFromTemplate } from "../utils";
 import { CombinedSectionManager } from "./SectionManager";
+import RichTextEditor from "./RichTextEditor";
+import "../styles/richtext.css";
+
+const HERO_SECTIONS: { label: string; keys: string[] }[] = [
+  { label: "Layout", keys: ["enabled", "heroLayout", "mobileLayout"] },
+  { label: "Eyebrow", keys: ["showEyebrow", "eyebrow", "eyebrowColor"] },
+  { label: "Background", keys: ["backgroundImageEnabled", "backgroundColor", "overlayOpacity", "image", "scrollLabel"] },
+  { label: "Headlines", keys: ["heroAlignment", "wordWrapHeadlines", "headlineLines", "headlineFontSizes", "headlineColors"] },
+  { label: "Subheading", keys: ["subheading", "subheadingColor"] },
+  { label: "Call to Action", keys: ["cta", "ctaArrow"] },
+  { label: "Badges & Stats", keys: ["heroBadges", "stats", "specialBadge"] },
+];
+
+const NAV_SECTIONS: { label: string; keys: string[] }[] = [
+  { label: "General", keys: ["enabled", "showIcons"] },
+  { label: "Logo", keys: ["logoSrc", "logoAlt", "logoPosition"] },
+  { label: "Contact", keys: ["contact"] },
+  { label: "Header Bar Links", keys: ["utilityLinks"] },
+  { label: "Top Navigation Items", keys: ["links", "chevron", "mobileArrow"] },
+  { label: "Social Links", keys: ["socialLinks"] },
+];
+
+function isHeroSection(data: unknown, path: string): boolean {
+  if (path !== "") return false;
+  if (typeof data !== "object" || data === null || Array.isArray(data)) return false;
+  const obj = data as Record<string, unknown>;
+  return "heroLayout" in obj && "headlineLines" in obj && "eyebrow" in obj;
+}
+
+function isNavigationSection(data: unknown, path: string): boolean {
+  if (path !== "") return false;
+  if (typeof data !== "object" || data === null || Array.isArray(data)) return false;
+  const obj = data as Record<string, unknown>;
+  return "logoSrc" in obj && "links" in obj && "utilityLinks" in obj;
+}
+
+function NavigationSectionEditor({
+  data,
+  onChange,
+}: {
+  data: Record<string, unknown>;
+  onChange: (path: string, value: unknown) => void;
+}) {
+  const allKeys = Object.keys(data);
+  const assignedKeys = new Set(NAV_SECTIONS.flatMap((s) => s.keys));
+  const extraKeys = allKeys.filter((k) => !assignedKeys.has(k));
+
+  return (
+    <div className="admin-object">
+      {NAV_SECTIONS.map((section) => (
+        <div key={section.label} className="admin-field admin-field-nested">
+          <label className="admin-label">{section.label}</label>
+          <div className="admin-object">
+            {section.keys.map((key) => {
+              if (!(key in data)) return null;
+              const value = data[key];
+              const isNested = typeof value === "object" && value !== null && !Array.isArray(value);
+              const isArray = Array.isArray(value);
+              return (
+                <div key={key} className={`admin-field${(isNested || isArray) ? " admin-field-nested" : ""}`}>
+                  <label className="admin-label">{formatLabel(key)}</label>
+                  <SmartEditorPage data={value} onChange={onChange} path={key} />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+      {extraKeys.length > 0 && (
+        <div className="admin-field admin-field-nested">
+          <label className="admin-label">Other</label>
+          <div className="admin-object">
+            {extraKeys.map((key) => (
+              <div key={key} className="admin-field">
+                <label className="admin-label">{formatLabel(key)}</label>
+                <SmartEditorPage data={data[key]} onChange={onChange} path={key} />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function HeroSectionEditor({
+  data,
+  onChange,
+}: {
+  data: Record<string, unknown>;
+  onChange: (path: string, value: unknown) => void;
+}) {
+  const allKeys = Object.keys(data);
+  const assignedKeys = new Set(HERO_SECTIONS.flatMap((s) => s.keys));
+  const extraKeys = allKeys.filter((k) => !assignedKeys.has(k));
+
+  const headlineKeysMap: Record<string, { textKey: string; desktopKey: string; mobileKey: string; colorKey: string }> = {
+    "Headline 1": { textKey: "headlineLines.0", desktopKey: "headlineFontSizes.line1Desktop", mobileKey: "headlineFontSizes.line1Mobile", colorKey: "headlineColors.line1" },
+    "Headline 2": { textKey: "headlineLines.1", desktopKey: "headlineFontSizes.line2Desktop", mobileKey: "headlineFontSizes.line2Mobile", colorKey: "headlineColors.line2" },
+    "Headline 3": { textKey: "headlineLines.2", desktopKey: "headlineFontSizes.line3Desktop", mobileKey: "headlineFontSizes.line3Mobile", colorKey: "headlineColors.line3" },
+  };
+
+  function getNestedValue(obj: Record<string, unknown>, dotPath: string): unknown {
+    const parts = dotPath.split(".");
+    let current: unknown = obj;
+    for (const part of parts) {
+      if (current === null || current === undefined) return undefined;
+      if (Array.isArray(current)) current = current[Number(part)];
+      else if (typeof current === "object") current = (current as Record<string, unknown>)[part];
+      else return undefined;
+    }
+    return current;
+  }
+
+  return (
+    <div className="admin-object">
+      {HERO_SECTIONS.map((section) => (
+        <div key={section.label} className="admin-field admin-field-nested">
+          <label className="admin-label">{section.label}</label>
+          <div className="admin-object">
+            {section.label === "Headlines" ? (
+              <>
+                {["heroAlignment", "wordWrapHeadlines"].map((key) => {
+                  if (!(key in data)) return null;
+                  return (
+                    <div key={key} className="admin-field">
+                      <label className="admin-label">{formatLabel(key)}</label>
+                      <SmartEditorPage data={data[key]} onChange={onChange} path={key} />
+                    </div>
+                  );
+                })}
+                {Object.entries(headlineKeysMap).map(([lineLabel, keys]) => {
+                  const textVal = getNestedValue(data, keys.textKey);
+                  if (textVal === undefined) return null;
+                  return (
+                    <div key={lineLabel} className="admin-field admin-field-nested" style={{ marginTop: "0.5rem" }}>
+                      <label className="admin-label">{lineLabel}</label>
+                      <div className="admin-object">
+                        <div className="admin-field">
+                          <label className="admin-label">Text</label>
+                          <SmartEditorPage data={textVal} onChange={onChange} path={keys.textKey} />
+                        </div>
+                        <div className="admin-field">
+                          <label className="admin-label">Desktop Font Size (rem)</label>
+                          <SmartEditorPage data={getNestedValue(data, keys.desktopKey)} onChange={onChange} path={keys.desktopKey} />
+                        </div>
+                        <div className="admin-field">
+                          <label className="admin-label">Mobile Font Size (rem)</label>
+                          <SmartEditorPage data={getNestedValue(data, keys.mobileKey)} onChange={onChange} path={keys.mobileKey} />
+                        </div>
+                        <div className="admin-field">
+                          <label className="admin-label">Color</label>
+                          <SmartEditorPage data={getNestedValue(data, keys.colorKey)} onChange={onChange} path={keys.colorKey} />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </>
+            ) : (
+              section.keys.map((key) => {
+                if (!(key in data)) return null;
+                const fieldPath = key;
+                const value = data[key];
+                const isNested = typeof value === "object" && value !== null && !Array.isArray(value);
+                const isArray = Array.isArray(value);
+                return (
+                  <div key={key} className={`admin-field${(isNested || isArray) ? " admin-field-nested" : ""}`}>
+                    <label className="admin-label">{formatLabel(key)}</label>
+                    <SmartEditorPage data={value} onChange={onChange} path={fieldPath} />
+                  </div>
+                );
+              })
+            )}
+          </div>
+        </div>
+      ))}
+      {extraKeys.length > 0 && (
+        <div className="admin-field admin-field-nested">
+          <label className="admin-label">Other</label>
+          <div className="admin-object">
+            {extraKeys.map((key) => (
+              <div key={key} className="admin-field">
+                <label className="admin-label">{formatLabel(key)}</label>
+                <SmartEditorPage data={data[key]} onChange={onChange} path={key} />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export function SmartEditorPage({
   data,
@@ -15,6 +208,12 @@ export function SmartEditorPage({
   path?: string;
   insideArrayItem?: boolean;
 }) {
+  if (isHeroSection(data, path)) {
+    return <HeroSectionEditor data={data as Record<string, unknown>} onChange={onChange} />;
+  }
+  if (isNavigationSection(data, path)) {
+    return <NavigationSectionEditor data={data as Record<string, unknown>} onChange={onChange} />;
+  }
   if (data === null || data === undefined) {
     return (
       <input
@@ -119,6 +318,42 @@ export function SmartEditorPage({
         </div>
       );
     }
+    if (/pages\.\d+\.type$/.test(path)) {
+      const val = data === "iframe" ? "iframe" : data === "image" ? "image" : "section";
+      if (val !== data) onChange(path, val);
+      return (
+        <div style={{ display: "flex", gap: "1.25rem", flexWrap: "wrap" }}>
+          <label style={{ display: "flex", alignItems: "center", gap: "0.4rem", cursor: "pointer", fontSize: "0.875rem" }}>
+            <input type="radio" name={`type-${path}`} checked={val === "section"} onChange={() => onChange(path, "section")} />
+            Section
+          </label>
+          <label style={{ display: "flex", alignItems: "center", gap: "0.4rem", cursor: "pointer", fontSize: "0.875rem" }}>
+            <input type="radio" name={`type-${path}`} checked={val === "iframe"} onChange={() => onChange(path, "iframe")} />
+            iFrame Page
+          </label>
+          <label style={{ display: "flex", alignItems: "center", gap: "0.4rem", cursor: "pointer", fontSize: "0.875rem" }}>
+            <input type="radio" name={`type-${path}`} checked={val === "image"} onChange={() => onChange(path, "image")} />
+            Image Page
+          </label>
+        </div>
+      );
+    }
+    if (/pages\.\d+\.placement$/.test(path)) {
+      const val = data === "homepage" ? "homepage" : "page";
+      if (val !== data) onChange(path, val);
+      return (
+        <div style={{ display: "flex", gap: "1.25rem", flexWrap: "wrap" }}>
+          <label style={{ display: "flex", alignItems: "center", gap: "0.4rem", cursor: "pointer", fontSize: "0.875rem" }}>
+            <input type="radio" name={`placement-${path}`} checked={val === "page"} onChange={() => onChange(path, "page")} />
+            Separate Section
+          </label>
+          <label style={{ display: "flex", alignItems: "center", gap: "0.4rem", cursor: "pointer", fontSize: "0.875rem" }}>
+            <input type="radio" name={`placement-${path}`} checked={val === "homepage"} onChange={() => onChange(path, "homepage")} />
+            Homepage Section
+          </label>
+        </div>
+      );
+    }
     if ((path === "font" || path.endsWith(".font")) && FONT_OPTIONS.includes(data)) {
       return (
         <select
@@ -156,6 +391,15 @@ export function SmartEditorPage({
         </div>
       );
     }
+    if (RICH_TEXT_PATH_PATTERNS.some((re) => re.test(path))) {
+      return (
+        <RichTextEditor
+          value={data}
+          onChange={(html) => onChange(path, html)}
+          variant="page"
+        />
+      );
+    }
     if (data.length > 80) {
       return (
         <textarea
@@ -180,10 +424,18 @@ export function SmartEditorPage({
     const isObjectArray = data.length > 0 && typeof data[0] === "object" && data[0] !== null && !Array.isArray(data[0]);
     const useCards = isObjectArray && !insideArrayItem;
 
+    const isCustomPages = path === "pages" || path.endsWith(".pages");
+
     const getItemLabel = (item: unknown, index: number): string => {
       if (!isObjectArray) return `#${index + 1}`;
       const obj = item as Record<string, unknown>;
-      const name = obj.title || obj.label || obj.name || obj.author || obj.question || "";
+      const hero = obj.hero as Record<string, unknown> | undefined;
+      if (isCustomPages) {
+        const slug = obj.slug ? `/${obj.slug}` : "";
+        const title = hero?.title as string || "";
+        return title || slug || `Custom Page ${index + 1}`;
+      }
+      const name = obj.title || obj.label || obj.name || obj.author || obj.question || (obj.slug ? `/${obj.slug}` : "") || (hero?.title ? hero.title : "") || "";
       if (name && typeof name === "string") return `${name}`;
       return `Item ${index + 1}`;
     };
@@ -191,8 +443,8 @@ export function SmartEditorPage({
     return (
       <div className="admin-array">
         {data.map((item, index) => (
-          <div key={index} className={`admin-array-item${useCards ? " admin-array-item-card" : ""}`}>
-            <div className={`admin-array-header${useCards ? " admin-array-header-card" : ""}`}>
+          <div key={index} className={`admin-array-item${useCards ? " admin-array-item-card" : ""}${isCustomPages ? ` admin-custom-page-card admin-custom-page-type-${(item as Record<string, unknown>)?.type || "section"}` : ""}`}>
+            <div className={`admin-array-header${useCards ? " admin-array-header-card" : ""}${isCustomPages ? ` admin-custom-page-header admin-custom-page-header-${(item as Record<string, unknown>)?.type || "section"}` : ""}`}>
               <span className={useCards ? "admin-array-card-title" : "admin-array-index"}>
                 {useCards && <span className="admin-array-card-num">{index + 1}</span>}
                 {useCards ? getItemLabel(item, index) : `#${index + 1}`}
@@ -219,12 +471,17 @@ export function SmartEditorPage({
         ))}
         <button
           onClick={() => {
-            const newItem =
-              data.length > 0
-                ? typeof data[0] === "object"
-                  ? JSON.parse(JSON.stringify(data[0]))
-                  : ""
+            const fieldName = path.split(".").pop() || "";
+            let newItem: unknown;
+            if (data.length > 0) {
+              newItem = typeof data[0] === "object"
+                ? blankFromTemplate(data[0] as Record<string, unknown>)
                 : "";
+            } else if (EMPTY_ARRAY_TEMPLATES[fieldName]) {
+              newItem = JSON.parse(JSON.stringify(EMPTY_ARRAY_TEMPLATES[fieldName]));
+            } else {
+              newItem = "";
+            }
             onChange(path, [...data, newItem]);
           }}
           className="admin-btn-add"
@@ -366,6 +623,7 @@ export function SmartEditorPage({
             order={obj.order as string[]}
             onChange={onChange}
             variant="page"
+            customTitles={(obj._customTitles as Record<string, string>) || {}}
           />
         </div>
       );
@@ -376,17 +634,22 @@ export function SmartEditorPage({
       <div className="admin-object">
         {entries.map(([key, value]) => {
           if (key === "image" && hasImagesArray) return null;
+          if (key === "iframeUrl" && obj.type !== "iframe") return null;
+          if (key === "imageUrl" && obj.type !== "image") return null;
+          if (key === "content" && obj.type === "image") return null;
+          if (key === "_customTitles") return null;
           const fieldPath = path ? `${path}.${key}` : key;
           const isNested = typeof value === "object" && value !== null && !Array.isArray(value);
           const isArray = Array.isArray(value);
           const isImageField = key === "images" || key === "image";
           const suppressHeadline = insideArrayItem || isImageField;
+          const isTopLevelSection = !path && (isNested || isArray) && !suppressHeadline;
           return (
             <div
               key={key}
-              className={`admin-field ${(isNested || isArray) && !suppressHeadline ? "admin-field-nested" : ""}`}
+              className={`admin-field ${(isNested || isArray) && !suppressHeadline ? "admin-field-nested" : ""}${isTopLevelSection ? " admin-field-section" : ""}`}
             >
-              <label className="admin-label">{formatLabel(key)}</label>
+              <label className={`admin-label${isTopLevelSection ? " admin-label-section" : ""}`}>{formatLabel(key)}</label>
               <SmartEditorPage data={value} onChange={onChange} path={fieldPath} insideArrayItem={insideArrayItem} />
             </div>
           );

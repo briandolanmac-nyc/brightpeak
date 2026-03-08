@@ -350,6 +350,15 @@
   color: var(--brand-primary, #009968);
   letter-spacing: 0.01em;
   margin-top: 1rem;
+}
+.sb-label-section {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.01em;
+  margin-top: 1.25rem;
+  padding: 0.75rem 0 0.25rem;
+  border-top: 2px solid #e5e7eb;
   margin-bottom: 0.4rem;
   padding-bottom: 0.3rem;
   border-bottom: 2px solid var(--brand-primary, #009968);
@@ -442,6 +451,61 @@
   padding: 0.4rem 0.5rem;
   margin-bottom: 0;
 }
+
+.sb-custom-page-card {
+  margin-top: 0.75rem;
+  border-radius: 10px !important;
+}
+.sb-custom-page-card:first-child {
+  margin-top: 0;
+}
+.sb-custom-page-head {
+  padding: 0.5rem 0.6rem !important;
+}
+.sb-custom-page-head .sb-array-card-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.sb-custom-page-head .sb-array-card-num {
+  color: white;
+  font-size: 0.7rem;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sb-custom-page-type-section {
+  border: 2px solid #009968 !important;
+}
+.sb-custom-page-head-section {
+  background: linear-gradient(135deg, rgba(0,153,104,0.15), rgba(0,153,104,0.06)) !important;
+  border-bottom: 2px solid rgba(0,153,104,0.25) !important;
+}
+.sb-custom-page-head-section .sb-array-card-title { color: #064e3b; }
+.sb-custom-page-head-section .sb-array-card-num { background: #009968; }
+
+.sb-custom-page-type-iframe {
+  border: 2px solid #2563eb !important;
+}
+.sb-custom-page-head-iframe {
+  background: linear-gradient(135deg, rgba(37,99,235,0.12), rgba(37,99,235,0.04)) !important;
+  border-bottom: 2px solid rgba(37,99,235,0.25) !important;
+}
+.sb-custom-page-head-iframe .sb-array-card-title { color: #1e3a5f; }
+.sb-custom-page-head-iframe .sb-array-card-num { background: #2563eb; }
+
+.sb-custom-page-type-image {
+  border: 2px solid #d97706 !important;
+}
+.sb-custom-page-head-image {
+  background: linear-gradient(135deg, rgba(217,119,6,0.12), rgba(217,119,6,0.04)) !important;
+  border-bottom: 2px solid rgba(217,119,6,0.25) !important;
+}
+.sb-custom-page-head-image .sb-array-card-title { color: #78350f; }
+.sb-custom-page-head-image .sb-array-card-num { background: #d97706; }
 
 .sb-array-idx {
   font-size: 0.65rem;

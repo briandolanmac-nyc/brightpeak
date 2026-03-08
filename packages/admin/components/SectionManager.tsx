@@ -9,11 +9,13 @@ export function CombinedSectionManager({
   order,
   onChange,
   variant = "sidebar",
+  customTitles = {},
 }: {
   sections: Record<string, boolean>;
   order: string[];
   onChange: (field: string, value: unknown) => void;
   variant?: "sidebar" | "page";
+  customTitles?: Record<string, string>;
 }) {
   const dragItem = useRef<number | null>(null);
   const dragOverItem = useRef<number | null>(null);
@@ -125,7 +127,7 @@ export function CombinedSectionManager({
                 color: enabled ? "#e5e7eb" : "#666",
                 textDecoration: enabled ? "none" : "line-through",
               }}>
-                {ORDER_SECTION_LABELS[item] || formatLabel(item)}
+                {ORDER_SECTION_LABELS[item] || (item.startsWith("custom_") ? `Custom: ${customTitles[item] || formatLabel(item.replace("custom_", ""))}` : formatLabel(item))}
               </span>
               <div style={{ display: "flex", flexDirection: "column", gap: "1px", flexShrink: 0 }}>
                 <button
@@ -192,7 +194,7 @@ export function CombinedSectionManager({
               <span className={`sb-toggle-slider${enabled ? " sb-toggle-on" : ""}`} />
             </label>
             <span className={`sb-order-label${!enabled ? " sb-order-label-off" : ""}`}>
-              {ORDER_SECTION_LABELS[item] || formatLabel(item)}
+              {ORDER_SECTION_LABELS[item] || (item.startsWith("custom_") ? `Custom: ${customTitles[item] || formatLabel(item.replace("custom_", ""))}` : formatLabel(item))}
             </span>
             <div className="sb-order-arrows">
               <button

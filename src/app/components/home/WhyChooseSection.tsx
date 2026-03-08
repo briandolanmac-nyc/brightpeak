@@ -1,4 +1,5 @@
 import { getContactFormUrl, getVoltfloUrl, externalLinkProps } from "../../lib/siteSettings";
+import { sanitizeHtml } from "../../lib/sanitize";
 
 const WhyChooseSection = ({ data, siteSettings, heroCta, heroData }: { data: Record<string, unknown>; siteSettings: Record<string, unknown>; heroCta?: { label: string; href: string }; heroData?: Record<string, unknown> }) => {
   const whyChooseData = data as any;
@@ -12,7 +13,7 @@ const WhyChooseSection = ({ data, siteSettings, heroCta, heroData }: { data: Rec
     <div className="container">
       <p className="section-eyebrow">{whyChooseData.eyebrow}</p>
       <h2 className="section-title">{whyChooseData.title}</h2>
-      <p className="section-subtitle">{whyChooseData.description}</p>
+      <div className="section-subtitle rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(whyChooseData.description || "") }} />
       <div className="grid-2" style={{ marginTop: "3rem" }}>
         <div className="why-img">
           {/\.(mp4|webm|ogg|mov)$/i.test(whyChooseData.image.src) ? (

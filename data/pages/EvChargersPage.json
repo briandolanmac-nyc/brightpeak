@@ -23,23 +23,23 @@
   "features": [
     {
       "title": "Top-Tier Equipment",
-      "desc": "Premium brands — high-quality, reliable, and future-proof",
-      "icon": "⚡"
+      "desc": "Premium brands \u2014 high-quality, reliable, and future-proof",
+      "icon": "\u26a1"
     },
     {
       "title": "Expert Installation",
       "desc": "Directly employed, Safe Electric certified professionals providing seamless, safe installation",
-      "icon": "🔧"
+      "icon": "\ud83d\udd27"
     },
     {
       "title": "Energy-Efficient",
       "desc": "EV chargers that integrate with renewable energy sources, reducing your carbon footprint",
-      "icon": "☀️"
+      "icon": "\u2600\ufe0f"
     },
     {
       "title": "Smart Features",
       "desc": "App controls, scheduling, and monitoring for full control over your EV charging",
-      "icon": "📱"
+      "icon": "\ud83d\udcf1"
     }
   ],
   "business": {
@@ -48,18 +48,18 @@
     "items": [
       {
         "title": "Environmentally Friendly",
-        "desc": "Zero tailpipe emissions — drive cleaner and reduce your carbon footprint every day",
-        "icon": "🌱"
+        "desc": "Zero tailpipe emissions \u2014 drive cleaner and reduce your carbon footprint every day",
+        "icon": "\ud83c\udf31"
       },
       {
         "title": "Lower Running Costs",
-        "desc": "Electricity is significantly cheaper than petrol or diesel — save money on every journey",
-        "icon": "💰"
+        "desc": "Electricity is significantly cheaper than petrol or diesel \u2014 save money on every journey",
+        "icon": "\ud83d\udcb0"
       },
       {
         "title": "Grant Support",
         "desc": "Government grants are available to help with the cost of installing a home EV charger",
-        "icon": "📋"
+        "icon": "\ud83d\udccb"
       }
     ]
   },
@@ -68,7 +68,7 @@
     "subtitle": "Fast, professional installation by our expert team. Contact us today for a free, no-obligation quote.",
     "primaryButton": {
       "label": "Get a Quote",
-      "href": "/contact"
+      "variant": "primary"
     }
   }
 }

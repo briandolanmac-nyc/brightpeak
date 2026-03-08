@@ -1,0 +1,40 @@
+{
+  "pages": [
+    {
+      "enabled": false,
+      "slug": "new_section",
+      "type": "iframe",
+      "placement": "homepage",
+      "iframeUrl": "https://www.voltflo.com/contact",
+      "hero": {
+        "eyebrow": "Eyebrow",
+        "title": "Voltflo Page",
+        "subtitle": "Sub",
+        "bannerImage": ""
+      },
+      "content": {
+        "eyebrow": "Assad",
+        "title": "asdasdasd",
+        "cards": []
+      }
+    },
+    {
+      "enabled": false,
+      "slug": "roofing",
+      "type": "section",
+      "placement": "page",
+      "iframeUrl": "https://www.google.com",
+      "hero": {
+        "eyebrow": "Roofing eyebrow",
+        "title": "Roofing",
+        "subtitle": "",
+        "bannerImage": ""
+      },
+      "content": {
+        "eyebrow": "",
+        "title": "",
+        "cards": []
+      }
+    }
+  ]
+}

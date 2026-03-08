@@ -3,7 +3,8 @@ import PageBanner from "../components/PageBanner";
 import { loadPageJson, loadNavFooterData } from "../lib/loadAllHomeData";
 import { generatePageMetadata } from "../components/SeoHead";
 import StructuredData from "../components/StructuredData";
-import { getContactFormUrl, getVoltfloUrl, externalLinkProps } from "../lib/siteSettings";
+import { getUrlForVariant, externalLinkProps } from "../lib/siteSettings";
+import { sanitizeHtml } from "../lib/sanitize";
 
 export const metadata = generatePageMetadata("/ev-chargers");
 
@@ -11,11 +12,11 @@ export const dynamic = "force-dynamic";
 
 export default function EvChargersPage() {
   const pageData = loadPageJson("EvChargersPage.json") as any;
-  const { navigation, footer, headerSettings, siteSettings, heroCta } = loadNavFooterData();
+  const { navigation, footer, headerSettings, siteSettings, companySettings, heroCta } = loadNavFooterData();
   const { hero, section1, section2, features, business, cta } = pageData;
 
   return (
-    <PageLayout navData={navigation} footerData={footer} headerSettings={headerSettings} siteSettings={siteSettings} heroCta={heroCta}>
+    <PageLayout navData={navigation} footerData={footer} headerSettings={headerSettings} siteSettings={siteSettings} companySettings={companySettings} heroCta={heroCta}>
       <StructuredData pageType="service" pagePath="/ev-chargers" serviceName="EV Charger Installation" />
       <PageBanner eyebrow={hero.eyebrow} title={hero.title} subtitle={hero.subtitle} bannerImage={hero.bannerImage} />
 
@@ -31,7 +32,7 @@ export default function EvChargersPage() {
             <div>
               <div className="mb-5">
                 {section1.subHeading && <h3 className="font-bold text-lg mb-1" style={{ color: "var(--text-primary)" }}>{section1.subHeading}</h3>}
-                <p className="text-gray-600 leading-relaxed">{section1.paragraph}</p>
+                <div className="text-gray-600 leading-relaxed rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(section1.paragraph || "") }} />
               </div>
               {section1.image && (
                 <div className="rounded-xl overflow-hidden" style={{ width: "100%", maxWidth: "320px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -55,7 +56,7 @@ export default function EvChargersPage() {
                   <div className="text-2xl md:text-3xl flex-shrink-0">{item.icon}</div>
                   <div className="min-w-0">
                     <h3 className="font-bold text-base md:text-lg mb-1">{item.title}</h3>
-                    <p className="text-gray-600 text-sm">{item.desc}</p>
+                    <div className="text-gray-600 text-sm rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
                   </div>
                 </div>
               ))}
@@ -67,7 +68,7 @@ export default function EvChargersPage() {
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
             <div>
               {section2.subHeading && <h3 className="font-bold text-lg mb-1" style={{ color: "var(--text-primary)" }}>{section2.subHeading}</h3>}
-              <p className="text-gray-600 leading-relaxed">{section2.paragraph}</p>
+              <div className="text-gray-600 leading-relaxed rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(section2.paragraph || "") }} />
             </div>
             <div className="flex justify-center">
               <img
@@ -97,7 +98,7 @@ export default function EvChargersPage() {
               >
                 <div className="text-3xl mb-3">{item.icon}</div>
                 <h3 className="font-bold mb-2">{item.title}</h3>
-                <p className="text-gray-600 text-sm">{item.desc}</p>
+                <div className="text-gray-600 text-sm rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
               </div>
             ))}
           </div>
@@ -119,8 +120,8 @@ export default function EvChargersPage() {
             {cta.subtitle}
           </p>
           <a
-            href={getVoltfloUrl(siteSettings)}
-            {...externalLinkProps(getVoltfloUrl(siteSettings))}
+            href={getUrlForVariant(cta.primaryButton?.variant || "primary", siteSettings)}
+            {...externalLinkProps(getUrlForVariant(cta.primaryButton?.variant || "primary", siteSettings))}
             className="btn btn-primary"
           >
             {heroCta.label}

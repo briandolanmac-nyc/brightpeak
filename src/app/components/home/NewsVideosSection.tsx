@@ -1,5 +1,6 @@
 "use client";
 import { useState, useRef, useEffect, useCallback } from "react";
+import { sanitizeHtml } from "../../lib/sanitize";
 
 interface NewsItem {
   title: string;
@@ -96,14 +97,14 @@ function VideoCard({ item }: { item: VideoItem }) {
       <div className="nv-card-body">
         <span className="nv-date">{formatDate(item.date)}</span>
         <h3 className="nv-card-title">{item.title}</h3>
-        <p className="nv-card-summary">{item.summary}</p>
+        <div className="nv-card-summary" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.summary) }} />
       </div>
     </div>
   );
 }
 
 function NewsCard({ item }: { item: NewsItem }) {
-  const summaryRef = useRef<HTMLParagraphElement>(null);
+  const summaryRef = useRef<HTMLDivElement>(null);
   const [isTruncated, setIsTruncated] = useState(false);
   const [expanded, setExpanded] = useState(false);
 
@@ -126,7 +127,7 @@ function NewsCard({ item }: { item: NewsItem }) {
       <div className="nv-card-body">
         <span className="nv-date">{formatDate(item.date)}</span>
         <h3 className="nv-card-title">{item.title}</h3>
-        <p ref={summaryRef} className={`nv-card-summary${expanded ? " nv-card-summary-expanded" : ""}`}>{item.summary}</p>
+        <div ref={summaryRef} className={`nv-card-summary${expanded ? " nv-card-summary-expanded" : ""}`} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.summary) }} />
         {(isTruncated || expanded) && (
           <span
             className="nv-read-more"
@@ -142,9 +143,11 @@ function NewsCard({ item }: { item: NewsItem }) {
 }
 
 function NvCarousel({ children, label, itemCount }: { children: React.ReactNode; label: string; itemCount: number }) {
-  const trackRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(3);
+  const touchStartX = useRef(0);
+  const touchDeltaX = useRef(0);
+  const isDragging = useRef(false);
 
   const updateVisibleCount = useCallback(() => {
     const width = window.innerWidth;
@@ -161,14 +164,48 @@ function NvCarousel({ children, label, itemCount }: { children: React.ReactNode;
 
   const maxIndex = Math.max(0, itemCount - visibleCount);
 
-  const scrollTo = useCallback((index: number) => {
-    const clamped = Math.max(0, Math.min(index, maxIndex));
-    setCurrentIndex(clamped);
-    if (trackRef.current) {
-      const cardWidth = trackRef.current.scrollWidth / itemCount;
-      trackRef.current.scrollTo({ left: cardWidth * clamped, behavior: "smooth" });
+  useEffect(() => {
+    setCurrentIndex((i) => Math.min(i, maxIndex));
+  }, [maxIndex]);
+
+  const goTo = useCallback((index: number) => {
+    setCurrentIndex(Math.max(0, Math.min(index, maxIndex)));
+  }, [maxIndex]);
+
+  const prev = () => goTo(currentIndex - 1);
+  const next = () => goTo(currentIndex + 1);
+
+  const gapPercent = 1.5;
+  const cardPercent = visibleCount === 1
+    ? 100
+    : visibleCount === 2
+      ? (100 - gapPercent) / 2
+      : (100 - gapPercent * 2) / 3;
+  const stepPercent = cardPercent + gapPercent;
+  const translateX = -(currentIndex * stepPercent);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchDeltaX.current = 0;
+    isDragging.current = true;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging.current) return;
+    touchDeltaX.current = e.touches[0].clientX - touchStartX.current;
+  };
+
+  const handleTouchEnd = () => {
+    if (!isDragging.current) return;
+    isDragging.current = false;
+    const threshold = 50;
+    if (touchDeltaX.current < -threshold) {
+      next();
+    } else if (touchDeltaX.current > threshold) {
+      prev();
     }
-  }, [maxIndex, itemCount]);
+    touchDeltaX.current = 0;
+  };
 
   return (
     <div className="nv-carousel-section">
@@ -176,22 +213,30 @@ function NvCarousel({ children, label, itemCount }: { children: React.ReactNode;
       <div className="nv-carousel">
         <button
           className="carousel-arrow carousel-arrow-left"
-          onClick={() => scrollTo(currentIndex - 1)}
+          onClick={prev}
           disabled={currentIndex === 0}
           aria-label={`Previous ${label}`}
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
 
-        <div className="nv-track-wrapper">
-          <div className="nv-track" ref={trackRef}>
+        <div
+          className="nv-track-wrapper"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div
+            className="nv-track"
+            style={{ transform: `translateX(${translateX}%)`, transition: "transform 0.4s ease" }}
+          >
             {children}
           </div>
         </div>
 
         <button
           className="carousel-arrow carousel-arrow-right"
-          onClick={() => scrollTo(currentIndex + 1)}
+          onClick={next}
           disabled={currentIndex >= maxIndex}
           aria-label={`Next ${label}`}
         >
@@ -205,7 +250,7 @@ function NvCarousel({ children, label, itemCount }: { children: React.ReactNode;
             <button
               key={i}
               className={`carousel-dot ${i === currentIndex ? "active" : ""}`}
-              onClick={() => scrollTo(i)}
+              onClick={() => goTo(i)}
               aria-label={`Go to page ${i + 1}`}
             />
           ))}
@@ -231,18 +276,18 @@ const NewsVideosSection = ({ data }: { data: Record<string, unknown> }) => {
         <h2 className="section-title">{nvData.title}</h2>
         <p className="section-sub">{nvData.subtitle}</p>
 
-        {videoItems.length > 0 && (
-          <NvCarousel label="Videos" itemCount={videoItems.length}>
-            {videoItems.map((item, i) => (
-              <VideoCard key={`video-${i}`} item={item} />
+        {newsItems.length > 0 && (
+          <NvCarousel label="News / Blogs" itemCount={newsItems.length}>
+            {newsItems.map((item, i) => (
+              <NewsCard key={`news-${i}`} item={item} />
             ))}
           </NvCarousel>
         )}
 
-        {newsItems.length > 0 && (
-          <NvCarousel label="News" itemCount={newsItems.length}>
-            {newsItems.map((item, i) => (
-              <NewsCard key={`news-${i}`} item={item} />
+        {videoItems.length > 0 && (
+          <NvCarousel label="Videos" itemCount={videoItems.length}>
+            {videoItems.map((item, i) => (
+              <VideoCard key={`video-${i}`} item={item} />
             ))}
           </NvCarousel>
         )}

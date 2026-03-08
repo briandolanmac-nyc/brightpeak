@@ -1,3 +1,5 @@
+import { sanitizeHtml } from "../../lib/sanitize";
+
 const FaqSection = ({ data }: { data: Record<string, unknown> }) => {
   const faqData = data as any;
   if (!faqData.enabled) return null;
@@ -12,7 +14,7 @@ const FaqSection = ({ data }: { data: Record<string, unknown> }) => {
         {faqData.items.map((item: any) => (
           <details key={item.question} className="faq-item">
             <summary>{item.question}</summary>
-            <p>{item.answer}</p>
+            <div className="faq-answer" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.answer) }} />
           </details>
         ))}
       </div>

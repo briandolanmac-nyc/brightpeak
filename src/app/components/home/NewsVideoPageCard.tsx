@@ -1,5 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
+import { sanitizeHtml } from "../../lib/sanitize";
 
 interface NewsVideoPageItem {
   title: string;
@@ -91,22 +92,24 @@ export function VideoPageCard({ item }: { item: NewsVideoPageItem }) {
         <h2 style={{ fontSize: "1.25rem", fontWeight: 700, margin: "0.5rem 0", color: "var(--text-primary)" }}>
           {item.title}
         </h2>
-        <p style={{ color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "1rem" }}>
-          {item.content || item.summary}
-        </p>
+        {item.summary && (
+          <div className="nv-rich-content" style={{ color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: item.content ? "0.5rem" : "1rem", fontStyle: "italic" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.summary) }} />
+        )}
+        {item.content && (
+          <div className="nv-rich-content" style={{ color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "1rem" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.content) }} />
+        )}
       </div>
     </div>
   );
 }
 
 export function NewsPageCard({ item }: { item: NewsVideoPageItem }) {
-  const summaryRef = useRef<HTMLParagraphElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const [isTruncated, setIsTruncated] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  const text = item.content || item.summary;
 
   useEffect(() => {
-    const el = summaryRef.current;
+    const el = contentRef.current;
     if (!el) return;
     const check = () => {
       setIsTruncated(el.scrollHeight > el.clientHeight + 2);
@@ -114,7 +117,7 @@ export function NewsPageCard({ item }: { item: NewsVideoPageItem }) {
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
-  }, [text]);
+  }, [item.content, item.summary]);
 
   return (
     <div className="nv-page-card">
@@ -126,9 +129,12 @@ export function NewsPageCard({ item }: { item: NewsVideoPageItem }) {
         <h2 style={{ fontSize: "1.25rem", fontWeight: 700, margin: "0.5rem 0", color: "var(--text-primary)" }}>
           {item.title}
         </h2>
-        <p ref={summaryRef} className={`nv-card-summary${expanded ? " nv-card-summary-expanded" : ""}`} style={{ color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "1rem" }}>
-          {text}
-        </p>
+        {item.summary && (
+          <div className="nv-rich-content" style={{ color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: item.content ? "0.5rem" : "1rem", fontStyle: "italic" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.summary) }} />
+        )}
+        {item.content && (
+          <div ref={contentRef} className={`nv-card-content${expanded ? " nv-card-content-expanded" : ""}`} style={{ color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "1rem" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.content) }} />
+        )}
         {(isTruncated || expanded) && (
           <span
             className="nv-read-more"

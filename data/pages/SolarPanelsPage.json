@@ -102,14 +102,14 @@
   },
   "cta": {
     "title": "Ready to Go Solar?",
-    "subtitle": "Fill in the quick form to receive your tailored home solar panel installation quote. We also offer a free site survey to advise on the best solar system for your needs.",
+    "subtitle": "Use our Savings Calculator to get a Free Quote. We also offer a free site survey to advise on the best solar system for your needs.",
     "primaryButton": {
       "label": "Get Free Quote",
-      "href": "/contact"
+      "variant": "primary"
     },
     "secondaryButton": {
       "label": "Learn About Grants",
-      "href": "/grants"
+      "variant": "secondary"
     }
   }
 }

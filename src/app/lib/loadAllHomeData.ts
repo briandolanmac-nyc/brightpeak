@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { loadCustomPages } from "./customPages";
 
 const DATA_BASE = path.join(process.cwd(), "data");
 
@@ -33,7 +34,9 @@ export function loadAllHomeData() {
     footer: readJson("home/Footer.json"),
     headerSettings: readJson("home/HeaderSettings.json"),
     siteSettings: readJson("home/SiteSettings.json"),
+    companySettings: readJson("home/CompanySettings.json"),
     heroCta: loadHeroCta(),
+    customPages: loadCustomPages(),
   };
 }
 
@@ -55,6 +58,7 @@ export function loadNavFooterData() {
     footer: readJson("home/Footer.json"),
     headerSettings: readJson("home/HeaderSettings.json"),
     siteSettings: readJson("home/SiteSettings.json"),
+    companySettings: readJson("home/CompanySettings.json"),
     heroCta: loadHeroCta(),
   };
 }

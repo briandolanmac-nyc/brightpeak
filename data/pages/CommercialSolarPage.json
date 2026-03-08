@@ -10,7 +10,7 @@
     "title": "Cut Energy Costs & Boost Sustainability",
     "paragraphs": [
       "Commercial energy costs are one of the biggest overheads for Irish businesses. A solar PV system can reduce your electricity bills by up to 50%, with typical payback periods of 3-5 years.",
-      "We work with businesses of all sizes — from small offices and retail units to large industrial facilities. Our team designs bespoke systems that maximise your roof space and energy generation across Ireland.",
+      "We work with businesses of all sizes \u2014 from small offices and retail units to large industrial facilities. Our team designs bespoke systems that maximise your roof space and energy generation across Ireland.",
       "With the Accelerated Capital Allowance (ACA) scheme allowing businesses to write off the full cost of qualifying energy-efficient equipment in the first year, and generous feed-in tariffs for surplus energy exported to the grid, the financial case for commercial solar has never been stronger."
     ],
     "image": {
@@ -24,32 +24,32 @@
       {
         "title": "Reduce Overheads",
         "desc": "Cut electricity costs by up to 50% and protect against future price rises",
-        "icon": "📉"
+        "icon": "\ud83d\udcc9"
       },
       {
         "title": "Fast ROI",
         "desc": "Typical payback period of 3-5 years with decades of free energy after",
-        "icon": "💰"
+        "icon": "\ud83d\udcb0"
       },
       {
         "title": "Tax Benefits",
         "desc": "Accelerated Capital Allowance lets you write off 100% of the cost in year one",
-        "icon": "🏛️"
+        "icon": "\ud83c\udfdb\ufe0f"
       },
       {
         "title": "ESG Compliance",
         "desc": "Meet sustainability targets and improve your Environmental, Social & Governance profile",
-        "icon": "🌍"
+        "icon": "\ud83c\udf0d"
       },
       {
         "title": "Brand Value",
         "desc": "Demonstrate your commitment to sustainability to customers and stakeholders",
-        "icon": "⭐"
+        "icon": "\u2b50"
       },
       {
         "title": "Minimal Disruption",
         "desc": "Professional installation with minimal impact on your daily business operations",
-        "icon": "🔧"
+        "icon": "\ud83d\udd27"
       }
     ]
   },
@@ -63,7 +63,7 @@
     "subtitle": "Our team will assess your business premises and design a system that delivers maximum savings and ROI.",
     "primaryButton": {
       "label": "Talk to Our Team",
-      "href": "/contact"
+      "variant": "primary"
     }
   }
 }

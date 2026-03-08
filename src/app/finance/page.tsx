@@ -2,7 +2,8 @@ import { generatePageMetadata } from "../components/SeoHead";
 import StructuredData from "../components/StructuredData";
 import PageLayout from "../components/PageLayout";
 import PageBanner from "../components/PageBanner";
-import { getContactFormUrl, getVoltfloUrl, externalLinkProps } from "../lib/siteSettings";
+import { getUrlForVariant, externalLinkProps } from "../lib/siteSettings";
+import { sanitizeHtml } from "../lib/sanitize";
 import { loadPageJson, loadNavFooterData } from "../lib/loadAllHomeData";
 
 export const metadata = generatePageMetadata("/finance");
@@ -11,11 +12,11 @@ export const dynamic = "force-dynamic";
 
 export default function FinancePage() {
   const pageData = loadPageJson("FinancePage.json") as any;
-  const { navigation, footer, headerSettings, siteSettings, heroCta } = loadNavFooterData();
+  const { navigation, footer, headerSettings, siteSettings, companySettings, heroCta } = loadNavFooterData();
   const { hero, partnership, howItWorks, cta } = pageData;
 
   return (
-    <PageLayout navData={navigation} footerData={footer} headerSettings={headerSettings} siteSettings={siteSettings} heroCta={heroCta}>
+    <PageLayout navData={navigation} footerData={footer} headerSettings={headerSettings} siteSettings={siteSettings} companySettings={companySettings} heroCta={heroCta}>
       <StructuredData pageType="default" pagePath="/finance" />
       <PageBanner eyebrow={hero.eyebrow} title={hero.title} subtitle={hero.subtitle} bannerImage={hero.bannerImage} />
 
@@ -30,9 +31,7 @@ export default function FinancePage() {
                 {partnership.title}
               </h2>
               {partnership.paragraphs.map((text: string, i: number) => (
-                <p key={i} className={`text-gray-600 leading-relaxed${i < partnership.paragraphs.length - 1 ? " mb-4" : ""}`}>
-                  {text}
-                </p>
+                <div key={i} className={`text-gray-600 leading-relaxed rich-html${i < partnership.paragraphs.length - 1 ? " mb-4" : ""}`} dangerouslySetInnerHTML={{ __html: sanitizeHtml(text || "") }} />
               ))}
             </div>
             <div className="space-y-6">
@@ -45,7 +44,7 @@ export default function FinancePage() {
                   <div className="text-3xl">{item.icon}</div>
                   <div>
                     <h3 className="font-bold text-lg mb-1">{item.title}</h3>
-                    <p className="text-gray-600 text-sm">{item.desc}</p>
+                    <div className="text-gray-600 text-sm rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
                   </div>
                 </div>
               ))}
@@ -69,7 +68,7 @@ export default function FinancePage() {
                   {item.step}
                 </div>
                 <h3 className="font-bold text-lg mb-2">{item.title}</h3>
-                <p className="text-gray-600">{item.desc}</p>
+                <div className="text-gray-600 rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
               </div>
             ))}
           </div>
@@ -91,8 +90,8 @@ export default function FinancePage() {
             {cta.subtitle}
           </p>
           <a
-            href={getVoltfloUrl(siteSettings)}
-            {...externalLinkProps(getVoltfloUrl(siteSettings))}
+            href={getUrlForVariant(cta.primaryButton?.variant || "primary", siteSettings)}
+            {...externalLinkProps(getUrlForVariant(cta.primaryButton?.variant || "primary", siteSettings))}
             className="btn btn-primary"
           >
             {heroCta.label}

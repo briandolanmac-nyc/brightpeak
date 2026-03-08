@@ -12,12 +12,10 @@
   "buttons": [
     {
       "label": "Get a Free Quote",
-      "href": "/contact",
       "variant": "primary"
     },
     {
       "label": "Chat With Us",
-      "href": "/contact",
       "variant": "outline"
     }
   ]

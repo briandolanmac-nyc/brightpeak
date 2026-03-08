@@ -2,7 +2,7 @@
   "hero": {
     "eyebrow": "Affordable Solar",
     "title": "Finance Your Solar Installation",
-    "subtitle": "Go solar with flexible payment plans. No large upfront cost required — spread the cost and start saving from day one.",
+    "subtitle": "Go solar with flexible payment plans. No large upfront cost required \u2014 spread the cost and start saving from day one.",
     "bannerImage": "/images/services/solar-panels.webp"
   },
   "partnership": {
@@ -10,29 +10,29 @@
     "title": "Spread the Cost of Solar",
     "paragraphs": [
       "We offer affordable finance options for your solar installation, so you can start saving on your energy bills immediately without a large upfront investment.",
-      "With competitive interest rates and flexible terms, your monthly repayments can often be less than your current electricity bill savings — meaning solar pays for itself from day one.",
+      "With competitive interest rates and flexible terms, your monthly repayments can often be less than your current electricity bill savings \u2014 meaning solar pays for itself from day one.",
       "Apply online in minutes and receive a decision quickly. Our team will guide you through every step of the finance application process."
     ],
     "features": [
       {
         "title": "Flexible Terms",
         "desc": "Choose repayment terms to suit your budget and circumstances",
-        "icon": "📅"
+        "icon": "\ud83d\udcc5"
       },
       {
         "title": "Competitive Rates",
         "desc": "Low interest rates through our trusted finance partners",
-        "icon": "💷"
+        "icon": "\ud83d\udcb7"
       },
       {
         "title": "Quick Approval",
         "desc": "Apply online and get a decision within minutes",
-        "icon": "⚡"
+        "icon": "\u26a1"
       },
       {
         "title": "No Hidden Fees",
         "desc": "Transparent pricing with no hidden charges or setup fees",
-        "icon": "✅"
+        "icon": "\u2705"
       }
     ]
   },
@@ -57,11 +57,11 @@
     ]
   },
   "cta": {
-    "title": "Go Solar Today — Pay Over Time",
+    "title": "Go Solar Today \u2014 Pay Over Time",
     "subtitle": "Get a free quote and explore our flexible finance options.",
     "primaryButton": {
       "label": "Get Free Quote",
-      "href": "/contact"
+      "variant": "primary"
     }
   }
 }

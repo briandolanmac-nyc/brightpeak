@@ -23,13 +23,13 @@ function loadNewsVideosData(): any {
 }
 
 export default function NewsVideosPage() {
-  const { navigation, footer, headerSettings, siteSettings, heroCta } = loadNavFooterData();
+  const { navigation, footer, headerSettings, siteSettings, companySettings, heroCta } = loadNavFooterData();
   const nvData = loadNewsVideosData();
   const newsItems = (nvData.newsItems || []).sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
   const videoItems = (nvData.videoItems || []).sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   return (
-    <PageLayout navData={navigation} footerData={footer} headerSettings={headerSettings} siteSettings={siteSettings} heroCta={heroCta}>
+    <PageLayout navData={navigation} footerData={footer} headerSettings={headerSettings} siteSettings={siteSettings} companySettings={companySettings} heroCta={heroCta}>
       <StructuredData pageType="default" pagePath="/news-videos" />
 
       <PageBanner eyebrow={nvData.eyebrow || "Latest Updates"} title={nvData.sectionTitle || "News & Videos"} subtitle={nvData.subtitle || ""} bannerImage={nvData.bannerImage} />
@@ -42,18 +42,18 @@ export default function NewsVideosPage() {
             </p>
           ) : (
             <>
-              {videoItems.length > 0 && (
-                <NewsVideosScrollRow label="Videos" itemCount={videoItems.length}>
-                  {videoItems.map((item: any, i: number) => (
-                    <VideoPageCard key={`video-${i}`} item={item} />
+              {newsItems.length > 0 && (
+                <NewsVideosScrollRow label="News / Blogs" itemCount={newsItems.length}>
+                  {newsItems.map((item: any, i: number) => (
+                    <NewsPageCard key={`news-${i}`} item={item} />
                   ))}
                 </NewsVideosScrollRow>
               )}
 
-              {newsItems.length > 0 && (
-                <NewsVideosScrollRow label="News" itemCount={newsItems.length}>
-                  {newsItems.map((item: any, i: number) => (
-                    <NewsPageCard key={`news-${i}`} item={item} />
+              {videoItems.length > 0 && (
+                <NewsVideosScrollRow label="Videos" itemCount={videoItems.length}>
+                  {videoItems.map((item: any, i: number) => (
+                    <VideoPageCard key={`video-${i}`} item={item} />
                   ))}
                 </NewsVideosScrollRow>
               )}

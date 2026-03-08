@@ -120,12 +120,24 @@ export function createAdminHandler(dataBaseDir: string) {
         fs.mkdirSync(dir, { recursive: true });
       }
 
-      fs.writeFileSync(filePath, JSON.stringify(data, null, 2) + "\n");
+      const saveData = typeof data === "object" && data !== null && !Array.isArray(data)
+        ? Object.fromEntries(Object.entries(data).filter(([k]) => !k.startsWith("_")))
+        : data;
+      fs.writeFileSync(filePath, JSON.stringify(saveData, null, 2) + "\n");
 
       try {
         revalidatePath("/", "layout");
         revalidatePath("/");
-        if (fullPath.startsWith("pages/")) {
+        if (fullPath === "pages/CustomPages.json") {
+          const customData = data as { pages?: { slug?: string }[] };
+          if (customData.pages) {
+            for (const pg of customData.pages) {
+              if (pg.slug) {
+                revalidatePath(`/${pg.slug.replace(/^\//, "")}`);
+              }
+            }
+          }
+        } else if (fullPath.startsWith("pages/")) {
           const pageName = fullPath.replace("pages/", "").replace("Page.json", "").replace(/([A-Z])/g, "-$1").toLowerCase().replace(/^-/, "");
           revalidatePath(`/${pageName}`);
         }

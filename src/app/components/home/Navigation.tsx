@@ -83,11 +83,13 @@ interface NavigationProps {
   data?: Record<string, unknown>;
   headerSettings?: Record<string, unknown>;
   siteSettings?: Record<string, unknown>;
+  companySettings?: Record<string, unknown>;
   heroCta?: { label: string; href: string };
 }
 
-const Navigation = ({ data, headerSettings: headerSettingsProp, siteSettings, heroCta }: NavigationProps) => {
+const Navigation = ({ data, headerSettings: headerSettingsProp, siteSettings, companySettings, heroCta }: NavigationProps) => {
   const navData = data as any;
+  const company = companySettings as any || {};
   const headerSettings = headerSettingsProp as any || {};
   if (!navData || !navData.enabled) return null;
 
@@ -104,7 +106,7 @@ const Navigation = ({ data, headerSettings: headerSettingsProp, siteSettings, he
   const dropdowns = links.filter((l: any) => l.type === "dropdown");
   const plainLinks = links.filter((l: any) => l.type !== "dropdown");
   const utilityLinks = navData.utilityLinks || [];
-  const socialLinks = navData.socialLinks || [];
+  const socialLinks = company.socialLinks || navData.socialLinks || [];
   const getChildren = (item: any) => item.children || item.links || [];
   const showIcons = navData.showIcons !== false;
 
@@ -118,12 +120,16 @@ const Navigation = ({ data, headerSettings: headerSettingsProp, siteSettings, he
           </a>
         )}
         <div className="nav-contact">
-          <a href={navData.contact.phone.href}>
-            <span className="icon">{navData.contact.phone.icon}</span> {navData.contact.phone.label}
-          </a>
-          <a href={navData.contact.email.href}>
-            <span className="icon">{navData.contact.email.icon}</span> {navData.contact.email.label}
-          </a>
+          {(company.phone || navData.contact?.phone) && (
+            <a href={company.phone?.href || navData.contact?.phone?.href}>
+              <span className="icon">{company.phone?.icon || navData.contact?.phone?.icon}</span> {company.phone?.label || navData.contact?.phone?.label}
+            </a>
+          )}
+          {(company.email || navData.contact?.email) && (
+            <a href={company.email?.href || navData.contact?.email?.href}>
+              <span className="icon">{company.email?.icon || navData.contact?.email?.icon}</span> {company.email?.label || navData.contact?.email?.label}
+            </a>
+          )}
         </div>
         <div className="nav-links-utility">
           {utilityLinks.map((link: any, index: number) => (
@@ -232,14 +238,26 @@ const Navigation = ({ data, headerSettings: headerSettingsProp, siteSettings, he
             </a>
           )
         )}
+        {utilityLinks.length > 0 && (
+          <div className="nav-mobile-utility-divider" />
+        )}
+        {utilityLinks.map((link: any, idx: number) => (
+          <a key={`mob-util-${idx}`} href={link.href}>
+            {link.label}
+          </a>
+        ))}
       </div>
       <div className="nav-mobile-footer">
-        <a href={navData.contact.phone.href}>
-          {navData.contact.phone.icon} {navData.contact.phone.label}
-        </a>
-        <a href={navData.contact.email.href}>
-          {navData.contact.email.icon} {navData.contact.email.label}
-        </a>
+        {(company.phone || navData.contact?.phone) && (
+          <a href={company.phone?.href || navData.contact?.phone?.href}>
+            {company.phone?.icon || navData.contact?.phone?.icon} {company.phone?.label || navData.contact?.phone?.label}
+          </a>
+        )}
+        {(company.email || navData.contact?.email) && (
+          <a href={company.email?.href || navData.contact?.email?.href}>
+            {company.email?.icon || navData.contact?.email?.icon} {company.email?.label || navData.contact?.email?.label}
+          </a>
+        )}
       </div>
     </div>
     </nav>

@@ -1,3 +1,5 @@
+import { sanitizeHtml } from "../../lib/sanitize";
+
 interface Review {
   name: string;
   location: string;
@@ -53,9 +55,7 @@ const TestimonialsFullSection = ({ data }: { data: TestimonialsFullData }) => {
                   <span key={i} className="text-amber-400 text-lg">★</span>
                 ))}
               </div>
-              <p className="text-gray-600 mb-4 leading-relaxed text-sm">
-                &ldquo;{review.text}&rdquo;
-              </p>
+              <div className="text-gray-600 mb-4 leading-relaxed text-sm rich-html" dangerouslySetInnerHTML={{ __html: "&ldquo;" + sanitizeHtml(review.text || "") + "&rdquo;" }} />
               <div className="flex items-center justify-between">
                 <div>
                   <p className="font-bold text-sm">{review.name}</p>

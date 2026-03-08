@@ -13,16 +13,6 @@
     "primary": "SEAI Approved Installer",
     "secondary": "Lifetime Workmanship Guarantee"
   },
-  "socialLinks": [
-    {
-      "label": "Facebook",
-      "href": "https://www.facebook.com/greenhouserenewables"
-    },
-    {
-      "label": "YouTube",
-      "href": "https://www.youtube.com/@greenhouserenewables"
-    }
-  ],
   "columns": [
     {
       "title": "Solutions",
@@ -74,22 +64,12 @@
   "contact": {
     "heading": "Get in Touch",
     "phoneIcon": "📞",
-    "phone": {
-      "label": "+353 1 207 0006",
-      "href": "tel:+35312070006"
-    },
     "emailIcon": "✉️",
-    "email": {
-      "label": "info@brightpeak-energy.com",
-      "href": "mailto:info@brightpeak-energy.com"
-    },
     "locationIcon": "📍",
-    "location": "Dublin, Ireland",
     "cta": {
       "label": "Get a Quote",
-      "href": "/contact"
-    },
-    "hours": "Mon - Fri: 8am - 5pm"
+      "variant": "primary"
+    }
   },
   "bottom": {
     "copyright": "© 2025 BrightPeak Energy. All rights reserved.",

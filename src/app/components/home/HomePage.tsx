@@ -14,8 +14,10 @@ import FaqSection from "./FaqSection";
 import AccreditationsSection from "./AccreditationsSection";
 import NewsVideosSection from "./NewsVideosSection";
 import FinalCtaSection from "./FinalCtaSection";
+import CustomHomeSection from "./CustomHomeSection";
 import Footer from "./Footer";
 import type { HomeData } from "../../lib/loadAllHomeData";
+import type { CustomPage } from "../../lib/customPages";
 
 interface Props {
   allData: HomeData;
@@ -27,6 +29,17 @@ const HomePage = ({ allData }: Props) => {
   const orderedSections = (homePageData.order || []) as string[];
 
   const heroCta = allData.heroCta as { label: string; href: string };
+
+  const customPages = (allData.customPages || []) as CustomPage[];
+  const homepageSections = customPages.filter(
+    (p) => p.enabled && p.placement === "homepage"
+  );
+
+  const customSectionMap: Record<string, React.ReactNode> = {};
+  for (const cp of homepageSections) {
+    const key = `custom_${cp.slug}`;
+    customSectionMap[key] = <CustomHomeSection page={cp} />;
+  }
 
   const sectionMap: Record<string, React.ReactNode> = {
     hero: <HeroSection data={allData.hero} siteSettings={allData.siteSettings} />,
@@ -43,23 +56,33 @@ const HomePage = ({ allData }: Props) => {
     accreditations: <AccreditationsSection data={allData.accreditations} />,
     newsVideos: <NewsVideosSection data={allData.newsVideos} />,
     finalCta: <FinalCtaSection data={allData.finalCta} siteSettings={allData.siteSettings} heroCta={heroCta} />,
+    ...customSectionMap,
   };
+
+  const resolvedOrder = [
+    ...orderedSections,
+    ...Object.keys(customSectionMap).filter((k) => !orderedSections.includes(k)),
+  ];
 
   return (
     <div className="min-h-screen">
       {sections.navigation && (
-        <Navigation data={allData.navigation} headerSettings={allData.headerSettings} siteSettings={allData.siteSettings} heroCta={heroCta} />
+        <Navigation data={allData.navigation} headerSettings={allData.headerSettings} siteSettings={allData.siteSettings} companySettings={allData.companySettings} heroCta={heroCta} />
       )}
 
       <main>
-        {orderedSections
-          .filter((key) => key in sectionMap && sections[key])
+        {resolvedOrder
+          .filter((key) => {
+            if (!(key in sectionMap)) return false;
+            if (key.startsWith("custom_")) return sections[key] !== false;
+            return sections[key];
+          })
           .map((key) => (
             <Fragment key={key}>{sectionMap[key]}</Fragment>
           ))}
       </main>
 
-      {sections.footer && <Footer data={allData.footer} siteSettings={allData.siteSettings} heroCta={heroCta} />}
+      {sections.footer && <Footer data={allData.footer} siteSettings={allData.siteSettings} companySettings={allData.companySettings} heroCta={heroCta} />}
     </div>
   );
 };

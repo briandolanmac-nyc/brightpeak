@@ -3,7 +3,8 @@ import StructuredData from "../components/StructuredData";
 import PageLayout from "../components/PageLayout";
 import PageBanner from "../components/PageBanner";
 import { loadPageJson, loadNavFooterData } from "../lib/loadAllHomeData";
-import { getContactFormUrl, getVoltfloUrl, externalLinkProps } from "../lib/siteSettings";
+import { getUrlForVariant, externalLinkProps } from "../lib/siteSettings";
+import { sanitizeHtml } from "../lib/sanitize";
 
 export const metadata = generatePageMetadata("/commercial-solar");
 
@@ -11,11 +12,11 @@ export const dynamic = "force-dynamic";
 
 export default function CommercialSolarPage() {
   const pageData = loadPageJson("CommercialSolarPage.json") as any;
-  const { navigation, footer, headerSettings, siteSettings, heroCta } = loadNavFooterData();
+  const { navigation, footer, headerSettings, siteSettings, companySettings, heroCta } = loadNavFooterData();
   const { hero, about, whyChoose, trusted, cta } = pageData;
 
   return (
-    <PageLayout navData={navigation} footerData={footer} headerSettings={headerSettings} siteSettings={siteSettings} heroCta={heroCta}>
+    <PageLayout navData={navigation} footerData={footer} headerSettings={headerSettings} siteSettings={siteSettings} companySettings={companySettings} heroCta={heroCta}>
       <StructuredData pageType="service" pagePath="/commercial-solar" serviceName={hero.title} />
       <PageBanner eyebrow={hero.eyebrow} title={hero.title} subtitle={hero.subtitle} bannerImage={hero.bannerImage} />
 
@@ -30,9 +31,7 @@ export default function CommercialSolarPage() {
                 {about.title}
               </h2>
               {about.paragraphs.map((text: string, i: number) => (
-                <p key={i} className={`text-gray-600 leading-relaxed${i < about.paragraphs.length - 1 ? " mb-4" : ""}`}>
-                  {text}
-                </p>
+                <div key={i} className={`text-gray-600 leading-relaxed rich-html${i < about.paragraphs.length - 1 ? " mb-4" : ""}`} dangerouslySetInnerHTML={{ __html: sanitizeHtml(text || "") }} />
               ))}
             </div>
             <div>
@@ -60,7 +59,7 @@ export default function CommercialSolarPage() {
               >
                 <div className="text-3xl mb-3">{item.icon}</div>
                 <h3 className="font-bold mb-2">{item.title}</h3>
-                <p className="text-gray-600 text-sm">{item.desc}</p>
+                <div className="text-gray-600 text-sm rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
               </div>
             ))}
           </div>
@@ -96,8 +95,8 @@ export default function CommercialSolarPage() {
             {cta.subtitle}
           </p>
           <a
-            href={getContactFormUrl(siteSettings)}
-            {...externalLinkProps(getContactFormUrl(siteSettings))}
+            href={getUrlForVariant(cta.primaryButton?.variant || "primary", siteSettings)}
+            {...externalLinkProps(getUrlForVariant(cta.primaryButton?.variant || "primary", siteSettings))}
             className="btn btn-outline"
           >
             {heroCta.label}

@@ -1,0 +1,31 @@
+{
+  "companyName": "BrightPeak Energy",
+  "phone": {
+    "icon": "📞",
+    "label": "+353 1 207 0006",
+    "href": "tel:+35312070006"
+  },
+  "email": {
+    "icon": "✉️",
+    "label": "info@brightpeak-energy.com",
+    "href": "mailto:info@brightpeak-energy.com"
+  },
+  "address": {
+    "line1": "",
+    "line2": "",
+    "city": "",
+    "county": "",
+    "country": ""
+  },
+  "openingHours": "Mon - Fri: 8am - 5pm",
+  "socialLinks": [
+    {
+      "label": "Facebook",
+      "href": "https://www.facebook.com/greenhouserenewables"
+    },
+    {
+      "label": "YouTube",
+      "href": "https://www.youtube.com/@greenhouserenewables"
+    }
+  ]
+}

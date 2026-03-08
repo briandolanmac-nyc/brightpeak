@@ -36,7 +36,89 @@ export function setNestedValue(obj: unknown, path: string, value: unknown): unkn
   return result;
 }
 
+export function blankFromTemplate(template: Record<string, unknown>): Record<string, unknown> {
+  const blank: Record<string, unknown> = {};
+  for (const [key, val] of Object.entries(template)) {
+    if (val === null || val === undefined) {
+      blank[key] = "";
+    } else if (typeof val === "string") {
+      blank[key] = "";
+    } else if (typeof val === "number") {
+      blank[key] = 0;
+    } else if (typeof val === "boolean") {
+      blank[key] = val;
+    } else if (Array.isArray(val)) {
+      blank[key] = [];
+    } else if (typeof val === "object") {
+      blank[key] = blankFromTemplate(val as Record<string, unknown>);
+    } else {
+      blank[key] = "";
+    }
+  }
+  return blank;
+}
+
 export interface FileData {
   file: string;
   data: Record<string, unknown>;
+}
+
+export function syncCustomPageSections(files: FileData[]): FileData[] {
+  const customPagesFile = files.find((f) => f.file === "pages/CustomPages.json");
+  const homePageFile = files.find((f) => f.file === "HomePage.json");
+  if (!customPagesFile || !homePageFile) return files;
+
+  const pages = customPagesFile.data.pages as Array<Record<string, unknown>> | undefined;
+  if (!Array.isArray(pages)) return files;
+
+  const sections = (homePageFile.data.sections || {}) as Record<string, boolean>;
+  const order = (homePageFile.data.order || []) as string[];
+
+  const homepageSlugs = new Set<string>();
+  const titleMap: Record<string, string> = {};
+  for (const page of pages) {
+    if (page.placement === "homepage" && page.slug && typeof page.slug === "string") {
+      const key = `custom_${page.slug}`;
+      homepageSlugs.add(key);
+      const hero = page.hero as Record<string, unknown> | undefined;
+      const title = (hero?.title as string) || "";
+      if (title) titleMap[key] = title;
+    }
+  }
+
+  const existingCustomKeys = Object.keys(sections).filter((k) => k.startsWith("custom_"));
+  let changed = false;
+
+  const newSections = { ...sections };
+  const newOrder = [...order];
+
+  for (const key of homepageSlugs) {
+    if (!(key in newSections)) {
+      newSections[key] = true;
+      changed = true;
+    }
+    if (!newOrder.includes(key)) {
+      newOrder.push(key);
+      changed = true;
+    }
+  }
+
+  for (const key of existingCustomKeys) {
+    if (!homepageSlugs.has(key)) {
+      delete newSections[key];
+      const idx = newOrder.indexOf(key);
+      if (idx !== -1) newOrder.splice(idx, 1);
+      changed = true;
+    }
+  }
+
+  const oldTitles = homePageFile.data._customTitles as Record<string, string> | undefined;
+  const titlesChanged = JSON.stringify(oldTitles || {}) !== JSON.stringify(titleMap);
+
+  if (!changed && !titlesChanged) return files;
+
+  return files.map((f) => {
+    if (f.file !== "HomePage.json") return f;
+    return { ...f, data: { ...f.data, sections: newSections, order: newOrder, _customTitles: titleMap } };
+  });
 }

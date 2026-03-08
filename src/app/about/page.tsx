@@ -3,7 +3,8 @@ import PageBanner from "../components/PageBanner";
 import { loadPageJson, loadNavFooterData } from "../lib/loadAllHomeData";
 import { generatePageMetadata } from "../components/SeoHead";
 import StructuredData from "../components/StructuredData";
-import { getContactFormUrl, getVoltfloUrl, externalLinkProps } from "../lib/siteSettings";
+import { getUrlForVariant, externalLinkProps } from "../lib/siteSettings";
+import { sanitizeHtml } from "../lib/sanitize";
 
 export const metadata = generatePageMetadata("/about");
 
@@ -11,10 +12,10 @@ export const dynamic = "force-dynamic";
 
 export default function AboutPage() {
   const aboutData = loadPageJson("AboutPage.json") as any;
-  const { navigation, footer, headerSettings, siteSettings, heroCta } = loadNavFooterData();
+  const { navigation, footer, headerSettings, siteSettings, companySettings, heroCta } = loadNavFooterData();
 
   return (
-    <PageLayout navData={navigation} footerData={footer} headerSettings={headerSettings} siteSettings={siteSettings} heroCta={heroCta}>
+    <PageLayout navData={navigation} footerData={footer} headerSettings={headerSettings} siteSettings={siteSettings} companySettings={companySettings} heroCta={heroCta}>
       <StructuredData pageType="about" pagePath="/about" />
       <PageBanner eyebrow={aboutData.hero.eyebrow} title={aboutData.hero.title} subtitle={aboutData.hero.description} bannerImage={aboutData.hero.bannerImage} />
 
@@ -29,9 +30,7 @@ export default function AboutPage() {
                 {aboutData.story.title}
               </h2>
               {aboutData.story.paragraphs.map((p: string, i: number) => (
-                <p key={i} className={`text-gray-600 leading-relaxed ${i < aboutData.story.paragraphs.length - 1 ? "mb-4" : ""}`}>
-                  {p}
-                </p>
+                <div key={i} className={`text-gray-600 leading-relaxed rich-html ${i < aboutData.story.paragraphs.length - 1 ? "mb-4" : ""}`} dangerouslySetInnerHTML={{ __html: sanitizeHtml(p || "") }} />
               ))}
             </div>
             <div className="relative">
@@ -63,7 +62,7 @@ export default function AboutPage() {
               >
                 <div className="text-4xl mb-4">{item.icon}</div>
                 <h3 className="text-xl font-bold mb-3">{item.title}</h3>
-                <p className="text-gray-600">{item.desc}</p>
+                <div className="text-gray-600 rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
               </div>
             ))}
           </div>
@@ -104,20 +103,18 @@ export default function AboutPage() {
           <h2 className="text-3xl font-extrabold mb-4">
             {aboutData.cta.title}
           </h2>
-          <p className="text-lg mb-8 opacity-90 max-w-xl mx-auto">
-            {aboutData.cta.description}
-          </p>
+          <div className="text-lg mb-8 opacity-90 max-w-xl mx-auto rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(aboutData.cta.description || "") }} />
           <div className="flex flex-wrap gap-4 justify-center">
             <a
-              href={getVoltfloUrl(siteSettings)}
-              {...externalLinkProps(getVoltfloUrl(siteSettings))}
+              href={getUrlForVariant(aboutData.cta.primaryButton?.variant || "primary", siteSettings)}
+              {...externalLinkProps(getUrlForVariant(aboutData.cta.primaryButton?.variant || "primary", siteSettings))}
               className="btn btn-primary"
             >
               {heroCta.label}
             </a>
             <a
-              href={getContactFormUrl(siteSettings)}
-              {...externalLinkProps(getContactFormUrl(siteSettings))}
+              href={getUrlForVariant(aboutData.cta.secondaryButton?.variant || "secondary", siteSettings)}
+              {...externalLinkProps(getUrlForVariant(aboutData.cta.secondaryButton?.variant || "secondary", siteSettings))}
               className="btn btn-outline"
             >
               {aboutData.cta.secondaryButton.label}

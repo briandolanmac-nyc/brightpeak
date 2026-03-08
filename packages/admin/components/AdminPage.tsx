@@ -2,9 +2,10 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { SECTION_LABELS, SECTION_ORDER, SECTION_GROUPS } from "../config";
-import { setNestedValue, formatLabel } from "../utils";
+import { setNestedValue, formatLabel, syncCustomPageSections } from "../utils";
 import type { FileData } from "../utils";
 import { SmartEditorPage } from "./SmartEditorPage";
+import { SubmissionsViewer } from "./SubmissionsViewer";
 
 export default function AdminPage() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -37,7 +38,7 @@ export default function AdminPage() {
         return;
       }
       const json = await res.json();
-      setFiles(json.files);
+      setFiles(syncCustomPageSections(json.files));
       setAuthenticated(true);
       setAuthError("");
     } catch {
@@ -56,13 +57,22 @@ export default function AdminPage() {
   }, [loadData]);
 
   const handleFieldChange = useCallback((filePath: string, fieldPath: string, value: unknown) => {
-    setFiles((prev) =>
-      prev.map((f) => {
+    setFiles((prev) => {
+      let updated = prev.map((f) => {
         if (f.file !== filePath) return f;
         const newData = setNestedValue(f.data, fieldPath, value);
         return { ...f, data: newData as Record<string, unknown> };
-      })
-    );
+      });
+      if (filePath === "pages/CustomPages.json") {
+        const before = prev.find((f) => f.file === "HomePage.json");
+        updated = syncCustomPageSections(updated);
+        const after = updated.find((f) => f.file === "HomePage.json");
+        if (before && after && before !== after) {
+          setTimeout(() => setModified((p) => new Set([...p, "HomePage.json"])), 0);
+        }
+      }
+      return updated;
+    });
     setModified((prev) => new Set([...prev, filePath]));
     setSaveStatus("");
   }, []);
@@ -237,6 +247,15 @@ export default function AdminPage() {
               ))}
             </div>
           ))}
+          <div className="admin-nav-group">
+            <div className="admin-nav-group-label">Inbox</div>
+            <button
+              onClick={() => setActiveFile("__submissions__")}
+              className={`admin-nav-item ${activeFile === "__submissions__" ? "active" : ""}`}
+            >
+              <span>Contact Submissions</span>
+            </button>
+          </div>
         </nav>
         <div className="admin-sidebar-footer">
           {modified.size > 0 && (
@@ -268,33 +287,39 @@ export default function AdminPage() {
       <main className="admin-main">
         <div className="admin-toolbar">
           <div>
-            <h1 className="admin-page-title">{SECTION_LABELS[activeFile]}</h1>
-            <p className="admin-file-path">data/{activeFile.startsWith("pages/") ? activeFile : `home/${activeFile}`}</p>
-          </div>
-          <div className="admin-toolbar-actions">
-            {saveStatus && (
-              <span className={`admin-save-status ${saveStatus.includes("Error") ? "error" : "success"}`}>
-                {saveStatus}
-              </span>
+            <h1 className="admin-page-title">{activeFile === "__submissions__" ? "Contact Submissions" : SECTION_LABELS[activeFile]}</h1>
+            {activeFile !== "__submissions__" && (
+              <p className="admin-file-path">data/{activeFile.startsWith("pages/") ? activeFile : `home/${activeFile}`}</p>
             )}
-            <button
-              onClick={() => handleSave(activeFile)}
-              disabled={saving || !modified.has(activeFile)}
-              className="admin-btn-save"
-            >
-              {saving ? "Saving..." : "Save Changes"}
-            </button>
           </div>
+          {activeFile !== "__submissions__" && (
+            <div className="admin-toolbar-actions">
+              {saveStatus && (
+                <span className={`admin-save-status ${saveStatus.includes("Error") ? "error" : "success"}`}>
+                  {saveStatus}
+                </span>
+              )}
+              <button
+                onClick={() => handleSave(activeFile)}
+                disabled={saving || !modified.has(activeFile)}
+                className="admin-btn-save"
+              >
+                {saving ? "Saving..." : "Save Changes"}
+              </button>
+            </div>
+          )}
         </div>
 
         <div className="admin-content">
-          {activeData && (
+          {activeFile === "__submissions__" ? (
+            <SubmissionsViewer getHeaders={getHeaders} />
+          ) : activeData ? (
             <SmartEditorPage
               key={activeFile}
               data={activeData.data}
               onChange={(fieldPath, value) => handleFieldChange(activeFile, fieldPath, value)}
             />
-          )}
+          ) : null}
         </div>
       </main>
     </div>

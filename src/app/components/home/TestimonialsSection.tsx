@@ -73,6 +73,10 @@ function TestimonialsCarousel({ items, quoteMark, ratingStars }: { items: Carous
 
   const maxIndex = Math.max(0, items.length - visibleCount);
 
+  useEffect(() => {
+    setCurrentIndex((i) => Math.min(i, maxIndex));
+  }, [maxIndex]);
+
   const goTo = useCallback((index: number) => {
     setCurrentIndex(Math.max(0, Math.min(index, maxIndex)));
   }, [maxIndex]);
@@ -221,9 +225,6 @@ function TestimonialCard({ item, quoteMark, ratingStars }: { item: CarouselItem;
         {item.company ? (
           <span className="company-badge">{item.company}</span>
         ) : null}
-        <span className={`quote-icon ${item.tone === "aqua" ? "aqua" : ""}`}>
-          {quoteMark}
-        </span>
       </div>
       <div className={`stars ${item.variant === "b2b" ? "small" : ""}`}>
         {ratingStars}

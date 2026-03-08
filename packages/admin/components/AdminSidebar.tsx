@@ -1,12 +1,15 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import { SECTION_LABELS, SECTION_ORDER, SECTION_GROUPS } from "../config";
-import { setNestedValue } from "../utils";
+import { setNestedValue, syncCustomPageSections } from "../utils";
 import type { FileData } from "../utils";
 import { SmartEditorSidebar } from "./SmartEditorSidebar";
+import { SubmissionsViewer } from "./SubmissionsViewer";
 
 export default function AdminSidebar() {
+  const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [open, setOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -39,7 +42,7 @@ export default function AdminSidebar() {
         return;
       }
       const json = await res.json();
-      setFiles(json.files);
+      setFiles(syncCustomPageSections(json.files));
       setAuthenticated(true);
       setAuthError("");
     } catch {
@@ -86,13 +89,22 @@ export default function AdminSidebar() {
   };
 
   const handleFieldChange = useCallback((filePath: string, fieldPath: string, value: unknown) => {
-    setFiles((prev) =>
-      prev.map((f) => {
+    setFiles((prev) => {
+      let updated = prev.map((f) => {
         if (f.file !== filePath) return f;
         const newData = setNestedValue(f.data, fieldPath, value);
         return { ...f, data: newData as Record<string, unknown> };
-      })
-    );
+      });
+      if (filePath === "pages/CustomPages.json") {
+        const before = prev.find((f) => f.file === "HomePage.json");
+        updated = syncCustomPageSections(updated);
+        const after = updated.find((f) => f.file === "HomePage.json");
+        if (before && after && before !== after) {
+          setTimeout(() => setModified((p) => new Set([...p, "HomePage.json"])), 0);
+        }
+      }
+      return updated;
+    });
     setModified((prev) => new Set([...prev, filePath]));
     setSaveStatus("");
   }, []);
@@ -120,6 +132,7 @@ export default function AdminSidebar() {
           next.delete(fileName);
           return next;
         });
+        router.refresh();
       } else {
         setSaveStatus("Error saving");
       }
@@ -212,7 +225,7 @@ export default function AdminSidebar() {
                   className="sb-select"
                   onClick={() => setDropdownOpen(!dropdownOpen)}
                 >
-                  <span>{SECTION_LABELS[activeFile]}{modified.has(activeFile) ? " *" : ""}</span>
+                  <span>{activeFile === "__submissions__" ? "Contact Submissions" : SECTION_LABELS[activeFile]}{modified.has(activeFile) ? " *" : ""}</span>
                   <span className="sb-select-arrow">{dropdownOpen ? "▴" : "▾"}</span>
                 </button>
                 {dropdownOpen && (
@@ -232,44 +245,56 @@ export default function AdminSidebar() {
                         ))}
                       </div>
                     ))}
+                    <div className="sb-dropdown-group">
+                      <div className="sb-dropdown-group-label">Inbox</div>
+                      <button
+                        type="button"
+                        className={`sb-dropdown-item${activeFile === "__submissions__" ? " active" : ""}`}
+                        onClick={() => { setActiveFile("__submissions__"); setDropdownOpen(false); }}
+                      >
+                        Contact Submissions
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>
-              <div className="sb-header-actions">
-                <div className="sb-actions-left">
+              {activeFile !== "__submissions__" && (
+                <div className="sb-header-actions">
+                  <div className="sb-actions-left">
+                    <button
+                      onClick={() => {
+                        setModified(new Set());
+                        loadData();
+                      }}
+                      disabled={loading}
+                      className="sb-btn-refresh"
+                      title="Refresh data"
+                    >
+                      {loading ? "..." : "↻"}
+                    </button>
+                    <button
+                      onClick={() => handleSave(activeFile)}
+                      disabled={saving || !modified.has(activeFile)}
+                      className="sb-btn-save"
+                    >
+                      {saving ? "..." : "Save"}
+                    </button>
+                    {saveStatus && (
+                      <span className={`sb-status ${saveStatus.includes("Error") ? "sb-status-err" : "sb-status-ok"}`}>
+                        {saveStatus}
+                      </span>
+                    )}
+                  </div>
                   <button
-                    onClick={() => {
-                      setModified(new Set());
-                      loadData();
-                    }}
-                    disabled={loading}
-                    className="sb-btn-refresh"
-                    title="Refresh data"
+                    onClick={handlePublish}
+                    disabled={publishing || modified.size > 0}
+                    className="sb-btn-submit"
+                    title={modified.size > 0 ? "Save all changes first" : "Submit changes for review"}
                   >
-                    {loading ? "..." : "↻"}
+                    {publishing ? "..." : "Submit for Review"}
                   </button>
-                  <button
-                    onClick={() => handleSave(activeFile)}
-                    disabled={saving || !modified.has(activeFile)}
-                    className="sb-btn-save"
-                  >
-                    {saving ? "..." : "Save"}
-                  </button>
-                  {saveStatus && (
-                    <span className={`sb-status ${saveStatus.includes("Error") ? "sb-status-err" : "sb-status-ok"}`}>
-                      {saveStatus}
-                    </span>
-                  )}
                 </div>
-                <button
-                  onClick={handlePublish}
-                  disabled={publishing || modified.size > 0}
-                  className="sb-btn-submit"
-                  title={modified.size > 0 ? "Save all changes first" : "Submit changes for review"}
-                >
-                  {publishing ? "..." : "Submit for Review"}
-                </button>
-              </div>
+              )}
               {publishStatus && (
                 <div className={`sb-publish-status ${publishStatus.type === "success" ? "sb-publish-ok" : "sb-publish-err"}`}>
                   <span>{publishStatus.message}</span>
@@ -281,7 +306,9 @@ export default function AdminSidebar() {
             </div>
 
             <div className="sb-body">
-              {activeData && (
+              {activeFile === "__submissions__" ? (
+                <SubmissionsViewer getHeaders={getHeaders} />
+              ) : activeData ? (
                 <SmartEditorSidebar
                   key={activeFile}
                   data={activeData.data}
@@ -289,7 +316,7 @@ export default function AdminSidebar() {
                     handleFieldChange(activeFile, fieldPath, value)
                   }
                 />
-              )}
+              ) : null}
             </div>
           </>
         )}

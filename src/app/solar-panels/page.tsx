@@ -3,7 +3,8 @@ import PageBanner from "../components/PageBanner";
 import { loadPageJson, loadNavFooterData } from "../lib/loadAllHomeData";
 import { generatePageMetadata } from "../components/SeoHead";
 import StructuredData from "../components/StructuredData";
-import { getContactFormUrl, getVoltfloUrl, externalLinkProps } from "../lib/siteSettings";
+import { getUrlForVariant, externalLinkProps } from "../lib/siteSettings";
+import { sanitizeHtml } from "../lib/sanitize";
 
 export const metadata = generatePageMetadata("/solar-panels");
 
@@ -11,11 +12,11 @@ export const dynamic = "force-dynamic";
 
 export default function SolarPanelsPage() {
   const pageData = loadPageJson("SolarPanelsPage.json") as any;
-  const { navigation, footer, headerSettings, siteSettings, heroCta } = loadNavFooterData();
+  const { navigation, footer, headerSettings, siteSettings, companySettings, heroCta } = loadNavFooterData();
   const { hero, whySolar, process, included, cta } = pageData;
 
   return (
-    <PageLayout navData={navigation} footerData={footer} headerSettings={headerSettings} siteSettings={siteSettings} heroCta={heroCta}>
+    <PageLayout navData={navigation} footerData={footer} headerSettings={headerSettings} siteSettings={siteSettings} companySettings={companySettings} heroCta={heroCta}>
       <StructuredData pageType="service" pagePath="/solar-panels" serviceName="Solar Panel Installation" />
       <PageBanner eyebrow={hero.eyebrow} title={hero.title} subtitle={hero.subtitle} bannerImage={hero.bannerImage} />
 
@@ -32,7 +33,7 @@ export default function SolarPanelsPage() {
               <div key={i} className="solar-info-card">
                 <div className="solar-info-card-text">
                   <h3 className="font-bold text-xl mb-2" style={{ color: "var(--text-primary)" }}>{card.subHeading}</h3>
-                  <p className="text-gray-600 leading-relaxed">{card.paragraph}</p>
+                  <div className="text-gray-600 leading-relaxed rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(card.paragraph || "") }} />
                 </div>
                 {card.image && (
                   <div className="solar-info-card-image">
@@ -77,7 +78,7 @@ export default function SolarPanelsPage() {
                   {item.step}
                 </div>
                 <h3 className="font-bold mb-2">{item.title}</h3>
-                <p className="text-gray-600 text-sm">{item.desc}</p>
+                <div className="text-gray-600 text-sm rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
               </div>
             ))}
           </div>
@@ -98,7 +99,7 @@ export default function SolarPanelsPage() {
               >
                 <div className="text-3xl mb-3">{item.icon}</div>
                 <h3 className="font-bold mb-2">{item.title}</h3>
-                <p className="text-gray-600 text-sm">{item.desc}</p>
+                <div className="text-gray-600 text-sm rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.desc || "") }} />
               </div>
             ))}
           </div>
@@ -121,16 +122,16 @@ export default function SolarPanelsPage() {
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <a
-              href={getVoltfloUrl(siteSettings)}
-              {...externalLinkProps(getVoltfloUrl(siteSettings))}
+              href={getUrlForVariant(cta.primaryButton?.variant || "primary", siteSettings)}
+              {...externalLinkProps(getUrlForVariant(cta.primaryButton?.variant || "primary", siteSettings))}
               className="btn btn-primary"
             >
               {heroCta.label}
             </a>
             {cta.secondaryButton && (
               <a
-                href={getContactFormUrl(siteSettings)}
-                {...externalLinkProps(getContactFormUrl(siteSettings))}
+                href={getUrlForVariant(cta.secondaryButton.variant || "secondary", siteSettings)}
+                {...externalLinkProps(getUrlForVariant(cta.secondaryButton.variant || "secondary", siteSettings))}
                 className="btn btn-outline"
               >
                 {cta.secondaryButton.label}

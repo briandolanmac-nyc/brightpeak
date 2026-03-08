@@ -1,4 +1,5 @@
 import { getContactFormUrl, getVoltfloUrl, externalLinkProps } from "../../lib/siteSettings";
+import { sanitizeHtml } from "../../lib/sanitize";
 
 const HowSection = ({ data, siteSettings, heroCta }: { data: Record<string, unknown>; siteSettings: Record<string, unknown>; heroCta?: { label: string; href: string } }) => {
   const howData = data as any;
@@ -17,7 +18,7 @@ const HowSection = ({ data, siteSettings, heroCta }: { data: Record<string, unkn
             <div className="how-icon">{step.icon}</div>
             <span className="how-time">{step.time}</span>
             <h3>{step.title}</h3>
-            <p>{step.description}</p>
+            <div className="rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(step.description || "") }} />
             <ul>
               {step.bullets.map((bullet: string) => (
                 <li key={bullet}>{bullet}</li>

@@ -11,11 +11,15 @@
     "contentBlocks": [
       {
         "subHeading": "What does a battery do?",
-        "paragraph": "The solar panels generate electricity which charges the battery. The battery then supplies power to your home.  These are high-capacity batteries so they can store a lot of electricity."
+        "paragraph": "<p>Solar panels generate electricity during daylight hours — typically between 9am and 4pm. But most Irish households use the most electricity in the evenings, when panels produce little or nothing. Without a battery, any excess electricity your panels generate during the day gets exported to the grid. With a battery, that surplus energy is stored and ready to use when you need it most.</p>"
       },
       {
-        "subHeading": "Why is it good to have one?",
-        "paragraph": "Pairing a battery with your solar panels is a smart investment. You can save even more money and become even more grid independent.  See below:"
+        "subHeading": "When does it make sense?",
+        "paragraph": "<p>It makes sense if nobody is home during the day while the panels are generating electricity. If you don't use it then most of that energy will go back to the grid.</p><p>A battery may be less of a priority if someone is at home throughout the day using electricity as it's generated, or if you're working with a tighter budget. In that case, solar panels alone still deliver strong returns and you can always add a battery later as prices continue to fall.</p>"
+      },
+      {
+        "subHeading": "Using or selling electricity units",
+        "paragraph": "<p>Ireland has some of the highest electricity prices in Europe — currently around 40–50 cent per kWh. Under the Clean Export Guarantee (CEG), your energy supplier must pay you for surplus electricity you send to the grid, but export rates typically range from 10–24 cent per kWh.</p><p>That gap — buying at 40–50c, selling at 10–24c — is exactly why storing and self-consuming your own solar energy is so valuable. Every unit of electricity you use from your battery instead of the grid saves you the full import rate.</p>"
       }
     ],
     "image": {
@@ -63,7 +67,7 @@
     "subtitle": "Whether you already have solar panels or are starting fresh, we can design the perfect battery storage solution for your home.",
     "primaryButton": {
       "label": "Get Free Quote",
-      "href": "/contact"
+      "variant": "primary"
     }
   }
 }

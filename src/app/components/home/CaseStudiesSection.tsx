@@ -1,5 +1,6 @@
 "use client";
 import { useState, useRef, useEffect, useCallback } from "react";
+import { sanitizeHtml } from "../../lib/sanitize";
 
 const VIDEO_RE = /\.(mp4|webm|ogg|mov)$/i;
 
@@ -209,11 +210,7 @@ function CaseCardItem({ card }: { card: CaseCard }) {
             ))}
           </div>
         )}
-        <div ref={descRef} className={`case-desc${expanded ? " case-desc-expanded" : ""}`}>
-          {card.description.split(/\n\n|\n/).map((para, i) => (
-            <p key={i}>{para}</p>
-          ))}
-        </div>
+        <div ref={descRef} className={`case-desc rich-html${expanded ? " case-desc-expanded" : ""}`} dangerouslySetInnerHTML={{ __html: sanitizeHtml(card.description || "") }} />
         {isTruncated && !expanded && (
           <span className="case-cta" onClick={handleCtaClick}>More..</span>
         )}
@@ -237,9 +234,11 @@ function CaseCardItem({ card }: { card: CaseCard }) {
 }
 
 function CaseStudiesCarousel({ cards }: { cards: CaseCard[] }) {
-  const trackRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(3);
+  const touchStartX = useRef(0);
+  const touchDeltaX = useRef(0);
+  const isDragging = useRef(false);
 
   const updateVisibleCount = useCallback(() => {
     const width = window.innerWidth;
@@ -256,20 +255,48 @@ function CaseStudiesCarousel({ cards }: { cards: CaseCard[] }) {
 
   const maxIndex = Math.max(0, cards.length - visibleCount);
 
-  const scrollTo = useCallback((index: number) => {
-    const clamped = Math.max(0, Math.min(index, maxIndex));
-    setCurrentIndex(clamped);
-    if (trackRef.current) {
-      const gap = 24;
-      const trackWidth = trackRef.current.offsetWidth;
-      const cardWidth = (trackWidth - gap * (visibleCount - 1)) / visibleCount;
-      const scrollTarget = clamped * (cardWidth + gap);
-      trackRef.current.scrollTo({ left: scrollTarget, behavior: "smooth" });
-    }
-  }, [maxIndex, visibleCount]);
+  useEffect(() => {
+    setCurrentIndex((i) => Math.min(i, maxIndex));
+  }, [maxIndex]);
 
-  const prev = () => scrollTo(currentIndex - 1);
-  const next = () => scrollTo(currentIndex + 1);
+  const goTo = useCallback((index: number) => {
+    setCurrentIndex(Math.max(0, Math.min(index, maxIndex)));
+  }, [maxIndex]);
+
+  const prev = () => goTo(currentIndex - 1);
+  const next = () => goTo(currentIndex + 1);
+
+  const gapPercent = 1.5;
+  const cardPercent = visibleCount === 1
+    ? 100
+    : visibleCount === 2
+      ? (100 - gapPercent) / 2
+      : (100 - gapPercent * 2) / 3;
+  const stepPercent = cardPercent + gapPercent;
+  const translateX = -(currentIndex * stepPercent);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchDeltaX.current = 0;
+    isDragging.current = true;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging.current) return;
+    touchDeltaX.current = e.touches[0].clientX - touchStartX.current;
+  };
+
+  const handleTouchEnd = () => {
+    if (!isDragging.current) return;
+    isDragging.current = false;
+    const threshold = 50;
+    if (touchDeltaX.current < -threshold) {
+      next();
+    } else if (touchDeltaX.current > threshold) {
+      prev();
+    }
+    touchDeltaX.current = 0;
+  };
 
   return (
     <div className="case-carousel">
@@ -282,8 +309,16 @@ function CaseStudiesCarousel({ cards }: { cards: CaseCard[] }) {
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
       </button>
 
-      <div className="case-track-wrapper">
-        <div className="case-track" ref={trackRef}>
+      <div
+        className="case-track-wrapper"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
+        <div
+          className="case-track"
+          style={{ transform: `translateX(${translateX}%)`, transition: "transform 0.4s ease" }}
+        >
           {cards.map((card, i) => (
             <CaseCardItem key={i} card={card} />
           ))}
@@ -305,7 +340,7 @@ function CaseStudiesCarousel({ cards }: { cards: CaseCard[] }) {
             <button
               key={i}
               className={`carousel-dot ${i === currentIndex ? "active" : ""}`}
-              onClick={() => scrollTo(i)}
+              onClick={() => goTo(i)}
               aria-label={`Go to page ${i + 1}`}
             />
           ))}

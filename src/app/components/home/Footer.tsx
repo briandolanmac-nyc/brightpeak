@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { getContactFormUrl, getVoltfloUrl, externalLinkProps } from "../../lib/siteSettings";
+import { getUrlForVariant, externalLinkProps } from "../../lib/siteSettings";
 
 const socialIcons: Record<string, ReactNode> = {
   Facebook: (
@@ -22,11 +22,13 @@ const socialIcons: Record<string, ReactNode> = {
 interface FooterProps {
   data?: Record<string, unknown>;
   siteSettings?: Record<string, unknown>;
+  companySettings?: Record<string, unknown>;
   heroCta?: { label: string; href: string };
 }
 
-const Footer = ({ data, siteSettings, heroCta }: FooterProps) => {
+const Footer = ({ data, siteSettings, companySettings, heroCta }: FooterProps) => {
   const footerData = data as any;
+  const company = companySettings as any || {};
   if (!footerData || !footerData.enabled) return null;
 
   const footerStyle = footerData.footerStyle || "dark";
@@ -50,7 +52,7 @@ const Footer = ({ data, siteSettings, heroCta }: FooterProps) => {
         <p className="footer-badges">{footerData.badges.primary}</p>
         <p className="footer-badges-sub">{footerData.badges.secondary}</p>
         <div className="footer-social">
-          {footerData.socialLinks.map((link: any) => (
+          {(company.socialLinks || footerData.socialLinks || []).map((link: any) => (
             <a
               key={link.href}
               href={link.href}
@@ -77,23 +79,33 @@ const Footer = ({ data, siteSettings, heroCta }: FooterProps) => {
       ))}
       <div className="footer-contact">
         <h4>{footerData.contact.heading}</h4>
-        <p>
-          <a href={footerData.contact.phone.href}>
-            <span className="footer-icon">{footerData.contact.phoneIcon}</span> {footerData.contact.phone.label}
-          </a>
-        </p>
-        <p>
-          <a href={footerData.contact.email.href}>
-            <span className="footer-icon">{footerData.contact.emailIcon}</span> {footerData.contact.email.label}
-          </a>
-        </p>
-        <p>
-          <span className="footer-icon">{footerData.contact.locationIcon}</span> {footerData.contact.location}
-        </p>
-        <a href={getVoltfloUrl(siteSettings)} className="btn btn-footer-cta" {...externalLinkProps(getVoltfloUrl(siteSettings))}>
+        {company.phone?.href && (
+          <p>
+            <a href={company.phone.href}>
+              <span className="footer-icon">{footerData.contact.phoneIcon}</span> {company.phone.label}
+            </a>
+          </p>
+        )}
+        {company.email?.href && (
+          <p>
+            <a href={company.email.href}>
+              <span className="footer-icon">{footerData.contact.emailIcon}</span> {company.email.label}
+            </a>
+          </p>
+        )}
+        {company.address && (
+          <p>
+            <span className="footer-icon">{footerData.contact.locationIcon}</span> {[company.address.line1, company.address.line2, company.address.city, company.address.county, company.address.country].filter(Boolean).join(", ")}
+          </p>
+        )}
+        <a
+          href={getUrlForVariant(footerData.contact.cta.variant, siteSettings)}
+          className="btn btn-footer-cta"
+          {...externalLinkProps(getUrlForVariant(footerData.contact.cta.variant, siteSettings))}
+        >
           {heroCta?.label || footerData.contact.cta.label}
         </a>
-        <p className="footer-hours">{footerData.contact.hours}</p>
+        {company.openingHours && <p className="footer-hours">{company.openingHours}</p>}
       </div>
     </div>
     <div className="footer-bottom container">

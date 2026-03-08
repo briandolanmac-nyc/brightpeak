@@ -4,18 +4,6 @@
   "logoAlt": "BrightPeak Energy",
   "logoSrc": "/images/brightpeak-energy-logo-v2.png",
   "logoPosition": "navbar",
-  "contact": {
-    "phone": {
-      "icon": "📞",
-      "label": "+353 1 207 0006",
-      "href": "tel:+35312070006"
-    },
-    "email": {
-      "icon": "✉️",
-      "label": "info@brightpeak-energy.com",
-      "href": "mailto:info@brightpeak-energy.com"
-    }
-  },
   "utilityLinks": [
     {
       "label": "About Us",
@@ -28,16 +16,6 @@
     {
       "label": "Grants",
       "href": "/grants"
-    }
-  ],
-  "socialLinks": [
-    {
-      "label": "Facebook",
-      "href": "https://www.facebook.com/greenhouserenewables"
-    },
-    {
-      "label": "YouTube",
-      "href": "https://www.youtube.com/@greenhouserenewables"
     }
   ],
   "links": [

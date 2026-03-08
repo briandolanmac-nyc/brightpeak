@@ -13,6 +13,12 @@ export function getContactFormUrl(settings?: Record<string, unknown>): string {
   return "/contact";
 }
 
+export function getUrlForVariant(variant: string, settings?: Record<string, unknown>): string {
+  if (variant === "primary") return getVoltfloUrl(settings);
+  if (variant === "basic_form") return "/contact";
+  return getContactFormUrl(settings);
+}
+
 export function isExternalUrl(url: string): boolean {
   return /^https?:\/\//i.test(url);
 }

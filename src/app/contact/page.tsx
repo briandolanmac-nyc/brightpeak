@@ -2,7 +2,9 @@ import { generatePageMetadata } from "../components/SeoHead";
 import StructuredData from "../components/StructuredData";
 import PageLayout from "../components/PageLayout";
 import PageBanner from "../components/PageBanner";
-import { getContactFormUrl, getVoltfloUrl, externalLinkProps } from "../lib/siteSettings";
+import ContactForm from "../components/ContactForm";
+import { getUrlForVariant, externalLinkProps } from "../lib/siteSettings";
+import { sanitizeHtml } from "../lib/sanitize";
 import { loadPageJson, loadNavFooterData } from "../lib/loadAllHomeData";
 
 export const metadata = generatePageMetadata("/contact");
@@ -11,74 +13,24 @@ export const dynamic = "force-dynamic";
 
 export default function ContactPage() {
   const pageData = loadPageJson("ContactPage.json") as any;
-  const { navigation, footer, headerSettings, siteSettings, heroCta } = loadNavFooterData();
+  const { navigation, footer, headerSettings, siteSettings, companySettings, heroCta } = loadNavFooterData();
   const { hero, form, contactInfo, certifications, quickQuote } = pageData;
 
   return (
-    <PageLayout navData={navigation} footerData={footer} headerSettings={headerSettings} siteSettings={siteSettings} heroCta={heroCta}>
+    <PageLayout navData={navigation} footerData={footer} headerSettings={headerSettings} siteSettings={siteSettings} companySettings={companySettings} heroCta={heroCta}>
       <StructuredData pageType="contact" pagePath="/contact" />
       <PageBanner eyebrow={hero.eyebrow} title={hero.title} subtitle={hero.subtitle} bannerImage={hero.bannerImage} />
 
       <section className="py-16 md:py-20">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12">
-            <div>
-              <h2 className="text-3xl font-extrabold mb-8">{form.title}</h2>
-              <form className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-4">
-                  {form.fields.filter((f: any) => f.half).map((field: any) => (
-                    <div key={field.name}>
-                      <label className="block text-sm font-semibold mb-2">{field.label}</label>
-                      <input
-                        type={field.type}
-                        className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                        style={{ borderColor: "var(--gray-300)", background: "var(--bg-primary)" }}
-                        placeholder={field.placeholder}
-                      />
-                    </div>
-                  ))}
-                </div>
-                {form.fields.filter((f: any) => !f.half).map((field: any) => (
-                  <div key={field.name}>
-                    <label className="block text-sm font-semibold mb-2">{field.label}</label>
-                    <input
-                      type={field.type}
-                      className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                      style={{ borderColor: "var(--gray-300)", background: "var(--bg-primary)" }}
-                      placeholder={field.placeholder}
-                    />
-                  </div>
-                ))}
-                <div>
-                  <label className="block text-sm font-semibold mb-2">{form.serviceSelect.label}</label>
-                  <select
-                    className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                    style={{ borderColor: "var(--gray-300)", background: "var(--bg-primary)" }}
-                  >
-                    <option value="">{form.serviceSelect.placeholder}</option>
-                    {form.serviceSelect.options.map((opt: any) => (
-                      <option key={opt.value} value={opt.value}>{opt.label}</option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold mb-2">{form.message.label}</label>
-                  <textarea
-                    rows={5}
-                    className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                    style={{ borderColor: "var(--gray-300)", background: "var(--bg-primary)" }}
-                    placeholder={form.message.placeholder}
-                  ></textarea>
-                </div>
-                <button
-                  type="submit"
-                  className="w-full py-3 rounded-lg text-white font-bold text-lg"
-                  style={{ background: "var(--teal)" }}
-                >
-                  {form.submitButton}
-                </button>
-              </form>
-            </div>
+            <ContactForm
+              title={form.title}
+              fields={form.fields}
+              serviceSelect={form.serviceSelect}
+              messageField={form.message}
+              submitButton={form.submitButton}
+            />
 
             <div className="space-y-8">
               <div>
@@ -126,12 +78,10 @@ export default function ContactPage() {
                 style={{ background: "#e0f2fe" }}
               >
                 <h3 className="font-bold text-lg mb-2">{quickQuote.title}</h3>
-                <p className="text-gray-600 mb-4">
-                  {quickQuote.description}
-                </p>
+                <div className="text-gray-600 mb-4 rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(quickQuote.description || "") }} />
                 <a
-                  href={getVoltfloUrl(siteSettings)}
-                  {...externalLinkProps(getVoltfloUrl(siteSettings))}
+                  href={getUrlForVariant("primary", siteSettings)}
+                  {...externalLinkProps(getUrlForVariant("primary", siteSettings))}
                   className="btn btn-primary inline-block"
                 >
                   {quickQuote.buttonLabel}

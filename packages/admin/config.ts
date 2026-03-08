@@ -22,6 +22,7 @@ export const FONT_OPTIONS = [
 export const SECTION_LABELS: Record<string, string> = {
   "SiteSettings.json": "Site Settings",
   "HomePage.json": "Page Settings",
+  "CompanySettings.json": "Company Settings",
   "Navigation.json": "Navigation",
   "HeroSection.json": "Home Page (Hero)",
   "ServiceCardsSection.json": "Services",
@@ -51,6 +52,7 @@ export const SECTION_LABELS: Record<string, string> = {
   "pages/TestimonialsPage.json": "Testimonials Page",
   "pages/PrivacyPolicyPage.json": "Privacy Policy Page",
   "pages/CookiesPage.json": "Cookies Page",
+  "pages/CustomPages.json": "Custom Pages",
   "seo.json": "SEO Settings",
 };
 
@@ -59,7 +61,9 @@ export const SECTION_GROUPS: { label: string; files: string[] }[] = [
     label: "Top Level Settings",
     files: [
       "SiteSettings.json",
+      "CompanySettings.json",
       "HomePage.json",
+      "pages/CustomPages.json",
       "Navigation.json",
       "seo.json",
     ],
@@ -148,9 +152,74 @@ export const FIELD_LABEL_OVERRIDES: Record<string, string> = {
   "bannerOverlay": "Banner Overlay Color",
   "quoteButtonColor": "Quote Button Color",
   "contactButtonColor": "Contact Button Color",
+  "emailNotifications": "Email Notifications",
+  "smtpHost": "SMTP Server",
+  "smtpPort": "SMTP Port",
+  "smtpUser": "SMTP Username",
+  "notifyEmail": "Send Notifications To",
+  "fromEmail": "Send From Email",
+  "fromName": "Send From Name",
+  "newsItems": "📰 News",
+  "videoItems": "🎬 Videos",
+  "pages": "Custom Pages",
+  "slug": "URL Path (e.g. new-service)",
+  "type": "Page Type",
+  "placement": "Placement",
+  "iframeUrl": "iFrame URL",
+  "imageUrl": "Image URL",
+  "companyName": "Company Name",
+  "openingHours": "Opening Hours",
+  "socialLinks": "Social Media Links",
+  "line1": "Address Line 1",
+  "line2": "Address Line 2",
+  "county": "County / Region",
 };
 
+export const EMPTY_ARRAY_TEMPLATES: Record<string, Record<string, unknown>> = {
+  pages: {
+    enabled: true,
+    slug: "",
+    type: "section",
+    placement: "page",
+    iframeUrl: "",
+    imageUrl: "",
+    hero: {
+      eyebrow: "",
+      title: "",
+      subtitle: "",
+      bannerImage: "",
+    },
+    content: {
+      eyebrow: "",
+      title: "",
+      cards: [],
+    },
+  },
+  cards: {
+    subHeading: "",
+    paragraph: "",
+    image: "",
+  },
+  socialLinks: {
+    label: "",
+    href: "",
+  },
+};
+
+export const RICH_TEXT_PATH_PATTERNS = [
+  /\.summary$/,
+  /\.content$/,
+  /\.answer$/,
+  /\.description$/,
+  /\.desc$/,
+  /\.paragraph$/,
+  /\.body$/,
+  /\.text$/,
+  /paragraphs\.\d+$/,
+];
+
 export const VALID_FILES = [
+  "home/CompanySettings.json",
   "home/HeroSection.json",
   "home/Navigation.json",
   "home/Footer.json",
@@ -181,6 +250,7 @@ export const VALID_FILES = [
   "pages/TestimonialsPage.json",
   "pages/PrivacyPolicyPage.json",
   "pages/CookiesPage.json",
+  "pages/CustomPages.json",
   "seo.json",
   "home/SiteSettings.json",
   "home/HeaderSettings.json",

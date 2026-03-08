@@ -2,7 +2,8 @@ import { generatePageMetadata } from "../components/SeoHead";
 import StructuredData from "../components/StructuredData";
 import PageLayout from "../components/PageLayout";
 import PageBanner from "../components/PageBanner";
-import { getContactFormUrl, getVoltfloUrl, externalLinkProps } from "../lib/siteSettings";
+import { getUrlForVariant, externalLinkProps } from "../lib/siteSettings";
+import { sanitizeHtml } from "../lib/sanitize";
 import { loadPageJson, loadNavFooterData } from "../lib/loadAllHomeData";
 
 export const metadata = generatePageMetadata("/testimonials");
@@ -11,11 +12,11 @@ export const dynamic = "force-dynamic";
 
 export default function TestimonialsPage() {
   const pageData = loadPageJson("TestimonialsPage.json") as any;
-  const { navigation, footer, headerSettings, siteSettings, heroCta } = loadNavFooterData();
+  const { navigation, footer, headerSettings, siteSettings, companySettings, heroCta } = loadNavFooterData();
   const { hero, reviews, stats, cta } = pageData;
 
   return (
-    <PageLayout navData={navigation} footerData={footer} headerSettings={headerSettings} siteSettings={siteSettings} heroCta={heroCta}>
+    <PageLayout navData={navigation} footerData={footer} headerSettings={headerSettings} siteSettings={siteSettings} companySettings={companySettings} heroCta={heroCta}>
       <StructuredData pageType="testimonials" pagePath="/testimonials" />
       <PageBanner eyebrow={hero.eyebrow} title={hero.title} subtitle={hero.subtitle} bannerImage={hero.bannerImage} />
 
@@ -33,9 +34,7 @@ export default function TestimonialsPage() {
                     <span key={i} className="text-amber-400 text-lg">★</span>
                   ))}
                 </div>
-                <p className="text-gray-600 mb-4 leading-relaxed text-sm">
-                  &ldquo;{review.text}&rdquo;
-                </p>
+                <div className="text-gray-600 mb-4 leading-relaxed text-sm rich-html" dangerouslySetInnerHTML={{ __html: "&ldquo;" + sanitizeHtml(review.text || "") + "&rdquo;" }} />
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-bold text-sm">{review.name}</p>
@@ -82,8 +81,8 @@ export default function TestimonialsPage() {
             {cta.subtitle}
           </p>
           <a
-            href={getVoltfloUrl(siteSettings)}
-            {...externalLinkProps(getVoltfloUrl(siteSettings))}
+            href={getUrlForVariant(cta.primaryButton?.variant || "primary", siteSettings)}
+            {...externalLinkProps(getUrlForVariant(cta.primaryButton?.variant || "primary", siteSettings))}
             className="btn btn-primary"
           >
             {heroCta.label}

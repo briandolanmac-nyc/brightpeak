@@ -10,10 +10,11 @@ interface PageLayoutProps {
   footerData?: Record<string, unknown>;
   headerSettings?: Record<string, unknown>;
   siteSettings?: Record<string, unknown>;
+  companySettings?: Record<string, unknown>;
   heroCta?: { label: string; href: string };
 }
 
-const PageLayout = ({ children, navData, footerData, headerSettings, siteSettings, heroCta }: PageLayoutProps) => {
+const PageLayout = ({ children, navData, footerData, headerSettings, siteSettings, companySettings, heroCta }: PageLayoutProps) => {
   useEffect(() => {
     const cleanupHandlers: Array<() => void> = [];
     const mobileMenu = document.querySelector<HTMLElement>("[data-mobile-menu]");
@@ -208,9 +209,9 @@ const PageLayout = ({ children, navData, footerData, headerSettings, siteSetting
 
   return (
     <div className="min-h-screen">
-      <Navigation data={navData} headerSettings={headerSettings} siteSettings={siteSettings} heroCta={heroCta} />
+      <Navigation data={navData} headerSettings={headerSettings} siteSettings={siteSettings} companySettings={companySettings} heroCta={heroCta} />
       <main>{children}</main>
-      <Footer data={footerData} siteSettings={siteSettings} heroCta={heroCta} />
+      <Footer data={footerData} siteSettings={siteSettings} companySettings={companySettings} heroCta={heroCta} />
     </div>
   );
 };

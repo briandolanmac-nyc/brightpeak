@@ -101,11 +101,11 @@
     "subtitle": "Whether it's a new build or retrofit — our team will design the perfect heat pump system for your home or commercial project. Get in touch for a free consultation and SEAI grant guidance.",
     "primaryButton": {
       "label": "Get Free Quote",
-      "href": "/contact"
+      "variant": "basic_form"
     },
     "secondaryButton": {
       "label": "Call Us Today",
-      "href": "tel:+35312070006"
+      "variant": "basic_form"
     }
   }
 }

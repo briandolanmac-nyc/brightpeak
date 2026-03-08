@@ -1,8 +1,196 @@
 "use client";
 
-import { FONT_OPTIONS } from "../config";
-import { formatLabel } from "../utils";
+import { FONT_OPTIONS, RICH_TEXT_PATH_PATTERNS, EMPTY_ARRAY_TEMPLATES } from "../config";
+import { formatLabel, blankFromTemplate } from "../utils";
 import { CombinedSectionManager } from "./SectionManager";
+import RichTextEditor from "./RichTextEditor";
+import "../styles/richtext.css";
+
+const HERO_SECTIONS: { label: string; keys: string[] }[] = [
+  { label: "Layout", keys: ["enabled", "heroLayout", "mobileLayout"] },
+  { label: "Eyebrow", keys: ["showEyebrow", "eyebrow", "eyebrowColor"] },
+  { label: "Background", keys: ["backgroundImageEnabled", "backgroundColor", "overlayOpacity", "image", "scrollLabel"] },
+  { label: "Headlines", keys: ["heroAlignment", "wordWrapHeadlines", "headlineLines", "headlineFontSizes", "headlineColors"] },
+  { label: "Subheading", keys: ["subheading", "subheadingColor"] },
+  { label: "Call to Action", keys: ["cta", "ctaArrow"] },
+  { label: "Badges & Stats", keys: ["heroBadges", "stats", "specialBadge"] },
+];
+
+const NAV_SECTIONS: { label: string; keys: string[] }[] = [
+  { label: "General", keys: ["enabled", "showIcons"] },
+  { label: "Logo", keys: ["logoSrc", "logoAlt", "logoPosition"] },
+  { label: "Contact", keys: ["contact"] },
+  { label: "Header Bar Links", keys: ["utilityLinks"] },
+  { label: "Top Navigation Items", keys: ["links", "chevron", "mobileArrow"] },
+  { label: "Social Links", keys: ["socialLinks"] },
+];
+
+function isHeroSection(data: unknown, path: string): boolean {
+  if (path !== "") return false;
+  if (typeof data !== "object" || data === null || Array.isArray(data)) return false;
+  const obj = data as Record<string, unknown>;
+  return "heroLayout" in obj && "headlineLines" in obj && "eyebrow" in obj;
+}
+
+function isNavigationSection(data: unknown, path: string): boolean {
+  if (path !== "") return false;
+  if (typeof data !== "object" || data === null || Array.isArray(data)) return false;
+  const obj = data as Record<string, unknown>;
+  return "logoSrc" in obj && "links" in obj && "utilityLinks" in obj;
+}
+
+function NavigationSectionSidebar({
+  data,
+  onChange,
+}: {
+  data: Record<string, unknown>;
+  onChange: (path: string, value: unknown) => void;
+}) {
+  const allKeys = Object.keys(data);
+  const assignedKeys = new Set(NAV_SECTIONS.flatMap((s) => s.keys));
+  const extraKeys = allKeys.filter((k) => !assignedKeys.has(k));
+
+  return (
+    <div className="sb-object">
+      {NAV_SECTIONS.map((section) => (
+        <div key={section.label} className="sb-field">
+          <label className="sb-label sb-label-heading">{section.label}</label>
+          <div className="sb-object">
+            {section.keys.map((key) => {
+              if (!(key in data)) return null;
+              const value = data[key];
+              return (
+                <div key={key} className="sb-field">
+                  <label className="sb-label">{formatLabel(key)}</label>
+                  <SmartEditorSidebar data={value} onChange={onChange} path={key} />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+      {extraKeys.length > 0 && (
+        <div className="sb-field">
+          <label className="sb-label sb-label-heading">Other</label>
+          <div className="sb-object">
+            {extraKeys.map((key) => (
+              <div key={key} className="sb-field">
+                <label className="sb-label">{formatLabel(key)}</label>
+                <SmartEditorSidebar data={data[key]} onChange={onChange} path={key} />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function getNestedValue(obj: Record<string, unknown>, dotPath: string): unknown {
+  const parts = dotPath.split(".");
+  let current: unknown = obj;
+  for (const part of parts) {
+    if (current === null || current === undefined) return undefined;
+    if (Array.isArray(current)) current = current[Number(part)];
+    else if (typeof current === "object") current = (current as Record<string, unknown>)[part];
+    else return undefined;
+  }
+  return current;
+}
+
+function HeroSectionSidebar({
+  data,
+  onChange,
+}: {
+  data: Record<string, unknown>;
+  onChange: (path: string, value: unknown) => void;
+}) {
+  const allKeys = Object.keys(data);
+  const assignedKeys = new Set(HERO_SECTIONS.flatMap((s) => s.keys));
+  const extraKeys = allKeys.filter((k) => !assignedKeys.has(k));
+
+  const headlineKeysMap: Record<string, { textKey: string; desktopKey: string; mobileKey: string; colorKey: string }> = {
+    "Headline 1": { textKey: "headlineLines.0", desktopKey: "headlineFontSizes.line1Desktop", mobileKey: "headlineFontSizes.line1Mobile", colorKey: "headlineColors.line1" },
+    "Headline 2": { textKey: "headlineLines.1", desktopKey: "headlineFontSizes.line2Desktop", mobileKey: "headlineFontSizes.line2Mobile", colorKey: "headlineColors.line2" },
+    "Headline 3": { textKey: "headlineLines.2", desktopKey: "headlineFontSizes.line3Desktop", mobileKey: "headlineFontSizes.line3Mobile", colorKey: "headlineColors.line3" },
+  };
+
+  return (
+    <div className="sb-object">
+      {HERO_SECTIONS.map((section) => (
+        <div key={section.label} className="sb-field">
+          <label className="sb-label sb-label-heading">{section.label}</label>
+          <div className="sb-object">
+            {section.label === "Headlines" ? (
+              <>
+                {["heroAlignment", "wordWrapHeadlines"].map((key) => {
+                  if (!(key in data)) return null;
+                  return (
+                    <div key={key} className="sb-field">
+                      <label className="sb-label">{formatLabel(key)}</label>
+                      <SmartEditorSidebar data={data[key]} onChange={onChange} path={key} />
+                    </div>
+                  );
+                })}
+                {Object.entries(headlineKeysMap).map(([lineLabel, keys]) => {
+                  const textVal = getNestedValue(data, keys.textKey);
+                  if (textVal === undefined) return null;
+                  return (
+                    <div key={lineLabel} className="sb-field" style={{ marginTop: "0.25rem" }}>
+                      <label className="sb-label sb-label-heading">{lineLabel}</label>
+                      <div className="sb-object">
+                        <div className="sb-field">
+                          <label className="sb-label">Text</label>
+                          <SmartEditorSidebar data={textVal} onChange={onChange} path={keys.textKey} />
+                        </div>
+                        <div className="sb-field">
+                          <label className="sb-label">Desktop Font Size (rem)</label>
+                          <SmartEditorSidebar data={getNestedValue(data, keys.desktopKey)} onChange={onChange} path={keys.desktopKey} />
+                        </div>
+                        <div className="sb-field">
+                          <label className="sb-label">Mobile Font Size (rem)</label>
+                          <SmartEditorSidebar data={getNestedValue(data, keys.mobileKey)} onChange={onChange} path={keys.mobileKey} />
+                        </div>
+                        <div className="sb-field">
+                          <label className="sb-label">Color</label>
+                          <SmartEditorSidebar data={getNestedValue(data, keys.colorKey)} onChange={onChange} path={keys.colorKey} />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </>
+            ) : (
+              section.keys.map((key) => {
+                if (!(key in data)) return null;
+                const value = data[key];
+                return (
+                  <div key={key} className="sb-field">
+                    <label className="sb-label">{formatLabel(key)}</label>
+                    <SmartEditorSidebar data={value} onChange={onChange} path={key} />
+                  </div>
+                );
+              })
+            )}
+          </div>
+        </div>
+      ))}
+      {extraKeys.length > 0 && (
+        <div className="sb-field">
+          <label className="sb-label sb-label-heading">Other</label>
+          <div className="sb-object">
+            {extraKeys.map((key) => (
+              <div key={key} className="sb-field">
+                <label className="sb-label">{formatLabel(key)}</label>
+                <SmartEditorSidebar data={data[key]} onChange={onChange} path={key} />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export function SmartEditorSidebar({
   data,
@@ -15,6 +203,12 @@ export function SmartEditorSidebar({
   path?: string;
   insideArrayItem?: boolean;
 }) {
+  if (isHeroSection(data, path)) {
+    return <HeroSectionSidebar data={data as Record<string, unknown>} onChange={onChange} />;
+  }
+  if (isNavigationSection(data, path)) {
+    return <NavigationSectionSidebar data={data as Record<string, unknown>} onChange={onChange} />;
+  }
   if (data === null || data === undefined) {
     return (
       <input
@@ -165,6 +359,42 @@ export function SmartEditorSidebar({
         </div>
       );
     }
+    if (/pages\.\d+\.type$/.test(path)) {
+      const val = data === "iframe" ? "iframe" : data === "image" ? "image" : "section";
+      if (val !== data) onChange(path, val);
+      return (
+        <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+          <label className="sb-label" style={{ display: "flex", alignItems: "center", gap: "0.35rem", cursor: "pointer", fontSize: "0.8rem", fontWeight: 400, margin: 0 }}>
+            <input type="radio" name={`type-${path}`} checked={val === "section"} onChange={() => onChange(path, "section")} />
+            Section
+          </label>
+          <label className="sb-label" style={{ display: "flex", alignItems: "center", gap: "0.35rem", cursor: "pointer", fontSize: "0.8rem", fontWeight: 400, margin: 0 }}>
+            <input type="radio" name={`type-${path}`} checked={val === "iframe"} onChange={() => onChange(path, "iframe")} />
+            iFrame Page
+          </label>
+          <label className="sb-label" style={{ display: "flex", alignItems: "center", gap: "0.35rem", cursor: "pointer", fontSize: "0.8rem", fontWeight: 400, margin: 0 }}>
+            <input type="radio" name={`type-${path}`} checked={val === "image"} onChange={() => onChange(path, "image")} />
+            Image Page
+          </label>
+        </div>
+      );
+    }
+    if (/pages\.\d+\.placement$/.test(path)) {
+      const val = data === "homepage" ? "homepage" : "page";
+      if (val !== data) onChange(path, val);
+      return (
+        <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+          <label className="sb-label" style={{ display: "flex", alignItems: "center", gap: "0.35rem", cursor: "pointer", fontSize: "0.8rem", fontWeight: 400, margin: 0 }}>
+            <input type="radio" name={`placement-${path}`} checked={val === "page"} onChange={() => onChange(path, "page")} />
+            Separate Section
+          </label>
+          <label className="sb-label" style={{ display: "flex", alignItems: "center", gap: "0.35rem", cursor: "pointer", fontSize: "0.8rem", fontWeight: 400, margin: 0 }}>
+            <input type="radio" name={`placement-${path}`} checked={val === "homepage"} onChange={() => onChange(path, "homepage")} />
+            Homepage Section
+          </label>
+        </div>
+      );
+    }
     if ((path === "font" || path.endsWith(".font")) && FONT_OPTIONS.includes(data)) {
       return (
         <select
@@ -201,6 +431,15 @@ export function SmartEditorSidebar({
         </div>
       );
     }
+    if (RICH_TEXT_PATH_PATTERNS.some((re) => re.test(path))) {
+      return (
+        <RichTextEditor
+          value={data}
+          onChange={(html) => onChange(path, html)}
+          variant="sidebar"
+        />
+      );
+    }
     if (data.length > 60) {
       return (
         <textarea
@@ -225,10 +464,18 @@ export function SmartEditorSidebar({
     const isObjectArray = data.length > 0 && typeof data[0] === "object" && data[0] !== null && !Array.isArray(data[0]);
     const useCards = isObjectArray && !insideArrayItem;
 
+    const isCustomPages = path === "pages" || path.endsWith(".pages");
+
     const getItemLabel = (item: unknown, index: number): string => {
       if (!isObjectArray) return `#${index + 1}`;
       const obj = item as Record<string, unknown>;
-      const name = obj.title || obj.label || obj.name || obj.author || obj.question || "";
+      const hero = obj.hero as Record<string, unknown> | undefined;
+      if (isCustomPages) {
+        const slug = obj.slug ? `/${obj.slug}` : "";
+        const title = hero?.title as string || "";
+        return title || slug || `Custom Page ${index + 1}`;
+      }
+      const name = obj.title || obj.label || obj.name || obj.author || obj.question || (obj.slug ? `/${obj.slug}` : "") || (hero?.title ? hero.title : "") || "";
       if (name && typeof name === "string") return `${name}`;
       return `Item ${index + 1}`;
     };
@@ -236,8 +483,8 @@ export function SmartEditorSidebar({
     return (
       <div className="sb-array">
         {data.map((item, index) => (
-          <div key={index} className={`sb-array-item${useCards ? " sb-array-item-card" : ""}`}>
-            <div className={`sb-array-head${useCards ? " sb-array-head-card" : ""}`}>
+          <div key={index} className={`sb-array-item${useCards ? " sb-array-item-card" : ""}${isCustomPages ? ` sb-custom-page-card sb-custom-page-type-${(item as Record<string, unknown>)?.type || "section"}` : ""}`}>
+            <div className={`sb-array-head${useCards ? " sb-array-head-card" : ""}${isCustomPages ? ` sb-custom-page-head sb-custom-page-head-${(item as Record<string, unknown>)?.type || "section"}` : ""}`}>
               <span className={useCards ? "sb-array-card-title" : "sb-array-idx"}>
                 {useCards && <span className="sb-array-card-num">{index + 1}</span>}
                 {useCards ? getItemLabel(item, index) : `#${index + 1}`}
@@ -291,12 +538,17 @@ export function SmartEditorSidebar({
         ))}
         <button
           onClick={() => {
-            const newItem =
-              data.length > 0
-                ? typeof data[0] === "object"
-                  ? JSON.parse(JSON.stringify(data[0]))
-                  : ""
+            const fieldName = path.split(".").pop() || "";
+            let newItem: unknown;
+            if (data.length > 0) {
+              newItem = typeof data[0] === "object"
+                ? blankFromTemplate(data[0] as Record<string, unknown>)
                 : "";
+            } else if (EMPTY_ARRAY_TEMPLATES[fieldName]) {
+              newItem = JSON.parse(JSON.stringify(EMPTY_ARRAY_TEMPLATES[fieldName]));
+            } else {
+              newItem = "";
+            }
             onChange(path, [...data, newItem]);
           }}
           className="sb-btn-add"
@@ -419,6 +671,7 @@ export function SmartEditorSidebar({
             order={obj.order as string[]}
             onChange={onChange}
             variant="sidebar"
+            customTitles={(obj._customTitles as Record<string, string>) || {}}
           />
         </div>
       );
@@ -429,13 +682,18 @@ export function SmartEditorSidebar({
       <div className="sb-object">
         {entries.map(([key, value]) => {
           if (key === "image" && hasImagesArray) return null;
+          if (key === "iframeUrl" && obj.type !== "iframe") return null;
+          if (key === "imageUrl" && obj.type !== "image") return null;
+          if (key === "content" && obj.type === "image") return null;
+          if (key === "_customTitles") return null;
           const fieldPath = path ? `${path}.${key}` : key;
           const isGroup = value !== null && typeof value === "object";
           const isImageField = key === "images" || key === "image";
           const useHeading = isGroup && !isImageField && !insideArrayItem;
+          const isTopLevelSection = !path && useHeading;
           return (
             <div key={key} className="sb-field">
-              <label className={useHeading ? "sb-label sb-label-heading" : "sb-label"}>
+              <label className={isTopLevelSection ? "sb-label sb-label-section" : useHeading ? "sb-label sb-label-heading" : "sb-label"}>
                 {formatLabel(key)}
               </label>
               <SmartEditorSidebar data={value} onChange={onChange} path={fieldPath} insideArrayItem={insideArrayItem} />

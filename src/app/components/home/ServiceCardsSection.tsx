@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { sanitizeHtml } from "../../lib/sanitize";
 
 const cardIcons = [
   (
@@ -50,7 +51,7 @@ const ServiceCardsSection = ({ data }: { data: Record<string, unknown> }) => {
               </div>
               <div className="service-card-v2-body">
                 <h3>{card.title}</h3>
-                <p>{card.description}</p>
+                <div className="rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(card.description || "") }} />
               </div>
               <span className="sc-arrow">{cardsData.arrow}</span>
             </a>
@@ -67,7 +68,7 @@ const ServiceCardsSection = ({ data }: { data: Record<string, unknown> }) => {
           <a key={card.href} href={card.href} className="service-card">
             <div className="sc-icon-wrap">{cardIcons[index]}</div>
             <h3>{card.title}</h3>
-            <p>{card.description}</p>
+            <div className="rich-html" dangerouslySetInnerHTML={{ __html: sanitizeHtml(card.description || "") }} />
             <span className="sc-arrow">{cardsData.arrow}</span>
           </a>
         ))}
