@@ -9,12 +9,12 @@
       "title": "Home Solar Installation",
       "video": "https://youtube.com/shorts/RoHe3owFg6s?si=OykxKEA2MlfhliDY",
       "image": {
-        "src": "/images/case-studies/green-house-res-solar.webp",
+        "src": "/images/case-studies/residential-project.webp",
         "alt": "Residential Solar Installation"
       },
       "images": [
-        "/images/case-studies/green-house-res-solar.webp",
-        "/images/case-studies/engineer-on-roof.webp"
+        "/images/case-studies/residential-project.webp",
+        "/images/case-studies/roof-install.webp"
       ],
       "description": "A full solar PV system designed to maximise energy generation, lower electricity bills, and increase home value. Professional installation by our certified team.\n\nA full solar PV system designed to maximise energy generation, lower electricity bills, and increase home value. Professional installation by our certified team.\n\nA full solar PV system designed to maximise energy generation, lower electricity bills, and increase home value. Professional installation by our certified team.",
       "stats": [
@@ -37,11 +37,11 @@
       "title": "Business Solar Installation",
       "video": "",
       "image": {
-        "src": "/images/case-studies/green-house-comm-solar.webp",
+        "src": "/images/case-studies/commercial-project.webp",
         "alt": "Commercial Solar Installation"
       },
       "images": [
-        "/images/case-studies/green-house-comm-solar.webp",
+        "/images/case-studies/commercial-project.webp",
         "/images/case-studies/commercial-solar.webp"
       ],
       "description": "A large-scale commercial install delivering optimal energy efficiency, significant cost savings, and demonstrating a commitment to sustainability.",
@@ -93,7 +93,7 @@
       "title": "EV Charger Installation",
       "video": "",
       "image": {
-        "src": "/images/case-studies/green-house-res-solar.webp",
+        "src": "/images/case-studies/residential-project.webp",
         "alt": "Residential Solar Installation"
       },
       "images": [

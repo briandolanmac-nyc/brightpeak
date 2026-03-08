@@ -77,9 +77,27 @@ function TestimonialsCarousel({ items, quoteMark, ratingStars }: { items: Carous
     setCurrentIndex((i) => Math.min(i, maxIndex));
   }, [maxIndex]);
 
+  const pushTestimonialView = useCallback((idx: number) => {
+    const visible = items.slice(idx, idx + visibleCount);
+    visible.forEach((item) => {
+      if (typeof window !== "undefined") {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "testimonial_view",
+          testimonial_author: item.author || "",
+          testimonial_company: item.company || "",
+        });
+      }
+    });
+  }, [items, visibleCount]);
+
   const goTo = useCallback((index: number) => {
-    setCurrentIndex(Math.max(0, Math.min(index, maxIndex)));
-  }, [maxIndex]);
+    const clamped = Math.max(0, Math.min(index, maxIndex));
+    setCurrentIndex((prev) => {
+      if (prev !== clamped) pushTestimonialView(clamped);
+      return clamped;
+    });
+  }, [maxIndex, pushTestimonialView]);
 
   const prev = () => goTo(currentIndex - 1);
   const next = () => goTo(currentIndex + 1);

@@ -1,0 +1,28 @@
+Category,Old File Name,New File Name,Location
+Logo,brightpeak-energy-logo-v2.png,company-logo.png,/images/
+About,green-house-van.webp,company-van.webp,/images/about/
+About,green-house-van.avif,company-van.avif,/images/about/
+About,perry-williams.webp,founder-portrait.webp,/images/about/
+Case Studies,green-house-res-solar.webp,residential-project.webp,/images/case-studies/
+Case Studies,green-house-comm-solar.webp,commercial-project.webp,/images/case-studies/
+Case Studies,engineer-on-roof.webp,roof-install.webp,/images/case-studies/
+Case Studies,battery-storage-install.webp,battery-install.webp,/images/case-studies/
+Case Studies,home-battery-solar.webp,home-battery.webp,/images/case-studies/
+Services,heat-pump-nibe.webp,heat-pump.webp,/images/services/
+Services,variotherm.webp,underfloor-system.webp,/images/services/
+Services,zappi-charger.webp,smart-charger.webp,/images/services/
+Services,man-on-roof-solar.webp,roof-solar-install.webp,/images/services/
+Services,men-installing-panels.webp,panel-installation.webp,/images/services/
+Certifications,mcs-certified.png,certification-01.png,/images/logos/
+Certifications,niceic-approved.png,certification-02.png,/images/logos/
+Certifications,recc-logo.png,certification-03.png,/images/logos/
+Certifications,trustmark-logo.png,certification-04.png,/images/logos/
+Certifications,quality-mark-logo.png,certification-05.png,/images/logos/
+Affiliations,seai.webp,affiliation-01.webp,/images/affiliations/
+Affiliations,sigenergy.jpeg,affiliation-02.jpeg,/images/affiliations/
+Affiliations,safe_electric.png,affiliation-03.png,/images/affiliations/
+Affiliations,sigenergy-partner.jpeg,affiliation-04.jpeg,/images/affiliations/
+Branding,greenhouse-logo.png,legacy-logo-01.png,/images/branding/
+Branding,blackwell-energy-logo.jpg,legacy-logo-02.jpg,/images/branding/
+Branding,blackwell-energy-og.png,legacy-logo-03.png,/images/branding/
+Miscellaneous,green-house-green-back.png,brand-background.png,/images/

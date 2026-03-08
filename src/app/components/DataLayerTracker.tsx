@@ -18,48 +18,89 @@ function push(data: Record<string, unknown>) {
 const DataLayerTracker = () => {
   useEffect(() => {
     const cleanups: Array<() => void> = [];
+    const hostname = window.location.hostname;
 
-    document.querySelectorAll<HTMLAnchorElement>('a[href^="tel:"]').forEach((link) => {
-      const handler = () => {
-        push({ event: "phone_click", phone_number: link.textContent?.trim() || link.href });
-      };
-      link.addEventListener("click", handler);
-      cleanups.push(() => link.removeEventListener("click", handler));
-    });
+    const clickHandler = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const link = target.closest("a") as HTMLAnchorElement | null;
 
-    document.querySelectorAll<HTMLAnchorElement>('a[href^="mailto:"]').forEach((link) => {
-      const handler = () => {
-        push({ event: "email_click", email_address: link.textContent?.trim() || link.href });
-      };
-      link.addEventListener("click", handler);
-      cleanups.push(() => link.removeEventListener("click", handler));
-    });
+      if (link) {
+        const href = link.href || "";
 
-    document.querySelectorAll<HTMLAnchorElement>(".btn-primary, .btn-cta, .btn-white, .btn-footer-cta, .btn-outline, .btn-outline-white, .btn-teal").forEach((btn) => {
-      const handler = () => {
+        if (href.startsWith("tel:")) {
+          push({ event: "phone_click", phone_number: link.textContent?.trim() || href });
+          return;
+        }
+
+        if (href.startsWith("mailto:")) {
+          push({ event: "email_click", email_address: link.textContent?.trim() || href });
+          return;
+        }
+
+        if (link.matches(".btn-primary, .btn-cta, .btn-white, .btn-footer-cta, .btn-outline, .btn-outline-white, .btn-teal")) {
+          const section = link.closest("section, footer, nav");
+          const sectionId = section?.id || section?.className?.split(" ")[0] || "unknown";
+          push({
+            event: "cta_click",
+            cta_text: link.textContent?.trim() || "",
+            cta_url: href,
+            cta_section: sectionId,
+          });
+        }
+
+        if (link.matches(".service-card, .service-card-v2") || link.closest(".service-card, .service-card-v2")) {
+          const card = link.matches(".service-card, .service-card-v2") ? link : link.closest(".service-card, .service-card-v2") as HTMLAnchorElement;
+          const title = card?.querySelector("h3")?.textContent?.trim() || "";
+          push({ event: "service_card_click", service_name: title, service_url: (card as HTMLAnchorElement)?.href || "" });
+        }
+
+        try {
+          const url = new URL(href);
+          if (url.hostname && url.hostname !== hostname && url.protocol.startsWith("http")) {
+            const isSocial = !!link.closest(".nav-social, .footer-social");
+            if (isSocial) {
+              const label = link.getAttribute("aria-label") || link.textContent?.trim() || url.hostname;
+              push({ event: "social_click", social_platform: label, social_url: href });
+            } else {
+              push({ event: "outbound_click", outbound_url: href, outbound_text: link.textContent?.trim() || "" });
+            }
+          }
+        } catch {}
+      }
+
+      const btn = target.closest(".btn-primary, .btn-cta, .btn-white, .btn-footer-cta, .btn-outline, .btn-outline-white, .btn-teal") as HTMLElement | null;
+      if (btn && !link) {
         const section = btn.closest("section, footer, nav");
         const sectionId = section?.id || section?.className?.split(" ")[0] || "unknown";
         push({
           event: "cta_click",
           cta_text: btn.textContent?.trim() || "",
-          cta_url: btn.href || "",
+          cta_url: "",
           cta_section: sectionId,
         });
-      };
-      btn.addEventListener("click", handler);
-      cleanups.push(() => btn.removeEventListener("click", handler));
-    });
+      }
+    };
 
-    document.querySelectorAll<HTMLDetailsElement>(".faq-item").forEach((item) => {
-      const handler = () => {
-        if (item.open) {
-          const question = item.querySelector("summary")?.textContent?.trim() || "";
-          push({ event: "faq_open", faq_question: question });
-        }
-      };
-      item.addEventListener("toggle", handler);
-      cleanups.push(() => item.removeEventListener("toggle", handler));
-    });
+    document.addEventListener("click", clickHandler);
+    cleanups.push(() => document.removeEventListener("click", clickHandler));
+
+    const toggleHandler = (e: Event) => {
+      const item = (e.target as HTMLElement).closest(".faq-item") as HTMLDetailsElement | null;
+      if (item && item.open) {
+        const question = item.querySelector("summary")?.textContent?.trim() || "";
+        push({ event: "faq_open", faq_question: question });
+      }
+    };
+    document.addEventListener("toggle", toggleHandler, true);
+    cleanups.push(() => document.removeEventListener("toggle", toggleHandler, true));
+
+    const submitHandler = (e: Event) => {
+      const form = e.target as HTMLFormElement;
+      if (form.closest(".admin-sidebar, .admin-page")) return;
+      push({ event: "form_submit", form_page: window.location.pathname });
+    };
+    document.addEventListener("submit", submitHandler);
+    cleanups.push(() => document.removeEventListener("submit", submitHandler));
 
     if ("IntersectionObserver" in window) {
       const sectionMap: Record<string, string> = {
@@ -118,15 +159,21 @@ const DataLayerTracker = () => {
       cleanups.push(() => sectionObserver.disconnect());
     }
 
-    document.querySelectorAll<HTMLFormElement>("form").forEach((form) => {
-      if (form.closest(".admin-sidebar, .admin-page")) return;
-      const handler = () => {
-        const page = window.location.pathname;
-        push({ event: "form_submit", form_page: page });
-      };
-      form.addEventListener("submit", handler);
-      cleanups.push(() => form.removeEventListener("submit", handler));
-    });
+    const scrollMilestones = new Set<number>();
+    const scrollHandler = () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight <= 0) return;
+      const percent = Math.round((scrollTop / docHeight) * 100);
+      for (const milestone of [25, 50, 75, 100]) {
+        if (percent >= milestone && !scrollMilestones.has(milestone)) {
+          scrollMilestones.add(milestone);
+          push({ event: "scroll_depth", scroll_percentage: milestone });
+        }
+      }
+    };
+    window.addEventListener("scroll", scrollHandler, { passive: true });
+    cleanups.push(() => window.removeEventListener("scroll", scrollHandler));
 
     return () => {
       cleanups.forEach((fn) => fn());

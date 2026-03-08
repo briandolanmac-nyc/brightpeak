@@ -1,0 +1,376 @@
+===============================================================================
+  GOOGLE TAG MANAGER (GTM) — DATA LAYER EVENTS REFERENCE
+  BrightPeak Energy Website
+===============================================================================
+
+This document lists every custom dataLayer.push() event fired by the website.
+Use this to create Tags, Triggers, and Variables in your GTM container.
+
+GTM is loaded via the container ID stored in Site Settings (admin panel).
+The GTM snippet is injected using Next.js Script (strategy: afterInteractive).
+
+
+-------------------------------------------------------------------------------
+  SETUP: DATA LAYER VARIABLES
+-------------------------------------------------------------------------------
+
+Before creating triggers and tags, set up the following Data Layer Variables
+in GTM (Variables > User-Defined Variables > Data Layer Variable):
+
+  Variable Name              Data Layer Variable Name
+  ─────────────────────────  ────────────────────────
+  DLV - CTA Text             cta_text
+  DLV - CTA URL              cta_url
+  DLV - CTA Section          cta_section
+  DLV - Phone Number         phone_number
+  DLV - Email Address        email_address
+  DLV - FAQ Question         faq_question
+  DLV - Section Name         section_name
+  DLV - Section ID           section_id
+  DLV - Video Title          video_title
+  DLV - Video URL            video_url
+  DLV - Form Page            form_page
+  DLV - Scroll Percentage    scroll_percentage
+  DLV - Outbound URL         outbound_url
+  DLV - Outbound Text        outbound_text
+  DLV - Social Platform      social_platform
+  DLV - Social URL           social_url
+  DLV - Service Name         service_name
+  DLV - Service URL          service_url
+  DLV - Testimonial Author   testimonial_author
+  DLV - Testimonial Company  testimonial_company
+
+
+===============================================================================
+  EVENT 1: cta_click
+===============================================================================
+
+  Description:  Fires when a user clicks any Call-to-Action button on the site.
+                Covers quote buttons, contact buttons, and all styled CTAs.
+
+  Trigger Type: Custom Event
+  Event Name:   cta_click
+
+  Data Layer Variables:
+    cta_text     The visible button text (e.g. "Get a Free Quote")
+    cta_url      The destination URL of the button
+    cta_section  The section ID or class of the nearest parent <section>,
+                 <footer>, or <nav> (e.g. "hero", "services", "final-cta")
+
+  CSS Selectors Matched:
+    .btn-primary, .btn-cta, .btn-white, .btn-footer-cta,
+    .btn-outline, .btn-outline-white, .btn-teal
+
+  Suggested GA4 Tag:
+    Event Name:  cta_click
+    Parameters:  cta_text = {{DLV - CTA Text}}
+                 cta_url = {{DLV - CTA URL}}
+                 cta_section = {{DLV - CTA Section}}
+
+
+===============================================================================
+  EVENT 2: phone_click
+===============================================================================
+
+  Description:  Fires when a user clicks a phone number link (tel: href).
+
+  Trigger Type: Custom Event
+  Event Name:   phone_click
+
+  Data Layer Variables:
+    phone_number  The phone number text or href value
+
+  Matched Elements:
+    All <a> elements with href starting with "tel:"
+
+  Suggested GA4 Tag:
+    Event Name:  phone_click
+    Parameters:  phone_number = {{DLV - Phone Number}}
+
+
+===============================================================================
+  EVENT 3: email_click
+===============================================================================
+
+  Description:  Fires when a user clicks an email link (mailto: href).
+
+  Trigger Type: Custom Event
+  Event Name:   email_click
+
+  Data Layer Variables:
+    email_address  The email address text or href value
+
+  Matched Elements:
+    All <a> elements with href starting with "mailto:"
+
+  Suggested GA4 Tag:
+    Event Name:  email_click
+    Parameters:  email_address = {{DLV - Email Address}}
+
+
+===============================================================================
+  EVENT 4: faq_open
+===============================================================================
+
+  Description:  Fires when a user opens (expands) an FAQ accordion item.
+                Only fires on open, not on close.
+
+  Trigger Type: Custom Event
+  Event Name:   faq_open
+
+  Data Layer Variables:
+    faq_question  The text of the FAQ question that was opened
+
+  Matched Elements:
+    .faq-item (HTML <details> elements with toggle event listener)
+
+  Suggested GA4 Tag:
+    Event Name:  faq_open
+    Parameters:  faq_question = {{DLV - FAQ Question}}
+
+
+===============================================================================
+  EVENT 5: section_view
+===============================================================================
+
+  Description:  Fires once when a homepage section scrolls into view (30%
+                visible). Each section only fires once per page load.
+
+  Trigger Type: Custom Event
+  Event Name:   section_view
+
+  Data Layer Variables:
+    section_name  Human-readable section name (see mapping below)
+    section_id    The HTML id attribute of the section element
+
+  Section ID to Name Mapping:
+    hero             → Hero
+    services         → Service Cards
+    why-choose       → Why Choose Us
+    case-studies     → Case Studies
+    how              → How It Works
+    video            → Video
+    testimonials     → Testimonials
+    impact           → Impact Stats
+    faq              → FAQ
+    news-videos      → News & Videos
+    final-cta        → Final CTA
+    contact-section  → Contact CTA
+    trust-bar        → Trust Bar
+    accreditations   → Accreditations
+
+  Visibility Threshold: 30% of the section must be visible in the viewport.
+
+  Suggested GA4 Tag:
+    Event Name:  section_view
+    Parameters:  section_name = {{DLV - Section Name}}
+                 section_id = {{DLV - Section ID}}
+
+
+===============================================================================
+  EVENT 6: video_play
+===============================================================================
+
+  Description:  Fires when a user clicks a video play button. Triggered from
+                the Video section, News & Videos section, and News/Video
+                page cards.
+
+  Trigger Type: Custom Event
+  Event Name:   video_play
+
+  Data Layer Variables:
+    video_title  The title of the video being played
+    video_url    The URL of the video (typically YouTube embed URL)
+
+  Source Components:
+    - VideoSection.tsx (standalone video section)
+    - NewsVideosSection.tsx (combined news & videos carousel)
+    - NewsVideoPageCard.tsx (individual video cards on inner pages)
+
+  Suggested GA4 Tag:
+    Event Name:  video_play
+    Parameters:  video_title = {{DLV - Video Title}}
+                 video_url = {{DLV - Video URL}}
+
+
+===============================================================================
+  EVENT 7: form_submit
+===============================================================================
+
+  Description:  Fires when a user submits any form on the site (excluding
+                admin panel forms). Typically the contact form.
+
+  Trigger Type: Custom Event
+  Event Name:   form_submit
+
+  Data Layer Variables:
+    form_page  The page path where the form was submitted (e.g. "/contact")
+
+  Notes:
+    - Admin forms (inside .admin-sidebar or .admin-page) are excluded.
+    - Fires on the form's "submit" event, before server response.
+
+  Suggested GA4 Tag:
+    Event Name:  form_submit
+    Parameters:  form_page = {{DLV - Form Page}}
+
+
+===============================================================================
+  EVENT 8: scroll_depth
+===============================================================================
+
+  Description:  Fires when a user scrolls past 25%, 50%, 75%, or 100% of the
+                page. Each milestone fires only once per page load.
+
+  Trigger Type: Custom Event
+  Event Name:   scroll_depth
+
+  Data Layer Variables:
+    scroll_percentage  The milestone reached (25, 50, 75, or 100)
+
+  Notes:
+    - Uses a passive scroll listener (minimal performance overhead).
+    - Fires on any scrollable page, not just the homepage.
+    - Does not fire on pages too short to scroll.
+    - Useful for identifying where users lose interest (e.g. if most
+      visitors reach 50% but not 75%, content below that point may
+      need attention).
+
+  Suggested GA4 Tag:
+    Event Name:  scroll_depth
+    Parameters:  scroll_percentage = {{DLV - Scroll Percentage}}
+
+
+===============================================================================
+  EVENT 9: outbound_click
+===============================================================================
+
+  Description:  Fires when a user clicks any link that leaves the site
+                (external URL). Excludes social media links, which fire
+                social_click instead.
+
+  Trigger Type: Custom Event
+  Event Name:   outbound_click
+
+  Data Layer Variables:
+    outbound_url   The full URL of the external link
+    outbound_text  The visible text of the link
+
+  Notes:
+    - Detects external links by comparing the link hostname to the current
+      site hostname.
+    - Social links in the nav bar and footer fire social_click instead.
+    - Covers Voltflo calculator links, partner sites, and any other
+      external destinations.
+
+  Suggested GA4 Tag:
+    Event Name:  outbound_click
+    Parameters:  outbound_url = {{DLV - Outbound URL}}
+                 outbound_text = {{DLV - Outbound Text}}
+
+
+===============================================================================
+  EVENT 10: social_click
+===============================================================================
+
+  Description:  Fires when a user clicks a social media icon in the
+                navigation bar or footer.
+
+  Trigger Type: Custom Event
+  Event Name:   social_click
+
+  Data Layer Variables:
+    social_platform  The platform name (from aria-label, e.g. "Facebook",
+                     "YouTube", "LinkedIn", "Instagram")
+    social_url       The full URL of the social profile link
+
+  Matched Elements:
+    .nav-social a (header social icons)
+    .footer-social a (footer social icons)
+
+  Suggested GA4 Tag:
+    Event Name:  social_click
+    Parameters:  social_platform = {{DLV - Social Platform}}
+                 social_url = {{DLV - Social URL}}
+
+
+===============================================================================
+  EVENT 11: service_card_click
+===============================================================================
+
+  Description:  Fires when a user clicks a service card on the homepage
+                (e.g. "Solar Panels", "EV Chargers", "Battery Storage",
+                "Heat Pumps"). Shows which services attract the most
+                interest.
+
+  Trigger Type: Custom Event
+  Event Name:   service_card_click
+
+  Data Layer Variables:
+    service_name  The service card title (from the <h3> element)
+    service_url   The destination URL of the service card
+
+  Matched Elements:
+    .service-card (style 1 — icon cards)
+    .service-card-v2 (style 2 — image cards)
+
+  Suggested GA4 Tag:
+    Event Name:  service_card_click
+    Parameters:  service_name = {{DLV - Service Name}}
+                 service_url = {{DLV - Service URL}}
+
+
+===============================================================================
+  EVENT 12: testimonial_view
+===============================================================================
+
+  Description:  Fires when a testimonial becomes visible in the carousel,
+                either through arrow navigation, dot navigation, or touch
+                swipe. Fires for each visible testimonial card.
+
+  Trigger Type: Custom Event
+  Event Name:   testimonial_view
+
+  Data Layer Variables:
+    testimonial_author   The name of the testimonial author
+    testimonial_company  The company name (if applicable, empty string
+                         for residential testimonials)
+
+  Notes:
+    - Fires from the TestimonialsCarousel component when the carousel
+      index changes (arrow, dot, or swipe navigation).
+    - Only fires when the position actually changes — repeated clicks
+      on the same dot or at carousel boundaries do not fire duplicates.
+    - Multiple events may fire at once if several cards are visible
+      (e.g. 3 cards visible on desktop).
+    - Useful for understanding which testimonials users actually see
+      and whether they engage with the carousel.
+
+  Suggested GA4 Tag:
+    Event Name:  testimonial_view
+    Parameters:  testimonial_author = {{DLV - Testimonial Author}}
+                 testimonial_company = {{DLV - Testimonial Company}}
+
+
+===============================================================================
+  QUICK-START CHECKLIST FOR GTM SETUP
+===============================================================================
+
+  1. Verify the GTM container ID is set in Site Settings (admin panel).
+
+  2. In GTM, create 20 Data Layer Variables (see SETUP section above).
+
+  3. Create 12 Custom Event Triggers — one for each event name:
+       cta_click, phone_click, email_click, faq_open,
+       section_view, video_play, form_submit, scroll_depth,
+       outbound_click, social_click, service_card_click,
+       testimonial_view
+
+  4. Create 12 GA4 Event Tags — one per trigger, mapping the Data Layer
+     Variables to GA4 event parameters as shown above.
+
+  5. Use GTM Preview mode to verify events fire correctly on the site.
+
+  6. Publish the GTM container.
+
+===============================================================================

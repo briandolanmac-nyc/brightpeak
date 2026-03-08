@@ -3,23 +3,23 @@
   "title": "Our Accreditations & Certifications",
   "logos": [
     {
-      "src": "/images/logos/mcs-certified.png",
+      "src": "/images/logos/certification-01.png",
       "alt": "MCS Certified"
     },
     {
-      "src": "/images/logos/niceic-approved.png",
+      "src": "/images/logos/certification-02.png",
       "alt": "NICEIC Approved"
     },
     {
-      "src": "/images/logos/recc-logo.png",
+      "src": "/images/logos/certification-03.png",
       "alt": "RECC"
     },
     {
-      "src": "/images/logos/trustmark-logo.png",
+      "src": "/images/logos/certification-04.png",
       "alt": "TrustMark"
     },
     {
-      "src": "/images/logos/quality-mark-logo.png",
+      "src": "/images/logos/certification-05.png",
       "alt": "Quality Mark"
     }
   ]

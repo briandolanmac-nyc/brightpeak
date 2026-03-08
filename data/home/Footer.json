@@ -3,11 +3,11 @@
   "footerStyle": "light",
   "founder": {
     "enabled": false,
-    "imageSrc": "/images/about/perry-williams.webp",
+    "imageSrc": "/images/about/founder-portrait.webp",
     "label": "Perry Williams, Founder"
   },
   "logoAlt": "BrightPeak Energy",
-  "logoSrc": "/images/brightpeak-energy-logo-v2.png",
+  "logoSrc": "/images/company-logo.png",
   "tagline": "With over 20 years of experience, BrightPeak Energy is Ireland's trusted partner delivering bespoke solar panel systems, battery storage, heat pumps, and EV charger installations for homes and businesses across Ireland.",
   "badges": {
     "primary": "SEAI Approved Installer",

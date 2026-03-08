@@ -62,23 +62,17 @@ interface CaseCard {
   stats: { value: string; label: string }[];
 }
 
-function CaseImageSlideshow({ images, alt, hovering }: { images: string[]; alt: string; hovering: boolean }) {
+function CaseImageSlideshow({ images, alt }: { images: string[]; alt: string }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
-    if (!hovering || images.length <= 1) {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-      intervalRef.current = null;
-      if (!hovering) setActiveIndex(0);
-      return;
-    }
-    setActiveIndex(1);
+    if (images.length <= 1) return;
     intervalRef.current = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % images.length);
-    }, 2500);
+    }, 4000);
     return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
-  }, [hovering, images.length]);
+  }, [images.length]);
 
   return (
     <div className="case-slideshow-wrap">
@@ -91,7 +85,7 @@ function CaseImageSlideshow({ images, alt, hovering }: { images: string[]; alt: 
           className={`case-slide-img ${i === activeIndex ? "active" : ""}`}
         />
       ))}
-      {images.length > 1 && hovering && (
+      {images.length > 1 && (
         <div className="case-img-dots">
           {images.map((_, i) => (
             <span
@@ -165,7 +159,7 @@ function CaseCardItem({ card }: { card: CaseCard }) {
             className="case-embed-video"
           />
         ) : useSlideshow ? (
-          <CaseImageSlideshow images={validImages} alt={card.image.alt} hovering={imgHovered} />
+          <CaseImageSlideshow images={validImages} alt={card.image.alt} />
         ) : isNativeVideo ? (
           <>
             <video

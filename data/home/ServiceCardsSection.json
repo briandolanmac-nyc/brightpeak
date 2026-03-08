@@ -7,13 +7,13 @@
       "title": "Solar Panels",
       "description": "Generate your own clean electricity and slash your energy bills",
       "href": "/solar-panels",
-      "image": "/images/services/men-installing-panels.webp"
+      "image": "/images/services/panel-installation.webp"
     },
     {
       "title": "Battery Storage",
       "description": "Store your solar energy and use it when you need it most",
       "href": "/battery-storage",
-      "image": "/images/case-studies/battery-storage-install.webp"
+      "image": "/images/case-studies/battery-install.webp"
     },
     {
       "title": "EV Chargers",
