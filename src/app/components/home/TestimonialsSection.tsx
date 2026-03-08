@@ -187,6 +187,7 @@ function TestimonialImageSlideshow({ images }: { images: string[] }) {
           key={src}
           src={src}
           alt=""
+          loading="lazy"
           className={`testimonial-slide-img ${i === activeIndex ? "active" : ""}`}
         />
       ))}

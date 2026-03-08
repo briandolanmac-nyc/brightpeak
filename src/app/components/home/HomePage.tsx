@@ -1,23 +1,24 @@
-import { Fragment } from "react";
+import { Fragment, lazy, Suspense } from "react";
 import Navigation from "./Navigation";
 import HeroSection from "./HeroSection";
 import ServiceCardsSection from "./ServiceCardsSection";
 import TrustBarSection from "./TrustBarSection";
-import VideoSection from "./VideoSection";
-import WhyChooseSection from "./WhyChooseSection";
-import ImpactSection from "./ImpactSection";
-import CaseStudiesSection from "./CaseStudiesSection";
-import HowSection from "./HowSection";
-import TestimonialsSection from "./TestimonialsSection";
-import TestimonialsFullSection from "./TestimonialsFullSection";
-import FaqSection from "./FaqSection";
-import AccreditationsSection from "./AccreditationsSection";
-import NewsVideosSection from "./NewsVideosSection";
-import FinalCtaSection from "./FinalCtaSection";
-import CustomHomeSection from "./CustomHomeSection";
 import Footer from "./Footer";
 import type { HomeData } from "../../lib/loadAllHomeData";
 import type { CustomPage } from "../../lib/customPages";
+
+const VideoSection = lazy(() => import("./VideoSection"));
+const WhyChooseSection = lazy(() => import("./WhyChooseSection"));
+const ImpactSection = lazy(() => import("./ImpactSection"));
+const CaseStudiesSection = lazy(() => import("./CaseStudiesSection"));
+const HowSection = lazy(() => import("./HowSection"));
+const TestimonialsSection = lazy(() => import("./TestimonialsSection"));
+const TestimonialsFullSection = lazy(() => import("./TestimonialsFullSection"));
+const FaqSection = lazy(() => import("./FaqSection"));
+const AccreditationsSection = lazy(() => import("./AccreditationsSection"));
+const NewsVideosSection = lazy(() => import("./NewsVideosSection"));
+const FinalCtaSection = lazy(() => import("./FinalCtaSection"));
+const CustomHomeSection = lazy(() => import("./CustomHomeSection"));
 
 interface Props {
   allData: HomeData;
@@ -78,7 +79,9 @@ const HomePage = ({ allData }: Props) => {
             return sections[key];
           })
           .map((key) => (
-            <Fragment key={key}>{sectionMap[key]}</Fragment>
+            <Fragment key={key}>
+              <Suspense fallback={null}>{sectionMap[key]}</Suspense>
+            </Fragment>
           ))}
       </main>
 

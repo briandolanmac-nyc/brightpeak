@@ -8,7 +8,7 @@ const AccreditationsSection = ({ data }: { data: Record<string, unknown> }) => {
       <p className="accreditations-title">{accreditationsData.title}</p>
       <div className="accreditations-logos">
         {accreditationsData.logos.map((logo: any) => (
-          <img key={logo.src} src={logo.src} alt={logo.alt} />
+          <img key={logo.src} src={logo.src} alt={logo.alt} loading="lazy" />
         ))}
       </div>
     </div>

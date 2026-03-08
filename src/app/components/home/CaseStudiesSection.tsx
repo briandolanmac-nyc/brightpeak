@@ -87,6 +87,7 @@ function CaseImageSlideshow({ images, alt, hovering }: { images: string[]; alt: 
           key={src}
           src={src}
           alt={i === 0 ? alt : ""}
+          loading="lazy"
           className={`case-slide-img ${i === activeIndex ? "active" : ""}`}
         />
       ))}
@@ -191,7 +192,7 @@ function CaseCardItem({ card }: { card: CaseCard }) {
             </div>
           </>
         ) : (
-          <img src={card.image.src} alt={card.image.alt} />
+          <img src={card.image.src} alt={card.image.alt} loading="lazy" />
         )}
         <div className="case-overlay"></div>
         <div className="case-info">

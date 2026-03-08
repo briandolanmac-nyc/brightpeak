@@ -26,7 +26,7 @@ const WhyChooseSection = ({ data, siteSettings, heroCta, heroData }: { data: Rec
               className="why-video"
             />
           ) : (
-            <img src={whyChooseData.image.src} alt={whyChooseData.image.alt} />
+            <img src={whyChooseData.image.src} alt={whyChooseData.image.alt} loading="lazy" />
           )}
         </div>
         <div className="why-content">

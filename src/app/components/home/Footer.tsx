@@ -38,7 +38,7 @@ const Footer = ({ data, siteSettings, companySettings, heroCta }: FooterProps) =
     {footerData.founder?.enabled && (
     <div className="container footer-top-row">
       <div className="footer-founder">
-        <img src={footerData.founder.imageSrc} alt={footerData.founder.label || "Founder"} className="footer-founder-img" />
+        <img src={footerData.founder.imageSrc} alt={footerData.founder.label || "Founder"} className="footer-founder-img" loading="lazy" />
         <span className="footer-founder-label">{footerData.founder.label || "Founder"}</span>
       </div>
     </div>
@@ -46,7 +46,7 @@ const Footer = ({ data, siteSettings, companySettings, heroCta }: FooterProps) =
     <div className="container footer-grid">
       <div className="footer-brand">
         <a href="/" className="footer-logo">
-          <img src={company.logoSrc || footerData.logoSrc} alt={company.logoAlt || footerData.logoAlt || company.companyName || ""} />
+          <img src={company.logoSrc || footerData.logoSrc} alt={company.logoAlt || footerData.logoAlt || company.companyName || ""} loading="lazy" />
         </a>
         <p className="footer-tagline">{footerData.tagline}</p>
         <p className="footer-badges">{footerData.badges.primary}</p>

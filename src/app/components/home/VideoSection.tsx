@@ -47,7 +47,7 @@ const VideoSection = ({ data }: { data: Record<string, unknown> }) => {
           ) : (
             <div className="nv-thumbnail" onClick={handlePlay} style={{ cursor: "pointer" }}>
               {thumbSrc ? (
-                <img src={thumbSrc} alt={videoData.title} />
+                <img src={thumbSrc} alt={videoData.title} loading="lazy" />
               ) : (
                 <div style={{ width: "100%", height: "100%", background: "#000" }} />
               )}
