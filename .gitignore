@@ -1,6 +1,8 @@
 node_modules/
 .next/
 .replit
+replit.nix
+.upm/
 *.tsbuildinfo
 .cache/
 .pythonlibs/
@@ -8,3 +10,5 @@ attached_assets/
 project-export.tar.gz
 /tmp/
 .local/
+.replit.dev/
+.config/
