@@ -4174,14 +4174,14 @@ section p {
 }
 .solar-guide-card-banner {
   background: var(--brand-primary);
-  padding: 1.25rem 1.5rem;
+  padding: 0.65rem 1.25rem;
   flex-shrink: 0;
 }
 .solar-guide-card:hover .solar-guide-card-banner {
   background: var(--brand-primary-dark, var(--brand-primary));
 }
 .solar-guide-card-banner-title {
-  font-size: 1.35rem !important;
+  font-size: 1rem !important;
   font-weight: 700;
   color: #fff !important;
   margin: 0 !important;
