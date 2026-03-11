@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import { sanitizeHtml } from "../../lib/sanitize";
 
 interface NewsItem {
+  slug?: string;
   title: string;
   summary: string;
   date: string;
@@ -114,6 +115,8 @@ function NewsCard({ item, collapseKey = 0 }: { item: NewsItem; collapseKey?: num
 
   useEffect(() => {
     if (!expanded) return;
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) return;
     const handleClickOutside = (e: MouseEvent) => {
       if (cardRef.current && !cardRef.current.contains(e.target as Node)) {
         setExpanded(false);
@@ -145,6 +148,11 @@ function NewsCard({ item, collapseKey = 0 }: { item: NewsItem; collapseKey?: num
           >
             {expanded ? "Show Less ↑" : "Read More →"}
           </span>
+        )}
+        {item.slug && (
+          <a href={`/news/${item.slug}`} className="nv-full-article-link" onClick={(e) => e.stopPropagation()}>
+            Full Article &rarr;
+          </a>
         )}
       </div>
     </div>

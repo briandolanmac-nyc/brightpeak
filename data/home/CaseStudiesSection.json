@@ -5,6 +5,7 @@
   "subtitle": "From residential homes to large-scale commercial installations, we've completed over 2,800 projects across Ireland. Here's a glimpse of our recent work.",
   "cards": [
     {
+      "slug": "home-solar-installation",
       "sub": "Residential Solar",
       "title": "Home Solar Installation",
       "video": "https://youtube.com/shorts/RoHe3owFg6s?si=OykxKEA2MlfhliDY",
@@ -33,6 +34,7 @@
       ]
     },
     {
+      "slug": "business-solar-installation",
       "sub": "Commercial Solar",
       "title": "Business Solar Installation",
       "video": "",
@@ -61,6 +63,7 @@
       ]
     },
     {
+      "slug": "residential-development",
       "sub": "New Build Project",
       "title": "Residential Development",
       "video": "",
@@ -89,6 +92,7 @@
       ]
     },
     {
+      "slug": "ev-charger-installation",
       "sub": "EV Charger",
       "title": "EV Charger Installation",
       "video": "",
@@ -118,6 +122,6 @@
   ],
   "footerCta": {
     "label": "See All Our Projects →",
-    "href": "/projects"
+    "href": "/our-work"
   }
 }

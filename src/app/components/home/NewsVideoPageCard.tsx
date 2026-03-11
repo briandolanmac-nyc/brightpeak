@@ -114,6 +114,8 @@ export function NewsPageCard({ item, collapseKey = 0 }: { item: NewsVideoPageIte
 
   useEffect(() => {
     if (!expanded) return;
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) return;
     const handleClickOutside = (e: MouseEvent) => {
       if (cardRef.current && !cardRef.current.contains(e.target as Node)) {
         setExpanded(false);
@@ -147,6 +149,11 @@ export function NewsPageCard({ item, collapseKey = 0 }: { item: NewsVideoPageIte
           >
             {expanded ? "Show Less ↑" : "Read More →"}
           </span>
+        )}
+        {(item as any).slug && (
+          <a href={`/news/${(item as any).slug}`} className="nv-full-article-link">
+            Full Article &rarr;
+          </a>
         )}
       </div>
     </div>

@@ -53,6 +53,7 @@ const CaseStudiesSection = ({ data }: { data: Record<string, unknown> }) => {
 };
 
 interface CaseCard {
+  slug?: string;
   image: { src: string; alt: string };
   images?: string[];
   video?: string;
@@ -100,12 +101,16 @@ function CaseImageSlideshow({ images, alt }: { images: string[]; alt: string }) 
   );
 }
 
-function CaseCardItem({ card }: { card: CaseCard }) {
+function CaseCardItem({ card, collapseKey = 0 }: { card: CaseCard; collapseKey?: number }) {
   const descRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const [isTruncated, setIsTruncated] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [imgHovered, setImgHovered] = useState(false);
+
+  useEffect(() => {
+    if (collapseKey > 0) setExpanded(false);
+  }, [collapseKey]);
 
   useEffect(() => {
     const el = descRef.current;
@@ -121,6 +126,8 @@ function CaseCardItem({ card }: { card: CaseCard }) {
 
   useEffect(() => {
     if (!expanded) return;
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) return;
     const handleClickOutside = (e: MouseEvent) => {
       if (cardRef.current && !cardRef.current.contains(e.target as Node)) {
         setExpanded(false);
@@ -209,6 +216,11 @@ function CaseCardItem({ card }: { card: CaseCard }) {
         {isTruncated && !expanded && (
           <span className="case-cta" onClick={handleCtaClick}>More..</span>
         )}
+        {card.slug && (
+          <a href={`/our-work/${card.slug}`} className="case-view-project" onClick={(e) => e.stopPropagation()}>
+            View Project &rarr;
+          </a>
+        )}
       </div>
     </>
   );
@@ -231,6 +243,7 @@ function CaseCardItem({ card }: { card: CaseCard }) {
 function CaseStudiesCarousel({ cards }: { cards: CaseCard[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(2);
+  const [collapseKey, setCollapseKey] = useState(0);
   const touchStartX = useRef(0);
   const touchDeltaX = useRef(0);
   const isDragging = useRef(false);
@@ -254,7 +267,11 @@ function CaseStudiesCarousel({ cards }: { cards: CaseCard[] }) {
   }, [maxIndex]);
 
   const goTo = useCallback((index: number) => {
-    setCurrentIndex(Math.max(0, Math.min(index, maxIndex)));
+    const clamped = Math.max(0, Math.min(index, maxIndex));
+    setCurrentIndex((prev) => {
+      if (prev !== clamped) setCollapseKey((k) => k + 1);
+      return clamped;
+    });
   }, [maxIndex]);
 
   const prev = () => goTo(currentIndex - 1);
@@ -312,7 +329,7 @@ function CaseStudiesCarousel({ cards }: { cards: CaseCard[] }) {
           style={{ transform: `translateX(${translateX}%)`, transition: "transform 0.4s ease" }}
         >
           {cards.map((card, i) => (
-            <CaseCardItem key={i} card={card} />
+            <CaseCardItem key={i} card={card} collapseKey={collapseKey} />
           ))}
         </div>
       </div>

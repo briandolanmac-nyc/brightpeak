@@ -3,7 +3,7 @@
   "hero": {
     "eyebrow": "Customer Reviews",
     "title": "What Our Customers Say",
-    "subtitle": "Over 1,000 happy customers across Ireland \u2014 here's what they have to say about working with BrightPeak Energy.",
+    "subtitle": "Over 1,000 happy customers across Ireland — here's what they have to say about working with BrightPeak Energy.",
     "bannerImage": "/images/hero/hero-solar-panels.webp"
   },
   "reviews": [
@@ -11,7 +11,7 @@
       "name": "Miriam Murphy",
       "location": "Dublin",
       "rating": 5,
-      "text": "Professional service from beginning to end. BrightPeak Energy handled everything \u2014 from the SEAI grant paperwork to the installation itself. The team were courteous, tidy, and completed the job on time. Our electricity bills have dropped significantly since the system was installed.",
+      "text": "Professional service from beginning to end. BrightPeak Energy handled everything — from the SEAI grant paperwork to the installation itself. The team were courteous, tidy, and completed the job on time. Our electricity bills have dropped significantly since the system was installed.",
       "service": "Solar PV & Battery"
     },
     {
@@ -46,7 +46,7 @@
       "name": "Tom Farrell",
       "location": "Dublin",
       "rating": 5,
-      "text": "One of the best contractors I've dealt with. BrightPeak handled everything from start to finish \u2014 grant application, design, installation, and follow-up. Top-notch service all round.",
+      "text": "One of the best contractors I've dealt with. BrightPeak handled everything from start to finish — grant application, design, installation, and follow-up. Top-notch service all round.",
       "service": "Solar PV & Battery"
     },
     {
@@ -91,6 +91,7 @@
     "primaryButton": {
       "label": "Get Free Quote",
       "variant": "primary"
-    }
+    },
+    "enabled": true
   }
 }

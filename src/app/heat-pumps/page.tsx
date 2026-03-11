@@ -20,6 +20,7 @@ export default function HeatPumpsPage() {
       <StructuredData pageType="service" pagePath="/heat-pumps" serviceName="Heat Pump Installation" />
       <PageBanner eyebrow={hero.eyebrow} title={hero.title} subtitle={hero.subtitle} bannerImage={hero.bannerImage} />
 
+      {intro?.enabled !== false && (
       <section className="py-16 md:py-20">
         <div className="container">
           <div className="text-center mb-12">
@@ -41,8 +42,9 @@ export default function HeatPumpsPage() {
           </div>
         </div>
       </section>
+      )}
 
-      {pumpTypes && (
+      {pumpTypes?.enabled !== false && pumpTypes && (
         <section className="py-16 md:py-20" style={{ background: "var(--bg-secondary)" }}>
           <div className="container">
             <div className="text-center mb-12">
@@ -64,7 +66,7 @@ export default function HeatPumpsPage() {
         </section>
       )}
 
-      {exhaustAir && (
+      {exhaustAir?.enabled !== false && exhaustAir && (
         <section className="py-16 md:py-20">
           <div className="container">
             <div className="text-center mb-12">
@@ -88,7 +90,7 @@ export default function HeatPumpsPage() {
         </section>
       )}
 
-      {geothermal && (
+      {geothermal?.enabled !== false && geothermal && (
         <section className="py-16 md:py-20" style={{ background: "var(--bg-secondary)" }}>
           <div className="container">
             <div className="text-center mb-12">
@@ -112,7 +114,7 @@ export default function HeatPumpsPage() {
         </section>
       )}
 
-      {newBuild && (
+      {newBuild?.enabled !== false && newBuild && (
         <section className="py-16 md:py-20">
           <div className="container">
             <div className="text-center mb-12">
@@ -128,7 +130,7 @@ export default function HeatPumpsPage() {
         </section>
       )}
 
-      {retrofit && (
+      {retrofit?.enabled !== false && retrofit && (
         <section className="py-16 md:py-20" style={{ background: "var(--bg-secondary)" }}>
           <div className="container">
             <div className="text-center mb-12">
@@ -144,6 +146,7 @@ export default function HeatPumpsPage() {
         </section>
       )}
 
+      {benefits?.enabled !== false && (
       <section className="py-16 md:py-20">
         <div className="container">
           <div className="text-center mb-12">
@@ -165,7 +168,9 @@ export default function HeatPumpsPage() {
           </div>
         </div>
       </section>
+      )}
 
+      {cta?.enabled !== false && (
       <section
         style={{
           background: "linear-gradient(135deg, var(--brand-banner-overlay) 0%, color-mix(in srgb, var(--brand-banner-overlay) 80%, #334155) 50%, var(--brand-banner-overlay) 100%)",
@@ -200,6 +205,7 @@ export default function HeatPumpsPage() {
           </div>
         </div>
       </section>
+      )}
     </PageLayout>
   );
 }

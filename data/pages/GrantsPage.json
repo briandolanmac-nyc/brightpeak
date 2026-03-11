@@ -1,8 +1,9 @@
 {
+  "enabled": true,
   "hero": {
     "eyebrow": "Save With SEAI",
     "title": "SEAI Grants for Solar Panels",
-    "subtitle": "Take advantage of up to \u20ac2,100 in SEAI grants and 0% VAT on residential solar panel installations across Ireland.",
+    "subtitle": "Take advantage of up to €2,100 in SEAI grants and 0% VAT on residential solar panel installations across Ireland.",
     "bannerImage": "/images/services/home-solar.webp"
   },
   "details": {
@@ -11,30 +12,31 @@
     "paragraphs": [
       "The Sustainable Energy Authority of Ireland (SEAI) provides generous grants to homeowners who install solar PV systems. The grant covers a significant portion of your installation costs, making solar energy more affordable than ever.",
       "In addition to the SEAI grant, residential solar panel installations benefit from 0% VAT, further reducing the overall cost. Combined with energy savings of up to 70%, solar panels pay for themselves within a few years.",
-      "As SEAI Registered installers, BrightPeak Energy handles the entire grant application process on your behalf \u2014 so you can sit back and enjoy the savings."
+      "As SEAI Registered installers, BrightPeak Energy handles the entire grant application process on your behalf — so you can sit back and enjoy the savings."
     ],
     "highlights": [
       {
-        "title": "Up to \u20ac2,100",
+        "title": "Up to €2,100",
         "desc": "SEAI grant available for residential solar PV installations",
-        "icon": "\ud83d\udcb0"
+        "icon": "💰"
       },
       {
         "title": "0% VAT",
         "desc": "No VAT charged on residential solar panel installations in Ireland",
-        "icon": "\ud83c\udff7\ufe0f"
+        "icon": "🏷️"
       },
       {
         "title": "We Handle Everything",
         "desc": "BrightPeak Energy manages your full SEAI grant application process",
-        "icon": "\ud83d\udccb"
+        "icon": "📋"
       },
       {
         "title": "Fast Turnaround",
         "desc": "Grant approval typically takes 4-6 weeks with our streamlined process",
-        "icon": "\u26a1"
+        "icon": "⚡"
       }
-    ]
+    ],
+    "enabled": true
   },
   "eligibility": {
     "eyebrow": "Eligibility",
@@ -43,24 +45,25 @@
       {
         "title": "Homeowners",
         "desc": "Your home must have been built and occupied before 2021",
-        "icon": "\ud83c\udfe0"
+        "icon": "🏠"
       },
       {
         "title": "BER Assessment",
         "desc": "A BER assessment after works is required as part of the process",
-        "icon": "\ud83d\udcca"
+        "icon": "📊"
       },
       {
         "title": "SEAI Installer",
         "desc": "Works must be carried out by an SEAI registered installer like us",
-        "icon": "\u2705"
+        "icon": "✅"
       },
       {
         "title": "Property Type",
         "desc": "Detached, semi-detached, terraced houses, and apartments qualify",
-        "icon": "\ud83c\udfd8\ufe0f"
+        "icon": "🏘️"
       }
-    ]
+    ],
+    "enabled": true
   },
   "howItWorks": {
     "title": "How It Works",
@@ -85,14 +88,16 @@
         "title": "Receive Grant",
         "desc": "SEAI pays your grant directly after installation"
       }
-    ]
+    ],
+    "enabled": true
   },
   "cta": {
-    "title": "Claim Your \u20ac2,100 SEAI Grant Today",
+    "title": "Claim Your €2,100 SEAI Grant Today",
     "subtitle": "Let our team handle the grant process from start to finish.",
     "primaryButton": {
       "label": "Get Free Quote",
       "variant": "primary"
-    }
+    },
+    "enabled": true
   }
 }

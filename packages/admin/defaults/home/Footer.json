@@ -40,7 +40,11 @@
       "links": [
         {
           "label": "Our Work",
-          "href": "/#case-studies"
+          "href": "/our-work"
+        },
+        {
+          "label": "Locations",
+          "href": "/locations"
         },
         {
           "label": "Testimonials",

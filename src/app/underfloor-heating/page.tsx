@@ -20,6 +20,7 @@ export default function UnderfloorHeatingPage() {
       <StructuredData pageType="service" pagePath="/underfloor-heating" serviceName="Underfloor Heating Installation" />
       <PageBanner eyebrow={hero.eyebrow} title={hero.title} subtitle={hero.subtitle} bannerImage={hero.bannerImage} />
 
+      {intro?.enabled !== false && (
       <section className="py-16 md:py-20">
         <div className="container">
           <div className="text-center mb-12">
@@ -41,8 +42,9 @@ export default function UnderfloorHeatingPage() {
           </div>
         </div>
       </section>
+      )}
 
-      {floorTypes && (
+      {floorTypes?.enabled !== false && floorTypes && (
         <section className="py-16 md:py-20" style={{ background: "var(--bg-secondary)" }}>
           <div className="container">
             <div className="text-center mb-12">
@@ -64,7 +66,7 @@ export default function UnderfloorHeatingPage() {
         </section>
       )}
 
-      {variotherm && (
+      {variotherm?.enabled !== false && variotherm && (
         <section className="py-16 md:py-20">
           <div className="container">
             <div className="text-center mb-12">
@@ -88,6 +90,7 @@ export default function UnderfloorHeatingPage() {
         </section>
       )}
 
+      {benefits?.enabled !== false && (
       <section className="py-16 md:py-20" style={{ background: "var(--bg-secondary)" }}>
         <div className="container">
           <div className="text-center mb-12">
@@ -109,8 +112,9 @@ export default function UnderfloorHeatingPage() {
           </div>
         </div>
       </section>
+      )}
 
-      {servicing && (
+      {servicing?.enabled !== false && servicing && (
         <section className="py-16 md:py-20">
           <div className="container">
             <div className="text-center mb-12">
@@ -126,6 +130,7 @@ export default function UnderfloorHeatingPage() {
         </section>
       )}
 
+      {cta?.enabled !== false && (
       <section
         style={{
           background: "linear-gradient(135deg, var(--brand-banner-overlay) 0%, color-mix(in srgb, var(--brand-banner-overlay) 80%, #334155) 50%, var(--brand-banner-overlay) 100%)",
@@ -160,6 +165,7 @@ export default function UnderfloorHeatingPage() {
           </div>
         </div>
       </section>
+      )}
     </PageLayout>
   );
 }

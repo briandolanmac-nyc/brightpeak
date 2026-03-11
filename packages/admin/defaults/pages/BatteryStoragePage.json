@@ -1,4 +1,5 @@
 {
+  "enabled": true,
   "hero": {
     "eyebrow": "PV Battery Storage",
     "title": "Battery Storage Solutions",
@@ -21,7 +22,8 @@
     "image": {
       "src": "/images/case-studies/battery-storage-install.webp",
       "alt": "Home battery storage system"
-    }
+    },
+    "enabled": true
   },
   "benefits": {
     "title": "Benefits of Battery Storage",
@@ -56,7 +58,8 @@
         "desc": "Our systems integrate perfectly with your existing solar setup for a complete energy solution",
         "icon": "🔄"
       }
-    ]
+    ],
+    "enabled": true
   },
   "cta": {
     "title": "Add Battery Storage to Your Home",
@@ -64,6 +67,7 @@
     "primaryButton": {
       "label": "Get Free Quote",
       "href": "/contact"
-    }
+    },
+    "enabled": true
   }
 }

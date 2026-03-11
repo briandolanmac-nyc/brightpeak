@@ -24,7 +24,9 @@ packages/admin/            # Portable admin package (self-contained)
 │   ├── AdminPage.tsx      # Full-page admin dashboard
 │   ├── SmartEditorSidebar.tsx  # Smart form editor (sidebar variant)
 │   ├── SmartEditorPage.tsx     # Smart form editor (page variant)
-│   └── SectionManager.tsx      # Section reorder/toggle
+│   ├── SectionManager.tsx      # Section reorder/toggle
+│   ├── ImagePicker.tsx    # Image browser/uploader modal with sharp optimization
+│   └── FaqEditor.tsx      # Solar Guide/FAQ editor with category management
 ├── api/
 │   └── handler.ts         # API route handler (GET/PUT with schema migration)
 ├── styles/
@@ -53,7 +55,15 @@ src/app/
 ├── admin/
 │   ├── page.tsx           # Thin wrapper → imports AdminPage from packages/admin
 │   └── layout.tsx         # Admin layout (noindex)
-├── globals.css            # All custom CSS styles (~3500 lines)
+├── our-work/              # Case study pages (SEO)
+│   ├── page.tsx           # Index: grid of all case studies
+│   └── [slug]/page.tsx    # Detail: full case study with stats, images, video, schema
+├── news/                  # News article pages (SEO)
+│   ├── page.tsx           # Index: grid of all news articles
+│   └── [slug]/page.tsx    # Detail: full article with NewsArticle schema
+├── solar-guide/page.tsx   # Solar Guide index with category cards and FAQPage schema
+├── services/page.tsx      # Services index page listing all services
+├── globals.css            # All custom CSS styles (~4100 lines)
 ├── layout.tsx             # Root layout with fonts + theme (uses generateMetadata)
 ├── page.tsx               # Homepage
 └── [routes]/              # Inner pages (about, contact, solar-panels, underfloor-heating, etc.)
@@ -166,6 +176,25 @@ npm start      # Production server on port 5000
 - **Admin color coding**: Custom page cards are color-coded by type — green (section), blue (iframe), amber/orange (image) — in both sidebar and full admin page
 - **Conditional field hiding**: `iframeUrl` only shows for iframe type, `imageUrl` only shows for image type, `content` (cards) hidden for image type
 - **Auto-sync**: When a custom page's placement changes to/from "homepage", the Page Settings section list updates immediately via `syncCustomPageSections()` in utils.ts
+
+## SEO Pages (Unique URLs)
+- **`/our-work`** — Index of all case studies as linked cards; each card links to `/our-work/{slug}`
+- **`/our-work/[slug]`** — Individual case study detail page with stats, image gallery, video embed, Article schema
+- **`/news`** — Index of all news articles; each card links to `/news/{slug}`
+- **`/news/[slug]`** — Individual news article page with rich content, NewsArticle schema, breadcrumbs schema
+- **`/solar-guide`** — Solar Guide index page with category cards and all questions grouped by topic
+- **`/solar-guide/[slug]`** — Individual Solar Guide category pages (general, costs-financing, installation-process, performance-maintenance, battery-grid, company-warranty) each with FAQPage schema and BreadcrumbList schema for Google rich results
+- **`/services`** — Services index page listing all services with cards linking to each service page
+- **`/locations`** — Index of all service area locations; each card links to `/locations/{slug}`
+- **`/locations/[slug]`** — Individual location landing page with LocalBusiness schema, BreadcrumbList schema, service list, highlights/stats, CTA, and cross-links to other locations
+- **Location data**: `data/home/LocationsSection.json` — array of locations with slug, name, title, description (HTML), image, services list, highlights (stats)
+- **Slugs**: Added `slug` field to case studies in `CaseStudiesSection.json` and news items in `NewsVideosSection.json`
+- **Solar Guide (formerly FAQ)**: `data/home/FaqSection.json` uses flat data model — top-level `categories` array (`[{slug, title, description}]`) + flat `items` array (`[{question, answer, category}]`) where `category` is a slug reference. Homepage FAQ component filters active items and shows first 8 with "View All FAQs" link. Admin has custom `FaqEditor` component (`packages/admin/components/FaqEditor.tsx`) with editable category list (add/remove/rename with orphan logic) and per-item category dropdown. Removing a category orphans its items (`category: "_orphan"`) — orphaned items are hidden on the site but visible in admin for reassignment
+- **Sitemap**: `src/app/sitemap.ts` dynamically includes all case study, news article, location, and Solar Guide category URLs
+- **SEO data**: All new pages have entries in `data/seo.json`
+- **Cross-linking**: Case study cards on homepage have "View Project →" link; news cards have "Full Article →" link
+- **Navigation**: "News" links to `/news`, "Our Work" links to `/our-work`, "Locations" links to `/locations`
+- **Footer**: Added Solar Guide, News, and Locations links to Resources column
 
 ## Content Management
 All homepage content is stored in JSON files under `data/home/`. The admin panel (`/admin`) and sidebar editor allow editing these files at runtime. Changes are only saved when the user explicitly clicks "Save Changes" — the page does not auto-refresh.

@@ -1,4 +1,5 @@
 {
+  "enabled": true,
   "hero": {
     "eyebrow": "Affordable Solar",
     "title": "Finance Your Solar Installation",
@@ -34,7 +35,8 @@
         "desc": "Transparent pricing with no hidden charges or setup fees",
         "icon": "✅"
       }
-    ]
+    ],
+    "enabled": true
   },
   "howItWorks": {
     "title": "How Solar Finance Works",
@@ -54,7 +56,8 @@
         "title": "Start Saving",
         "desc": "Your system is installed and you begin saving on energy bills immediately"
       }
-    ]
+    ],
+    "enabled": true
   },
   "cta": {
     "title": "Go Solar Today — Pay Over Time",
@@ -62,6 +65,7 @@
     "primaryButton": {
       "label": "Get Free Quote",
       "href": "/contact"
-    }
+    },
+    "enabled": true
   }
 }

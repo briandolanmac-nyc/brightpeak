@@ -112,7 +112,7 @@ const DataLayerTracker = () => {
         video: "Video",
         testimonials: "Testimonials",
         impact: "Impact Stats",
-        faq: "FAQ",
+        faq: "Solar Guide",
         "news-videos": "News & Videos",
         "final-cta": "Final CTA",
         "contact-section": "Contact CTA",

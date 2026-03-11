@@ -1,4 +1,5 @@
 {
+  "enabled": true,
   "hero": {
     "eyebrow": "Business Solutions",
     "title": "Commercial Solar Solutions",
@@ -16,7 +17,8 @@
     "image": {
       "src": "/images/hero/hero-commercial.webp",
       "alt": "Commercial solar installation"
-    }
+    },
+    "enabled": true
   },
   "whyChoose": {
     "title": "Why Businesses Choose Solar",
@@ -51,12 +53,14 @@
         "desc": "Professional installation with minimal impact on your daily business operations",
         "icon": "🔧"
       }
-    ]
+    ],
+    "enabled": true
   },
   "trusted": {
     "title": "Trusted by Local Businesses",
     "subtitle": "We have completed installations for businesses across Ireland",
-    "logos": []
+    "logos": [],
+    "enabled": true
   },
   "cta": {
     "title": "Get a Commercial Solar Quote",
@@ -64,6 +68,7 @@
     "primaryButton": {
       "label": "Talk to Our Team",
       "href": "/contact"
-    }
+    },
+    "enabled": true
   }
 }

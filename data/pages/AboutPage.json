@@ -1,8 +1,9 @@
 {
+  "enabled": true,
   "hero": {
     "eyebrow": "Who We Are",
     "title": "About BrightPeak Energy",
-    "description": "Renewable home energy solutions \u2014 one of Ireland's leading renewable and mechanical installers, specialising in both domestic and commercial projects of any size.",
+    "description": "Renewable home energy solutions — one of Ireland's leading renewable and mechanical installers, specialising in both domestic and commercial projects of any size.",
     "bannerImage": "/images/about/team.webp"
   },
   "story": {
@@ -10,13 +11,14 @@
     "title": "Get to Know Us",
     "paragraphs": [
       "BrightPeak Energy was founded in early 2006. The two owners, Vinny Novotny and Stephen O'Kane, were former employees of the company before having the opportunity to take over the business in 2013.",
-      "After completing their first full renewable mechanical project \u2014 a residential development of 26 new-build houses in Lyndhurst on the Herbert Road \u2014 they decided to push forward with the BrightPeak strategy of always supplying and installing the highest quality renewable energy systems to their main contractor and architect customers, as well as branching out to homeowners who wanted to retrofit their property with the same systems.",
+      "After completing their first full renewable mechanical project — a residential development of 26 new-build houses in Lyndhurst on the Herbert Road — they decided to push forward with the BrightPeak strategy of always supplying and installing the highest quality renewable energy systems to their main contractor and architect customers, as well as branching out to homeowners who wanted to retrofit their property with the same systems.",
       "Vinny and Stephen have since grown the company to where it is today and continue to guide and direct the installation teams as well as the office staff who provide BrightPeak clients with bespoke heating and solar designs, SEAI grant details, and a wealth of knowledge and experience that has been built over the years."
     ],
     "image": {
       "src": "/images/about/company-van.avif",
       "alt": "BrightPeak Energy van"
-    }
+    },
+    "enabled": true
   },
   "values": {
     "eyebrow": "Why Choose Us",
@@ -25,19 +27,20 @@
       {
         "title": "Bespoke Solutions",
         "desc": "From our vast experience we know that every home and family have different requirements. We tailor our renewable heating systems to match your needs and ensure maximum comfort while delivering the most efficient system.",
-        "icon": "\ud83c\udfaf"
+        "icon": "🎯"
       },
       {
         "title": "Quality & Experience",
-        "desc": "With over 18 years of experience and 2,800+ completed projects, we design, install, and back up our renewable systems \u2014 treating every project as if it were our own home.",
-        "icon": "\u2b50"
+        "desc": "With over 18 years of experience and 2,800+ completed projects, we design, install, and back up our renewable systems — treating every project as if it were our own home.",
+        "icon": "⭐"
       },
       {
         "title": "Full Service",
-        "desc": "We handle everything from SEAI grants and paperwork to design, installation, and ongoing support. No sub-contracting \u2014 all work is done by our own qualified team.",
-        "icon": "\ud83e\udd1d"
+        "desc": "We handle everything from SEAI grants and paperwork to design, installation, and ongoing support. No sub-contracting — all work is done by our own qualified team.",
+        "icon": "🤝"
       }
-    ]
+    ],
+    "enabled": true
   },
   "credentials": {
     "eyebrow": "Our Credentials",
@@ -45,21 +48,22 @@
     "items": [
       {
         "label": "SEAI Registered",
-        "icon": "\u2705"
+        "icon": "✅"
       },
       {
         "label": "Safe Electric Certified",
-        "icon": "\ud83d\udd12"
+        "icon": "🔒"
       },
       {
         "label": "Certified Sigenergy Installers",
-        "icon": "\ud83c\udfc6"
+        "icon": "🏆"
       },
       {
         "label": "Lifetime Workmanship Guarantee",
-        "icon": "\ud83d\udee1\ufe0f"
+        "icon": "🛡️"
       }
-    ]
+    ],
+    "enabled": true
   },
   "cta": {
     "title": "Ready to Start Your Renewable Energy Journey?",
@@ -71,6 +75,7 @@
     "secondaryButton": {
       "label": "Contact Us",
       "variant": "secondary"
-    }
+    },
+    "enabled": true
   }
 }

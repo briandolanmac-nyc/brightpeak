@@ -31,7 +31,7 @@ export default function TestimonialsPage() {
               >
                 <div className="flex gap-1 mb-3">
                   {Array.from({ length: review.rating }).map((_: unknown, i: number) => (
-                    <span key={i} className="text-lg" style={{ color: "var(--brand-accent)" }}>★</span>
+                    <span key={i} className="text-lg" style={{ color: "var(--brand-accent)" }}>&#9733;</span>
                   ))}
                 </div>
                 <div className="mb-4 leading-relaxed text-sm rich-html" style={{ color: "var(--text-secondary)" }} dangerouslySetInnerHTML={{ __html: "&ldquo;" + sanitizeHtml(review.text || "") + "&rdquo;" }} />
@@ -66,6 +66,7 @@ export default function TestimonialsPage() {
         </div>
       </section>
 
+      {cta?.enabled !== false && (
       <section
         style={{
           background: "linear-gradient(135deg, var(--brand-banner-overlay) 0%, color-mix(in srgb, var(--brand-banner-overlay) 80%, #334155) 50%, var(--brand-banner-overlay) 100%)",
@@ -89,6 +90,7 @@ export default function TestimonialsPage() {
           </a>
         </div>
       </section>
+      )}
     </PageLayout>
   );
 }

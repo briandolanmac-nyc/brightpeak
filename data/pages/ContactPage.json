@@ -1,4 +1,5 @@
 {
+  "enabled": true,
   "hero": {
     "eyebrow": "Get in Touch",
     "title": "Contact Us",
@@ -65,7 +66,8 @@
       "label": "Message",
       "placeholder": "Tell us about your project..."
     },
-    "submitButton": "Send Message"
+    "submitButton": "Send Message",
+    "enabled": true
   },
   "contactInfo": {
     "title": "Contact Information",
@@ -94,7 +96,8 @@
         "content": "Monday – Friday: 9:00am – 5:00pm",
         "href": null
       }
-    ]
+    ],
+    "enabled": true
   },
   "certifications": {
     "title": "Our Certifications",
@@ -103,7 +106,8 @@
       "Safe Electric Certified",
       "Certified Sigenergy Installers",
       "Carlow Business Awards Winner 2024 & 2025"
-    ]
+    ],
+    "enabled": true
   },
   "areasServed": {
     "title": "Areas We Cover",
@@ -120,12 +124,14 @@
       "Meath",
       "Louth",
       "Nationwide"
-    ]
+    ],
+    "enabled": true
   },
   "quickQuote": {
     "title": "Prefer a Quick Quote?",
     "description": "Use our online quote builder to get an instant estimate for your solar installation.",
     "buttonLabel": "Get Free Quote",
-    "buttonHref": "/contact"
+    "buttonHref": "/contact",
+    "enabled": true
   }
 }

@@ -4,6 +4,8 @@ import { FONT_OPTIONS, RICH_TEXT_PATH_PATTERNS, EMPTY_ARRAY_TEMPLATES } from "..
 import { formatLabel, blankFromTemplate } from "../utils";
 import { CombinedSectionManager } from "./SectionManager";
 import RichTextEditor from "./RichTextEditor";
+import { isFaqSection, FaqEditorPage } from "./FaqEditor";
+import { ImageField, isImageField } from "./ImagePicker";
 import "../styles/richtext.css";
 
 const HERO_SECTIONS: { label: string; keys: string[] }[] = [
@@ -214,6 +216,9 @@ export function SmartEditorPage({
   if (isNavigationSection(data, path)) {
     return <NavigationSectionEditor data={data as Record<string, unknown>} onChange={onChange} />;
   }
+  if (isFaqSection(data, path)) {
+    return <FaqEditorPage data={data as Record<string, unknown>} onChange={onChange} />;
+  }
   if (data === null || data === undefined) {
     return (
       <input
@@ -389,6 +394,16 @@ export function SmartEditorPage({
           />
           <span style={{ width: "28px", height: "28px", borderRadius: "50%", background: data, border: "2px solid #444", flexShrink: 0 }} />
         </div>
+      );
+    }
+    const fieldKey = path.split(".").pop() || "";
+    if (isImageField(fieldKey)) {
+      return (
+        <ImageField
+          value={data}
+          onChange={(val) => onChange(path, val)}
+          variant="page"
+        />
       );
     }
     if (RICH_TEXT_PATH_PATTERNS.some((re) => re.test(path))) {
@@ -628,7 +643,11 @@ export function SmartEditorPage({
         </div>
       );
     }
-    const entries = Object.entries(obj);
+    const entries = Object.entries(obj).sort((a, b) => {
+      if (a[0] === "enabled") return -1;
+      if (b[0] === "enabled") return 1;
+      return 0;
+    });
     const hasImagesArray = Array.isArray(obj.images);
     return (
       <div className="admin-object">

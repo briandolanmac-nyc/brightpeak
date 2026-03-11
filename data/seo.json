@@ -127,6 +127,42 @@
       "description": "Learn about how BrightPeak Energy uses cookies. Manage your cookie preferences and understand our cookie usage.",
       "keywords": "",
       "ogImage": "/images/hero/hero-solar-panels.webp"
+    },
+    "/our-work": {
+      "title": "Our Work | Solar & Renewable Energy Projects | BrightPeak Energy",
+      "description": "Browse our portfolio of completed solar, battery storage, heat pump, and EV charger projects across Ireland. Over 2,800 installations completed.",
+      "keywords": "solar projects Ireland, renewable energy portfolio, solar installation case studies, BrightPeak Energy projects",
+      "ogImage": "/images/case-studies/residential-project.webp"
+    },
+    "/news": {
+      "title": "News & Articles | Solar Energy Updates Ireland | BrightPeak Energy",
+      "description": "Stay up to date with the latest solar energy news, SEAI grant updates, and expert advice from BrightPeak Energy.",
+      "keywords": "solar energy news Ireland, SEAI grants news, renewable energy updates, solar panel articles",
+      "ogImage": "/images/hero/hero-solar-panels.webp"
+    },
+    "/solar-guide": {
+      "title": "Solar Guide | Solar Panels Ireland | BrightPeak Energy",
+      "description": "Your complete solar guide — get answers to common questions about solar panels, battery storage, SEAI grants, and installation timelines. Expert advice from BrightPeak Energy.",
+      "keywords": "solar guide Ireland, solar energy questions, SEAI grant guide, battery storage questions, solar installation guide",
+      "ogImage": "/images/hero/hero-solar-panels.webp"
+    },
+    "/services": {
+      "title": "Our Services | Solar, Battery, EV Chargers & More | BrightPeak Energy",
+      "description": "Explore all BrightPeak Energy services: solar panels, battery storage, EV chargers, heat pumps, underfloor heating, and commercial solar solutions across Ireland.",
+      "keywords": "renewable energy services Ireland, solar panel services, battery storage services, EV charger installation, heat pump services",
+      "ogImage": "/images/hero/hero-solar-panels.webp"
+    },
+    "/locations": {
+      "title": "Service Areas | Solar & Renewable Energy Locations | BrightPeak Energy",
+      "description": "Find BrightPeak Energy renewable energy services in your area. We serve Dublin, Cork, Galway, and more with solar panels, battery storage, EV chargers, and heat pumps.",
+      "keywords": "solar panels Dublin, solar panels Cork, solar panels Galway, renewable energy Ireland locations, solar installer near me",
+      "ogImage": "/images/hero/hero-solar-panels.webp"
+    },
+    "/news-videos": {
+      "title": "News & Videos | Solar Energy Updates | BrightPeak Energy",
+      "description": "Watch videos and read the latest news about solar energy, installation tips, and project updates from BrightPeak Energy.",
+      "keywords": "solar energy videos, solar installation videos, renewable energy news Ireland",
+      "ogImage": "/images/hero/hero-solar-panels.webp"
     }
   },
   "services": [
