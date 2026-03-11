@@ -141,15 +141,6 @@ export function NewsPageCard({ item, collapseKey = 0 }: { item: NewsVideoPageIte
         {hasContent && (
           <div className={`nv-card-content${expanded ? " nv-card-content-expanded" : ""}`} style={{ color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "1rem" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.content!) }} />
         )}
-        {hasContent && (
-          <span
-            className="nv-read-more"
-            onClick={() => setExpanded(!expanded)}
-            style={{ cursor: "pointer", display: "inline-block" }}
-          >
-            {expanded ? "Show Less ↑" : "Read More →"}
-          </span>
-        )}
         {(item as any).slug && (
           <a href={`/news/${(item as any).slug}`} className="nv-full-article-link">
             Full Article &rarr;

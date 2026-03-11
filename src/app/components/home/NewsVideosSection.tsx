@@ -140,15 +140,6 @@ function NewsCard({ item, collapseKey = 0 }: { item: NewsItem; collapseKey?: num
         {hasContent && (
           <div className={`nv-card-content${expanded ? " nv-card-content-expanded" : ""}`} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.content!) }} />
         )}
-        {hasContent && (
-          <span
-            className="nv-read-more"
-            onClick={() => setExpanded(!expanded)}
-            style={{ cursor: "pointer" }}
-          >
-            {expanded ? "Show Less ↑" : "Read More →"}
-          </span>
-        )}
         {item.slug && (
           <a href={`/news/${item.slug}`} className="nv-full-article-link" onClick={(e) => e.stopPropagation()}>
             Full Article &rarr;
