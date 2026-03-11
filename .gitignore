@@ -1,0 +1,10 @@
+node_modules/
+.next/
+.replit
+*.tsbuildinfo
+.cache/
+.pythonlibs/
+attached_assets/
+project-export.tar.gz
+/tmp/
+.local/

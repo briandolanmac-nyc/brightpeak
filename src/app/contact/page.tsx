@@ -24,6 +24,7 @@ export default function ContactPage() {
       <section className="py-16 md:py-20">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12">
+            {form?.enabled !== false && (
             <ContactForm
               title={form.title}
               fields={form.fields}
@@ -31,8 +32,10 @@ export default function ContactPage() {
               messageField={form.message}
               submitButton={form.submitButton}
             />
+            )}
 
             <div className="space-y-8">
+              {contactInfo?.enabled !== false && (
               <div>
                 <h2 className="text-3xl font-extrabold mb-8">{contactInfo.title}</h2>
                 <div className="space-y-6">
@@ -58,7 +61,9 @@ export default function ContactPage() {
                   ))}
                 </div>
               </div>
+              )}
 
+              {certifications?.enabled !== false && (
               <div
                 className="p-6 rounded-2xl"
                 style={{ background: "var(--bg-secondary)" }}
@@ -67,12 +72,14 @@ export default function ContactPage() {
                 <ul className="space-y-2">
                   {certifications.items.map((cert: string) => (
                     <li key={cert} className="flex items-center gap-2" style={{ color: "var(--text-secondary)" }}>
-                      <span className="text-brand">✓</span> {cert}
+                      <span className="text-brand">&#10003;</span> {cert}
                     </li>
                   ))}
                 </ul>
               </div>
+              )}
 
+              {quickQuote?.enabled !== false && (
               <div
                 className="p-6 rounded-2xl"
                 style={{ background: "#e0f2fe" }}
@@ -87,6 +94,7 @@ export default function ContactPage() {
                   {quickQuote.buttonLabel}
                 </a>
               </div>
+              )}
             </div>
           </div>
         </div>

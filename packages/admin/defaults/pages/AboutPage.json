@@ -1,4 +1,5 @@
 {
+  "enabled": true,
   "hero": {
     "eyebrow": "Who We Are",
     "title": "About BrightPeak Energy",
@@ -16,7 +17,8 @@
     "image": {
       "src": "/images/about/green-house-van.avif",
       "alt": "BrightPeak Energy van"
-    }
+    },
+    "enabled": true
   },
   "values": {
     "eyebrow": "Why Choose Us",
@@ -37,7 +39,8 @@
         "desc": "We handle everything from SEAI grants and paperwork to design, installation, and ongoing support. No sub-contracting — all work is done by our own qualified team.",
         "icon": "🤝"
       }
-    ]
+    ],
+    "enabled": true
   },
   "credentials": {
     "eyebrow": "Our Credentials",
@@ -59,7 +62,8 @@
         "label": "Lifetime Workmanship Guarantee",
         "icon": "🛡️"
       }
-    ]
+    ],
+    "enabled": true
   },
   "cta": {
     "title": "Ready to Start Your Renewable Energy Journey?",
@@ -71,6 +75,7 @@
     "secondaryButton": {
       "label": "Contact Us",
       "href": "/contact"
-    }
+    },
+    "enabled": true
   }
 }

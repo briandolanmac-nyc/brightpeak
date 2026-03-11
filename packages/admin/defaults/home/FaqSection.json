@@ -2,47 +2,11 @@
   "enabled": true,
   "eyebrow": "Got Questions?",
   "title": "We've Got Answers",
-  "subtitle": "No silly questions here — ask us anything about going solar!",
+  "subtitle": "Find answers to common questions about our services.",
+  "categories": [
+    { "slug": "general", "title": "General Questions", "description": "Learn the basics about our services." }
+  ],
   "items": [
-    {
-      "question": "Where do you work?",
-      "answer": "We're based in Dublin but we cover all of Ireland — from Dublin to Cork, Galway, Limerick, and everywhere in between. If you're not sure, just give us a shout and we'll let you know!"
-    },
-    {
-      "question": "What are your hours?",
-      "answer": "We're normally around 8am – 5pm, but we actually offer a 24-hour service if you need us. We're always just a phone call away."
-    },
-    {
-      "question": "Are you properly qualified?",
-      "answer": "Absolutely! We are SEAI Approved Installers with over 20 years of experience. We hold all the necessary certifications and qualifications. You're in very safe hands."
-    },
-    {
-      "question": "Do you use sub-contractors?",
-      "answer": "Nope, never! Every single person who works on your home is part of our own team. We believe in consistency and quality — and that means doing the job ourselves."
-    },
-    {
-      "question": "Do you guarantee your work?",
-      "answer": "Of course! We offer a lifetime workmanship guarantee on everything we do. We stand behind our work 100%."
-    },
-    {
-      "question": "How will I know who's turning up at my house?",
-      "answer": "Our team always arrive with ID badges, in clean uniform, and ready to go. If you're ever unsure, just call the office and we'll confirm who's on the way."
-    },
-    {
-      "question": "How much will I actually save?",
-      "answer": "Most of our customers save around €2,000 a year on their energy bills — some even more! With a well-designed system, you could cut your bills by up to 70%. Not bad, right?"
-    },
-    {
-      "question": "How long does it take to install?",
-      "answer": "Most home installs are done in just 1-2 days. We turn up on time, keep everything spotless, and get you generating your own power before you know it."
-    },
-    {
-      "question": "What SEAI grants are available?",
-      "answer": "The SEAI offers grants of up to €2,100 for solar PV panels and €600 for battery storage. We handle all the grant paperwork for you, making the process hassle-free."
-    },
-    {
-      "question": "Will solar panels work on my roof?",
-      "answer": "Solar panels work on most roofs in Ireland! South-facing is ideal, but east and west-facing roofs also perform well. During our free site survey, we'll assess your roof and design the perfect system for your home."
-    }
+    { "question": "Sample question?", "answer": "Sample answer.", "category": "general" }
   ]
 }

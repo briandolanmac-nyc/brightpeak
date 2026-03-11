@@ -91,6 +91,7 @@
     "primaryButton": {
       "label": "Get Free Quote",
       "href": "/contact"
-    }
+    },
+    "enabled": true
   }
 }

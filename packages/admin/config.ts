@@ -31,9 +31,10 @@ export const SECTION_LABELS: Record<string, string> = {
   "CaseStudiesSection.json": "Case Studies",
   "HowSection.json": "How It Works",
   "TestimonialsSection.json": "Testimonials Carousel",
-  "FaqSection.json": "FAQ",
+  "FaqSection.json": "Solar Guide",
   "AccreditationsSection.json": "Accreditations",
   "NewsVideosSection.json": "News & Videos",
+  "LocationsSection.json": "Locations / Service Areas",
   "FinalCtaSection.json": "Final CTA",
   "Footer.json": "Footer",
   "TrustBarSection.json": "Trust Bar",
@@ -82,6 +83,7 @@ export const SECTION_GROUPS: { label: string; files: string[] }[] = [
       "FaqSection.json",
       "AccreditationsSection.json",
       "NewsVideosSection.json",
+      "LocationsSection.json",
       "FinalCtaSection.json",
       "Footer.json",
     ],
@@ -109,7 +111,7 @@ export const SECTION_GROUPS: { label: string; files: string[] }[] = [
 export const SECTION_ORDER = SECTION_GROUPS.flatMap((g) => g.files);
 
 export const ORDER_SECTION_LABELS: Record<string, string> = {
-  hero: "Hero Section",
+  hero: "Hero Section Settings",
   serviceCards: "Service Cards",
   video: "Featured Video",
   whyChoose: "Why Choose Us",
@@ -117,7 +119,7 @@ export const ORDER_SECTION_LABELS: Record<string, string> = {
   how: "How It Works",
   testimonials: "Testimonials Carousel",
   testimonialsPage: "Testimonials Page",
-  faq: "FAQ",
+  faq: "Solar Guide",
   accreditations: "Accreditations",
   newsVideos: "News & Videos",
   finalCta: "Final CTA",
@@ -126,6 +128,8 @@ export const ORDER_SECTION_LABELS: Record<string, string> = {
 export const NON_ORDERABLE_SECTIONS = new Set(["navigation", "footer", "impact", "trustBar"]);
 
 export const FIELD_LABEL_OVERRIDES: Record<string, string> = {
+  "enabled": "Enabled",
+  "hero": "Hero Section Settings",
   "heroAlignment": "Hero Headline Alignment",
   "heroLayout": "Desktop Layout",
   "mobileLayout": "Phone Layout",
@@ -159,6 +163,8 @@ export const FIELD_LABEL_OVERRIDES: Record<string, string> = {
   "notifyEmail": "Send Notifications To",
   "fromEmail": "Send From Email",
   "fromName": "Send From Name",
+  "locations": "📍 Locations",
+  "highlights": "Key Stats",
   "newsItems": "📰 News",
   "videoItems": "🎬 Videos",
   "pages": "Custom Pages",
@@ -203,6 +209,19 @@ export const EMPTY_ARRAY_TEMPLATES: Record<string, Record<string, unknown>> = {
     label: "",
     href: "",
   },
+  locations: {
+    slug: "",
+    name: "",
+    title: "",
+    description: "",
+    image: "",
+    services: [],
+    highlights: [],
+  },
+  highlights: {
+    value: "",
+    label: "",
+  },
 };
 
 export const RICH_TEXT_PATH_PATTERNS = [
@@ -233,6 +252,7 @@ export const VALID_FILES = [
   "home/WhyChooseSection.json",
   "home/AccreditationsSection.json",
   "home/NewsVideosSection.json",
+  "home/LocationsSection.json",
   "home/TrustBarSection.json",
   "home/ImpactSection.json",
   "pages/AboutPage.json",

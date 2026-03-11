@@ -14,12 +14,14 @@ export default function EvChargersPage() {
   const pageData = loadPageJson("EvChargersPage.json") as any;
   const { navigation, footer, headerSettings, siteSettings, companySettings, heroCta } = loadNavFooterData();
   const { hero, section1, section2, features, business, cta } = pageData;
+  const featureItems = Array.isArray(features) ? features : (features?.items || []);
 
   return (
     <PageLayout navData={navigation} footerData={footer} headerSettings={headerSettings} siteSettings={siteSettings} companySettings={companySettings} heroCta={heroCta}>
       <StructuredData pageType="service" pagePath="/ev-chargers" serviceName="EV Charger Installation" />
       <PageBanner eyebrow={hero.eyebrow} title={hero.title} subtitle={hero.subtitle} bannerImage={hero.bannerImage} />
 
+      {section1?.enabled !== false && (
       <section className="py-12 md:py-20">
         <div className="container">
           <p className="page-eyebrow">
@@ -46,8 +48,8 @@ export default function EvChargersPage() {
                 </div>
               )}
             </div>
-            <div className="space-y-4 md:space-y-6">
-              {features.map((item: any) => (
+            {features?.enabled !== false && featureItems.length > 0 && <div className="space-y-4 md:space-y-6">
+              {featureItems.map((item: any) => (
                 <div
                   key={item.title}
                   className="flex gap-3 md:gap-4 p-4 md:p-6 rounded-xl shadow-sm border"
@@ -60,9 +62,16 @@ export default function EvChargersPage() {
                   </div>
                 </div>
               ))}
-            </div>
+            </div>}
           </div>
-          <h2 className="text-xl md:text-2xl font-extrabold mb-6" style={{ color: "var(--text-primary)", marginTop: "3rem" }}>
+        </div>
+      </section>
+      )}
+
+      {section2?.enabled !== false && (
+      <section className="py-12 md:py-20">
+        <div className="container">
+          <h2 className="text-xl md:text-2xl font-extrabold mb-6" style={{ color: "var(--text-primary)" }}>
             {section2.title2}
           </h2>
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
@@ -82,7 +91,9 @@ export default function EvChargersPage() {
           </div>
         </div>
       </section>
+      )}
 
+      {business?.enabled !== false && (
       <section className="py-12 md:py-20" style={{ background: "var(--bg-secondary)" }}>
         <div className="container">
           <div className="text-center mb-8 md:mb-12">
@@ -104,7 +115,9 @@ export default function EvChargersPage() {
           </div>
         </div>
       </section>
+      )}
 
+      {cta?.enabled !== false && (
       <section
         style={{
           background: "linear-gradient(135deg, var(--brand-banner-overlay) 0%, color-mix(in srgb, var(--brand-banner-overlay) 80%, #334155) 50%, var(--brand-banner-overlay) 100%)",
@@ -128,6 +141,7 @@ export default function EvChargersPage() {
           </a>
         </div>
       </section>
+      )}
     </PageLayout>
   );
 }

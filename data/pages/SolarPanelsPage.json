@@ -1,4 +1,5 @@
 {
+  "enabled": true,
   "hero": {
     "eyebrow": "Trusted Home Solar Installers",
     "title": "Solar Panels",
@@ -15,7 +16,7 @@
         "image": "/images/services/roof-solar-install.webp"
       },
       {
-        "subHeading": "How much electricity is generated?",
+        "subHeading": "Does Solar work in cloudy weather?",
         "paragraph": "The panels today are very efficient. Most houses in Ireland can fit enough panels on their roof to meet a majority of their needs.  \n\nDoes it work in cloudy weather?\n\nYes.  This is because the panels need sunlight, not sunshine.  Ireland has a similar climate to Germany snd they have been a big solar success story.",
         "image": "/images/services/panel-installation.webp"
       },
@@ -37,7 +38,8 @@
       "Lifetime workmanship guarantee for total peace of mind",
       "Lower your electricity bills every month",
       "Get paid for surplus power sent back to the grid"
-    ]
+    ],
+    "enabled": true
   },
   "process": {
     "eyebrow": "Our Process",
@@ -63,7 +65,8 @@
         "title": "Start Saving",
         "desc": "Your system goes live and you immediately start generating your own clean electricity"
       }
-    ]
+    ],
+    "enabled": true
   },
   "included": {
     "title": "What's Included",
@@ -98,7 +101,8 @@
         "desc": "We stand over our work with a lifetime workmanship guarantee for your total peace of mind",
         "icon": "🛡️"
       }
-    ]
+    ],
+    "enabled": true
   },
   "cta": {
     "title": "Ready to Go Solar?",
@@ -110,6 +114,7 @@
     "secondaryButton": {
       "label": "Learn About Grants",
       "variant": "secondary"
-    }
+    },
+    "enabled": true
   }
 }

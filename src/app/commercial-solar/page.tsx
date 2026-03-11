@@ -20,6 +20,7 @@ export default function CommercialSolarPage() {
       <StructuredData pageType="service" pagePath="/commercial-solar" serviceName={hero.title} />
       <PageBanner eyebrow={hero.eyebrow} title={hero.title} subtitle={hero.subtitle} bannerImage={hero.bannerImage} />
 
+      {about?.enabled !== false && (
       <section className="py-16 md:py-20">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -44,7 +45,9 @@ export default function CommercialSolarPage() {
           </div>
         </div>
       </section>
+      )}
 
+      {whyChoose?.enabled !== false && (
       <section className="py-16 md:py-20" style={{ background: "var(--bg-secondary)" }}>
         <div className="container">
           <div className="text-center mb-12">
@@ -65,7 +68,9 @@ export default function CommercialSolarPage() {
           </div>
         </div>
       </section>
+      )}
 
+      {trusted?.enabled !== false && (
       <section className="py-16 md:py-20">
         <div className="container">
           <div className="text-center mb-12">
@@ -79,7 +84,9 @@ export default function CommercialSolarPage() {
           </div>
         </div>
       </section>
+      )}
 
+      {cta?.enabled !== false && (
       <section
         style={{
           background: "linear-gradient(135deg, var(--brand-banner-overlay) 0%, color-mix(in srgb, var(--brand-banner-overlay) 80%, #334155) 50%, var(--brand-banner-overlay) 100%)",
@@ -103,6 +110,7 @@ export default function CommercialSolarPage() {
           </a>
         </div>
       </section>
+      )}
     </PageLayout>
   );
 }

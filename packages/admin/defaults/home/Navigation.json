@@ -63,8 +63,13 @@
     },
     {
       "label": "Our Work",
-      "href": "/#case-studies",
+      "href": "/our-work",
       "icon": "work"
+    },
+    {
+      "label": "Locations",
+      "href": "/locations",
+      "icon": ""
     },
     {
       "label": "About",

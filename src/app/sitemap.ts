@@ -2,23 +2,23 @@ import type { MetadataRoute } from "next";
 import fs from "fs";
 import path from "path";
 
-function loadSeoData(): any {
+function loadJson(filePath: string): any {
   try {
-    const content = fs.readFileSync(path.join(process.cwd(), "data/seo.json"), "utf-8");
+    const content = fs.readFileSync(path.join(process.cwd(), filePath), "utf-8");
     return JSON.parse(content);
   } catch {
-    return { siteUrl: "", pages: {} };
+    return {};
   }
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const seoData = loadSeoData();
-  const baseUrl = seoData.siteUrl;
+  const seoData = loadJson("data/seo.json");
+  const baseUrl = seoData.siteUrl || "";
   const now = new Date();
 
   const pages = Object.keys(seoData.pages || {});
 
-  return pages.map((p) => {
+  const entries: MetadataRoute.Sitemap = pages.map((p) => {
     let changeFrequency: "daily" | "weekly" | "monthly" | "yearly" = "monthly";
     let priority = 0.7;
 
@@ -28,7 +28,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     } else if (["/solar-panels", "/battery-storage", "/ev-chargers", "/commercial-solar"].includes(p)) {
       changeFrequency = "weekly";
       priority = 0.9;
-    } else if (["/grants", "/finance", "/funding-options", "/contact"].includes(p)) {
+    } else if (["/our-work", "/news", "/services", "/locations"].includes(p)) {
+      changeFrequency = "weekly";
+      priority = 0.8;
+    } else if (["/solar-guide", "/grants", "/finance", "/funding-options", "/contact"].includes(p)) {
       changeFrequency = "monthly";
       priority = 0.8;
     } else if (["/privacy-policy", "/cookies"].includes(p)) {
@@ -43,4 +46,62 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority,
     };
   });
+
+  const caseStudies = loadJson("data/home/CaseStudiesSection.json");
+  if (caseStudies.cards) {
+    for (const card of caseStudies.cards) {
+      if (card.slug) {
+        entries.push({
+          url: `${baseUrl}/our-work/${card.slug}`,
+          lastModified: now,
+          changeFrequency: "monthly",
+          priority: 0.6,
+        });
+      }
+    }
+  }
+
+  const newsData = loadJson("data/home/NewsVideosSection.json");
+  if (newsData.newsItems) {
+    for (const item of newsData.newsItems) {
+      if (item.slug) {
+        entries.push({
+          url: `${baseUrl}/news/${item.slug}`,
+          lastModified: item.date ? new Date(item.date) : now,
+          changeFrequency: "monthly",
+          priority: 0.6,
+        });
+      }
+    }
+  }
+
+  const faqData = loadJson("data/home/FaqSection.json");
+  if (faqData.categories) {
+    for (const cat of faqData.categories) {
+      if (cat.slug) {
+        entries.push({
+          url: `${baseUrl}/solar-guide/${cat.slug}`,
+          lastModified: now,
+          changeFrequency: "monthly",
+          priority: 0.7,
+        });
+      }
+    }
+  }
+
+  const locationsData = loadJson("data/home/LocationsSection.json");
+  if (locationsData.locations) {
+    for (const loc of locationsData.locations) {
+      if (loc.slug) {
+        entries.push({
+          url: `${baseUrl}/locations/${loc.slug}`,
+          lastModified: now,
+          changeFrequency: "monthly",
+          priority: 0.7,
+        });
+      }
+    }
+  }
+
+  return entries;
 }

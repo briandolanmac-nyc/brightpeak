@@ -235,16 +235,21 @@ export default function AdminSidebar() {
                     {SECTION_GROUPS.map((group) => (
                       <div key={group.label} className="sb-dropdown-group">
                         <div className="sb-dropdown-group-label">{group.label}</div>
-                        {group.files.map((f) => (
+                        {group.files.map((f) => {
+                          const fileData = files.find((fd) => fd.file === f);
+                          const isPageDisabled = fileData?.data?.enabled === false;
+                          return (
                           <button
                             key={f}
                             type="button"
                             className={`sb-dropdown-item${activeFile === f ? " active" : ""}${modified.has(f) ? " modified" : ""}`}
                             onClick={() => { setActiveFile(f); setDropdownOpen(false); }}
+                            style={isPageDisabled ? { opacity: 0.45 } : undefined}
                           >
                             {SECTION_LABELS[f]}{modified.has(f) ? " *" : ""}
                           </button>
-                        ))}
+                          );
+                        })}
                       </div>
                     ))}
                     <div className="sb-dropdown-group">

@@ -20,6 +20,7 @@ export default function BatteryStoragePage() {
       <StructuredData pageType="service" pagePath="/battery-storage" serviceName="Battery Storage Installation" />
       <PageBanner eyebrow={hero.eyebrow} title={hero.title} subtitle={hero.subtitle} bannerImage={hero.bannerImage} />
 
+      {about?.enabled !== false && (
       <section className="py-16 md:py-20">
         <div className="container">
           <p className="page-eyebrow">
@@ -48,7 +49,9 @@ export default function BatteryStoragePage() {
           </div>
         </div>
       </section>
+      )}
 
+      {benefits?.enabled !== false && (
       <section className="py-16 md:py-20" style={{ background: "var(--bg-secondary)" }}>
         <div className="container">
           <div className="text-center mb-12">
@@ -69,7 +72,9 @@ export default function BatteryStoragePage() {
           </div>
         </div>
       </section>
+      )}
 
+      {cta?.enabled !== false && (
       <section
         style={{
           background: "linear-gradient(135deg, var(--brand-banner-overlay) 0%, color-mix(in srgb, var(--brand-banner-overlay) 80%, #334155) 50%, var(--brand-banner-overlay) 100%)",
@@ -93,6 +98,7 @@ export default function BatteryStoragePage() {
           </a>
         </div>
       </section>
+      )}
     </PageLayout>
   );
 }

@@ -244,16 +244,21 @@ export default function AdminPage() {
           {filteredGroups.map((group) => (
             <div key={group.label} className="admin-nav-group">
               <div className="admin-nav-group-label">{group.label}</div>
-              {group.files.map((file) => (
+              {group.files.map((file) => {
+                const fileData = files.find((fd) => fd.file === file);
+                const isPageDisabled = fileData?.data?.enabled === false;
+                return (
                 <button
                   key={file}
                   onClick={() => setActiveFile(file)}
                   className={`admin-nav-item ${activeFile === file ? "active" : ""} ${modified.has(file) ? "modified" : ""}`}
+                  style={isPageDisabled ? { opacity: 0.45 } : undefined}
                 >
                   <span>{SECTION_LABELS[file]}</span>
                   {modified.has(file) && <span className="admin-modified-dot" />}
                 </button>
-              ))}
+                );
+              })}
             </div>
           ))}
           <div className="admin-nav-group">
