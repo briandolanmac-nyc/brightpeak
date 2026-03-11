@@ -146,7 +146,7 @@ export default async function FaqCategoryPage({ params }: { params: Promise<{ sl
         eyebrow="Solar Guide"
         title={cat.title}
         subtitle={cat.description}
-        bannerImage={faqData.bannerImage}
+        bannerImage={data.bannerImage}
       />
 
       <section className="py-16 md:py-20">
