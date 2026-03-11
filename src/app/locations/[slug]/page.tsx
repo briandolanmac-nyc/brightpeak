@@ -226,7 +226,7 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
       />
       <PageBanner
         eyebrow="Service Area"
-        title={loc.title}
+        title={`Solar Panels & Renewable Energy in ${loc.name}`}
         bannerImage={loc.image}
       />
 

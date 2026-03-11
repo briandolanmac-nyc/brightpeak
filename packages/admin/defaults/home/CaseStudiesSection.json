@@ -9,11 +9,11 @@
       "title": "Home Solar Installation",
       "video": "",
       "image": {
-        "src": "/images/case-studies/green-house-res-solar.webp",
+        "src": "/images/case-studies/residential-solar.webp",
         "alt": "Residential Solar Installation"
       },
       "images": [
-        "/images/case-studies/green-house-res-solar.webp",
+        "/images/case-studies/residential-solar.webp",
         "/images/case-studies/engineer-on-roof.webp"
       ],
       "description": "A full solar PV system designed to maximise energy generation, lower electricity bills, and increase home value. Professional installation by our certified team.",
@@ -37,7 +37,7 @@
       "title": "Business Solar Installation",
       "video": "",
       "image": {
-        "src": "/images/case-studies/green-house-comm-solar.webp",
+        "src": "/images/case-studies/commercial-solar.webp",
         "alt": "Commercial Solar Installation"
       },
       "images": [],
