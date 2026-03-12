@@ -5,8 +5,8 @@
   "subtitle": "No silly questions here —just straight answers",
   "categories": [
     {
-      "slug": "general",
-      "title": "General Questions",
+      "slug": "the-basics-of-solar",
+      "title": "The Basics of Solar",
       "description": "Learn the basics of solar energy, how it works, and whether your home is a good fit."
     },
     {
@@ -37,29 +37,29 @@
   ],
   "items": [
     {
-      "question": "How does solar energy work?",
-      "answer": "Solar panels convert sunlight into direct current (DC) electricity. An inverter then converts that into alternating current (AC), which powers your home. Excess energy can be stored in a battery or sent back to the grid.",
-      "category": "general"
+      "question": "Solar: How does it all work?",
+      "answer": "<p>To make Solar work for you home or business you ned Solar Panels, an Inverter and (optional) Battery Storage.</p><p></p><p>Here's how all of that works together:</p><p></p><p><strong>☀️ Solar Panels</strong></p><ul><li><p>Capture sunlight and generate <em>DC electricity </em>(direct current)</p></li><li><p>Raw electricity that can't be used directly in your home as-is</p></li><li><p>Output varies with light levels throughout the day</p></li></ul><p></p><p><strong>⚡ Inverter</strong></p><ul><li><p>The \"brain\" of the system</p></li><li><p>Converts DC electricity from the panels into <em>AC electricity</em> (alternating current) — which is what your home appliances run on</p></li><li><p>Also manages the flow of electricity between panels, battery, home, and grid</p></li><li><p>Modern hybrid inverters handle everything in one unit</p></li></ul><p></p><p><strong>🔋 Battery</strong></p><ul><li><p>Stores excess electricity generated during the day that your home isn't using in that moment</p></li><li><p>At night (or on cloudy days) when panels aren't producing enough, the battery discharges to power your home</p></li><li><p>Without a battery, unused daytime electricity goes straight to the grid</p></li></ul><p></p>",
+      "category": "the-basics-of-solar"
     },
     {
       "question": "Is my home a good candidate for solar?",
       "answer": "Most homes are good candidates if they have a south-, east-, or west-facing roof with minimal shading, in good structural condition. A site assessment will confirm your home's solar potential.",
-      "category": "general"
+      "category": "the-basics-of-solar"
     },
     {
       "question": "How long do solar panels last?",
       "answer": "Most panels are warrantied for 25–30 years and often perform well beyond that. Degradation is typically less than 0.5% per year.",
-      "category": "general"
+      "category": "installation-process"
     },
     {
       "question": "Where do you work?",
       "answer": "We're based in Dublin but we cover all of Ireland — from Dublin to Cork, Galway, Limerick, and everywhere in between. If you're not sure, just give us a shout and we'll let you know!",
-      "category": "general"
+      "category": "company-warranty"
     },
     {
       "question": "What are your hours?",
       "answer": "We're normally around 8am – 5pm, but we actually offer a 24-hour service if you need us. We're always just a phone call away.",
-      "category": "general"
+      "category": "company-warranty"
     },
     {
       "question": "How much does a solar installation cost?",
@@ -119,7 +119,7 @@
     {
       "question": "Does solar work in cloudy weather?",
       "answer": "<p>Yes! Solar panels work with daylight, not just direct sunshine. Ireland gets plenty of diffused light even on overcast days. While output is lower than on a sunny day, modern panels are highly efficient and still generate meaningful electricity year-round.</p>",
-      "category": "performance-maintenance"
+      "category": "the-basics-of-solar"
     },
     {
       "question": "What happens on cloudy days or at night?",
@@ -134,17 +134,17 @@
     {
       "question": "What is net metering?",
       "answer": "Net metering (or micro-generation export) lets you send excess solar energy back to the grid in exchange for bill credits, effectively using the grid as a 'battery.' In Ireland, the Clean Export Guarantee allows you to earn for every kWh you export.",
-      "category": "performance-maintenance"
+      "category": "battery-grid"
     },
     {
-      "question": "Do I need a battery as well?",
+      "question": "Do I need a battery?",
       "answer": "<p><em>Good question</em></p><p>You've taken the step of installing solar panels — or you're seriously thinking about it. Now comes the next question almost every homeowner asks: do I need a battery too? The honest answer is: it depends. But for many Irish households, the answer is a resounding yes. Here's why.</p><h3><strong>What Does a Solar Battery Actually Do?</strong></h3><p>Solar panels generate electricity during daylight hours — typically between 9am and 4pm. But most Irish households use the most electricity in the evenings, when panels produce little or nothing. Without a battery, any excess electricity your panels generate during the day gets exported to the grid. With a battery, that surplus energy is stored and ready to use when you need it most.</p><h3><strong>When a Battery Makes a Lot of Sense</strong></h3><p>A battery is likely a great investment for you if:</p><p>•&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You're out of the house during the day — if nobody is home while the panels are generating, most of that energy would otherwise go straight to the grid for a low return.</p><p>•&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You use a lot of electricity in the evenings — cooking, charging an EV, running appliances after work.</p><p>•&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You want to reduce your reliance on the grid — and protect yourself from rising electricity prices.</p><p>•&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You have a larger solar system — more panels means more surplus to store.</p><p>•&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You're interested in backup power — some batteries can keep your home running during a grid outage.</p><p>&nbsp;</p><h3><strong>When a Battery is Less Essential</strong></h3><p>A battery may be less of a priority if someone is at home throughout the day using electricity as it's generated, or if you're working with a tighter budget. In that case, solar panels alone still deliver strong returns and you can always add a battery later.</p>",
-      "category": "battery-grid"
+      "category": "the-basics-of-solar"
     },
     {
       "question": "Should I add battery storage?",
       "answer": "Batteries are ideal if you want backup power during outages, have time-of-use utility rates, or want to maximise energy independence. They add cost but significantly increase resilience and self-consumption of your solar energy.",
-      "category": "battery-grid"
+      "category": "the-basics-of-solar"
     },
     {
       "question": "What happens during a power outage?",
@@ -179,9 +179,14 @@
     {
       "question": "How do I get started?",
       "answer": "Schedule a free consultation or site assessment. We'll evaluate your energy usage, roof, and goals, then design a system tailored to your home. Just give us a call or fill in the contact form — it's that simple.",
-      "category": "company-warranty"
+      "category": "the-basics-of-solar"
+    },
+    {
+      "question": "What equipment do I need?",
+      "answer": "<p>To make Solar work for your home or business you need Solar Panels, an Inverter and a (optional) battery storage.</p><p>See the Solar Guide item \"How does it all work?\" for more detail.</p><p></p>",
+      "category": "the-basics-of-solar"
     }
   ],
   "bannerImage": "/images/solar-guide_background.webp",
-  "faqStyle": "portal"
+  "faqStyle": "list"
 }
